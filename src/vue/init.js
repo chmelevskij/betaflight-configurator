@@ -10,7 +10,7 @@ i18next.on("initialized", () => {
 });
 
 const vm = new Vue({
-    el: "#my-logo",
+    el: "#logo",
     i18n: vueI18n,
     data: {
         CONFIGURATOR: CONFIGURATOR,

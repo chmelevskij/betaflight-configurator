@@ -203,7 +203,6 @@ function startProcess() {
     }
 
     $('.connect_b a.connect').removeClass('disabled');
-    $('#logo .version, #tab_logoversion .version').text(CONFIGURATOR.version);
     updateStatusBarVersion();
     updateTopBarVersion();
 
@@ -758,7 +757,7 @@ function updateTopBarVersion(firmwareVersion, firmwareId, hardwareId) {
     // Vue migration END
 
 
-    $('#logo .logo_text, #tab_logoversion .version').html(versionText);
+    $('#tab_logoversion .version').html(versionText);
 }
 
 function updateStatusBarVersion(firmwareVersion, firmwareId, hardwareId) {

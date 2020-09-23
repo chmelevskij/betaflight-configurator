@@ -3,7 +3,7 @@ import Vue from '../../node_modules/vue/dist/vue.esm.browser.js';
 Vue.component('logo', {
     props: ['versionConfigurator', 'firmwareVersion', 'firmwareId', 'hardwareId' ],
     template: `
-        <div style="color: white">
+        <div class="logo_text">
             <span>
                 {{ $t("versionLabelConfigurator.message") }}: {{ versionConfigurator }}
             </span>
