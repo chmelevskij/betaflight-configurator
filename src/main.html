@@ -44,6 +44,7 @@
 
     <link type="text/css" rel="stylesheet" href="./css/dark-theme.css" media="all" disabled/>
 
+    <script type="module" src="./vue/init.js"></script>
     <!-- CORDOVA_INCLUDE js/cordova_chromeapi.js -->
     <!-- CORDOVA_INCLUDE js/cordova_startup.js -->
     <script type="text/javascript" src="./node_modules/lru_map/lru.js"></script>
@@ -143,7 +144,6 @@
     <script type="text/javascript" src="./Components/MotorOutputReordering/MotorOutputReorderingConfig.js"></script>
     <script type="text/javascript" src="./node_modules/select2/dist/js/select2.min.js"></script>
     
-    <script type="module" src="./vue/init.js"></script>
 
     <title i18n="windowTitle"></title>
 </head>
@@ -279,9 +279,12 @@
     <div id="tab-content-container">
         <div class="tab_container">
             <div id="tab_logoversion">
-                <div class="logo_text">
-                    <div class="version"></div>
-                </div>
+                <logo
+                    v-bind:version-configurator="CONFIGURATOR.version" 
+                    v-bind:firmware-version="firmwareVersion" 
+                    v-bind:firmware-id="firmwareId" 
+                    v-bind:hardware-id="hardwareId" 
+                />
             </div>
             <div id="tabs">
                 <ul class="mode-disconnected">

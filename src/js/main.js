@@ -743,21 +743,11 @@ function getConfiguratorVersion() {
 }
 
 function updateTopBarVersion(firmwareVersion, firmwareId, hardwareId) {
-
-    const configuratorVersion = getConfiguratorVersion();
-    const firmwareVersionAndId = getFirmwareVersion(firmwareVersion, firmwareId);
-    const targetVersion = getTargetVersion(hardwareId);
-
-    const versionText = `${configuratorVersion}<br />${firmwareVersionAndId}<br />${targetVersion}`;
-
     // Vue migration START
-    vm.firmwareVersion = firmwareVersion;
-    vm.firmwareId = firmwareId;
-    vm.hardwareId = hardwareId;
+    window.vm.firmwareVersion = firmwareVersion;
+    window.vm.firmwareId = firmwareId;
+    window.vm.hardwareId = hardwareId;
     // Vue migration END
-
-
-    $('#tab_logoversion .version').html(versionText);
 }
 
 function updateStatusBarVersion(firmwareVersion, firmwareId, hardwareId) {

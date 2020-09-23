@@ -9,15 +9,23 @@ i18next.on("initialized", () => {
     vueI18n.setLocaleMessage("en", i18next.getDataByLanguage("en").messages);
 });
 
-const vm = new Vue({
-    el: "#logo",
-    i18n: vueI18n,
-    data: {
+const logoModel = {
         CONFIGURATOR: CONFIGURATOR,
         firmwareVersion: '',
         firmwareId: '',
         hardwareId: '',
-    },
+    };
+
+const logoVersionVM = new Vue({
+    el: "#logo",
+    i18n: vueI18n,
+    data: logoModel,
 });
 
-window.vm = vm;
+const logoVersionTabsVM = new Vue({
+    el: "#tab_logoversion",
+    i18n: vueI18n,
+    data: logoModel,
+});
+
+window.vm = logoModel;
