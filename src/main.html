@@ -143,6 +143,8 @@
     <script type="text/javascript" src="./Components/MotorOutputReordering/MotorOutputReorderingConfig.js"></script>
     <script type="text/javascript" src="./node_modules/select2/dist/js/select2.min.js"></script>
     
+    <script type="module" src="./vue/init.js"></script>
+
     <title i18n="windowTitle"></title>
 </head>
 <body>
@@ -152,6 +154,14 @@
     <div class="headerbar">
         <div id="menu_btn">
             <em class="fas fa-bars"></em>
+        </div>
+        <div id="my-logo">
+            <logo
+                v-bind:version-configurator="CONFIGURATOR.version" 
+                v-bind:firmware-version="firmwareVersion" 
+                v-bind:firmware-id="firmwareId" 
+                v-bind:hardware-id="hardwareId" 
+            />
         </div>
         <div id="logo">
             <div class="logo_text">

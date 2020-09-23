@@ -751,6 +751,13 @@ function updateTopBarVersion(firmwareVersion, firmwareId, hardwareId) {
 
     const versionText = `${configuratorVersion}<br />${firmwareVersionAndId}<br />${targetVersion}`;
 
+    // Vue migration START
+    vm.firmwareVersion = firmwareVersion;
+    vm.firmwareId = firmwareId;
+    vm.hardwareId = hardwareId;
+    // Vue migration END
+
+
     $('#logo .logo_text, #tab_logoversion .version').html(versionText);
 }
 
