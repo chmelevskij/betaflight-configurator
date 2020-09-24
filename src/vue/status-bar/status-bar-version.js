@@ -6,7 +6,7 @@ Vue.component("status-bar-version", {
         "firmwareVersion",
         "firmwareId",
         "hardwareId",
-        "gitChangesetId"
+        "gitChangesetId",
     ],
     template: `
         <span>

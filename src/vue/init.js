@@ -25,12 +25,12 @@ const logoVersionTabsVM = new Vue({
 });
 
 const statusBar = new Vue({
-    el: '#status-bar .version',
+    el: "#status-bar .version",
     i18n: vueI18n,
-    data: betaflightModel
-})
+    data: betaflightModel,
+});
 
 // Not strictly necessary here, but if needed
-// it's always possible to modify this model in 
+// it's always possible to modify this model in
 // jquery land to trigger updates in vue
 window.vm = betaflightModel;
