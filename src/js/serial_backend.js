@@ -169,6 +169,8 @@ function finishClose(finishedCallback) {
 
     MSP.disconnect_cleanup();
     PortUsage.reset();
+    // To trigger the UI updates by Vue reset the state.
+    FC.resetState();
 
     GUI.connected_to = false;
     GUI.allowedTabs = GUI.defaultAllowedTabsWhenDisconnected.slice();
@@ -248,7 +250,7 @@ function onOpen(openInfo) {
 
                             GUI.log(i18n.getMessage('fcInfoReceived', [FC.CONFIG.flightControllerIdentifier, FC.CONFIG.flightControllerVersion]));
                             updateStatusBarVersion(FC.CONFIG.flightControllerVersion, FC.CONFIG.flightControllerIdentifier);
-                            updateTopBarVersion(FC.CONFIG.flightControllerVersion, FC.CONFIG.flightControllerIdentifier);
+                            // updateTopBarVersion(FC.CONFIG.flightControllerVersion, FC.CONFIG.flightControllerIdentifier);
 
                             MSP.send_message(MSPCodes.MSP_BUILD_INFO, false, false, function () {
 
@@ -319,7 +321,7 @@ function processBoardInfo() {
 
     GUI.log(i18n.getMessage('boardInfoReceived', [FC.getHardwareName(), FC.CONFIG.boardVersion]));
     updateStatusBarVersion(FC.CONFIG.flightControllerVersion, FC.CONFIG.flightControllerIdentifier, FC.getHardwareName());
-    updateTopBarVersion(FC.CONFIG.flightControllerVersion, FC.CONFIG.flightControllerIdentifier, FC.getHardwareName());
+    // updateTopBarVersion(FC.CONFIG.flightControllerVersion, FC.CONFIG.flightControllerIdentifier, FC.getHardwareName());
 
     if (bit_check(FC.CONFIG.targetCapabilities, FC.TARGET_CAPABILITIES_FLAGS.SUPPORTS_CUSTOM_DEFAULTS) && bit_check(FC.CONFIG.targetCapabilities, FC.TARGET_CAPABILITIES_FLAGS.HAS_CUSTOM_DEFAULTS) && FC.CONFIG.configurationState === FC.CONFIGURATION_STATES.DEFAULTS_BARE) {
         var dialog = $('#dialogResetToCustomDefaults')[0];
@@ -539,7 +541,7 @@ function onClosed(result) {
     $('#tabs ul.mode-disconnected').show();
 
     updateStatusBarVersion();
-    updateTopBarVersion();
+    // updateTopBarVersion();
 
     var sensor_state = $('#sensor-status');
     sensor_state.hide();

@@ -157,10 +157,10 @@
         </div>
         <div id="logo">
             <logo
-                v-bind:version-configurator="CONFIGURATOR.version" 
-                v-bind:firmware-version="firmwareVersion" 
-                v-bind:firmware-id="firmwareId" 
-                v-bind:hardware-id="hardwareId" 
+                v-bind:configurator-version="CONFIGURATOR.version" 
+                v-bind:firmware-version="FC.CONFIG.flightControllerVersion" 
+                v-bind:firmware-id="FC.CONFIG.flightControllerIdentifier" 
+                v-bind:hardware-id="FC.CONFIG.hardwareName" 
             />
         </div>
         <div id="port-picker">
@@ -280,10 +280,10 @@
         <div class="tab_container">
             <div id="tab_logoversion">
                 <logo
-                    v-bind:version-configurator="CONFIGURATOR.version" 
-                    v-bind:firmware-version="firmwareVersion" 
-                    v-bind:firmware-id="firmwareId" 
-                    v-bind:hardware-id="hardwareId" 
+                    v-bind:configurator-version="CONFIGURATOR.version" 
+                    v-bind:firmware-version="FC.CONFIG.flightControllerVersion" 
+                    v-bind:firmware-id="FC.CONFIG.flightControllerIdentifier" 
+                    v-bind:hardware-id="FC.CONFIG.hardwareName" 
                 />
             </div>
             <div id="tabs">

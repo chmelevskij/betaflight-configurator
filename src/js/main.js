@@ -204,7 +204,9 @@ function startProcess() {
 
     $('.connect_b a.connect').removeClass('disabled');
     updateStatusBarVersion();
-    updateTopBarVersion();
+    // with Vue reactive system we don't need to call these,
+    // our view is reactive to model changes
+    // updateTopBarVersion();
 
     if (!GUI.isOther() && GUI.operating_system !== 'ChromeOS') {
         checkForConfiguratorUpdates();
@@ -742,13 +744,13 @@ function getConfiguratorVersion() {
     return `${i18n.getMessage('versionLabelConfigurator')}: ${CONFIGURATOR.version}`;
 }
 
-function updateTopBarVersion(firmwareVersion, firmwareId, hardwareId) {
-    // Vue migration START
-    window.vm.firmwareVersion = firmwareVersion;
-    window.vm.firmwareId = firmwareId;
-    window.vm.hardwareId = hardwareId;
-    // Vue migration END
-}
+// function updateTopBarVersion(firmwareVersion, firmwareId, hardwareId) {
+//     // Vue migration START
+//     window.vm.firmwareVersion = firmwareVersion;
+//     window.vm.firmwareId = firmwareId;
+//     window.vm.hardwareId = hardwareId;
+//     // Vue migration END
+// }
 
 function updateStatusBarVersion(firmwareVersion, firmwareId, hardwareId) {
     let versionText = '';

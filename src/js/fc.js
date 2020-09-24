@@ -1,5 +1,44 @@
 'use strict';
 
+const INITIAL_CONFIG = {
+    apiVersion:                       "0.0.0",
+    flightControllerIdentifier:       '',
+    flightControllerVersion:          '',
+    version:                          0,
+    buildInfo:                        '',
+    multiType:                        0,
+    msp_version:                      0, // not specified using semantic versioning
+    capability:                       0,
+    cycleTime:                        0,
+    i2cError:                         0,
+    activeSensors:                    0,
+    mode:                             0,
+    profile:                          0,
+    uid:                              [0, 0, 0],
+    accelerometerTrims:               [0, 0],
+    name:                             '',
+    displayName:                      'JOE PILOT',
+    numProfiles:                      3,
+    rateProfile:                      0,
+    boardType:                        0,
+    armingDisableCount:               0,
+    armingDisableFlags:               0,
+    armingDisabled:                   false,
+    runawayTakeoffPreventionDisabled: false,
+    boardIdentifier:                  "",
+    boardVersion:                     0,
+    targetCapabilities:               0,
+    targetName:                       "",
+    boardName:                        "",
+    manufacturerId:                   "",
+    signature:                        [],
+    mcuTypeId:                        255,
+    configurationState:               0,
+    sampleRateHz:                     0,
+    configurationProblems:            0,
+    hardwareName:                     '',
+};
+
 const FC = {
 
     // define all the global variables that are uses to hold FC state
@@ -17,7 +56,30 @@ const FC = {
     BF_CONFIG: null,          // Remove when we officialy retire BF 3.1
     BLACKBOX: null,
     BOARD_ALIGNMENT_CONFIG: null,
-    CONFIG: null,
+    // Shallow copy of original config and added getter
+    // getter allows this to be used with simple dot notation
+    // and bridges the vue and rest of the code
+    CONFIG: {
+        ...INITIAL_CONFIG,
+        get hardwareName() {
+            let name;
+            if (this.targetName) {
+                name = this.targetName;
+            } else {
+                name = this.boardIdentifier;
+            }
+
+            if (this.boardName && this.boardName !== name) {
+                name = `${this.boardName}(${name})`;
+            }
+
+            if (this.manufacturerId) {
+                name = `${this.manufacturerId}/${name}`;
+            }
+
+            return name;
+        },
+    },
     COPY_PROFILE: null,
     CURRENT_METERS: null,
     CURRENT_METER_CONFIGS: null,
@@ -72,43 +134,9 @@ const FC = {
     VTX_CONFIG: null,
 
     resetState () {
-        this.CONFIG = {
-            apiVersion:                       "0.0.0",
-            flightControllerIdentifier:       '',
-            flightControllerVersion:          '',
-            version:                          0,
-            buildInfo:                        '',
-            multiType:                        0,
-            msp_version:                      0, // not specified using semantic versioning
-            capability:                       0,
-            cycleTime:                        0,
-            i2cError:                         0,
-            activeSensors:                    0,
-            mode:                             0,
-            profile:                          0,
-            uid:                              [0, 0, 0],
-            accelerometerTrims:               [0, 0],
-            name:                             '',
-            displayName:                      'JOE PILOT',
-            numProfiles:                      3,
-            rateProfile:                      0,
-            boardType:                        0,
-            armingDisableCount:               0,
-            armingDisableFlags:               0,
-            armingDisabled:                   false,
-            runawayTakeoffPreventionDisabled: false,
-            boardIdentifier:                  "",
-            boardVersion:                     0,
-            targetCapabilities:               0,
-            targetName:                       "",
-            boardName:                        "",
-            manufacturerId:                   "",
-            signature:                        [],
-            mcuTypeId:                        255,
-            configurationState:               0,
-            sampleRateHz:                     0,
-            configurationProblems:            0,
-        };
+        // Using `Object.assign` instead of reassigning to
+        // trigger the updates on the Vue side
+        Object.assign(this.CONFIG, INITIAL_CONFIG);
 
         this.BF_CONFIG = {
             currentscale:               0,
@@ -665,6 +693,7 @@ const FC = {
 
         return name;
     },
+
 
     MCU_TYPES: {
         0: "SIMULATOR",
