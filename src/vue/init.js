@@ -1,5 +1,6 @@
 import "./logo.js";
 import "./status-bar/status-bar-version.js";
+import "./status-bar/stat.js";
 import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
 import vueI18n from "./vueI18n.js";
 
@@ -10,22 +11,11 @@ import vueI18n from "./vueI18n.js";
 const betaflightModel = {
     CONFIGURATOR,
     FC,
+    MSP,
 };
 
-const logoVersionVM = new Vue({
-    el: "#logo",
-    i18n: vueI18n,
-    data: betaflightModel,
-});
-
-const logoVersionTabsVM = new Vue({
-    el: "#tab_logoversion",
-    i18n: vueI18n,
-    data: betaflightModel,
-});
-
 const statusBar = new Vue({
-    el: "#status-bar .version",
+    el: "#main-wrapper",
     i18n: vueI18n,
     data: betaflightModel,
 });

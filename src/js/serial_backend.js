@@ -176,12 +176,9 @@ function finishClose(finishedCallback) {
     GUI.allowedTabs = GUI.defaultAllowedTabsWhenDisconnected.slice();
     // close problems dialog
     $('#dialogReportProblems-closebtn').click();
-
-    // Reset various UI elements
-    $('span.i2c-error').text(0);
-    $('span.cycle-time').text(0);
-    if (semver.gte(FC.CONFIG.apiVersion, "1.20.0"))
-        $('span.cpu-load').text('');
+    // TODO: vue would need to check the version as well somehow
+    // if (semver.gte(FC.CONFIG.apiVersion, "1.20.0"))
+    //     $('span.cpu-load').text('');
 
     // unlock port select & baud
     $('div#port-picker #port').prop('disabled', false);
@@ -230,7 +227,6 @@ function onOpen(openInfo) {
         setConnectionTimeout();
 
         FC.resetState();
-        MSP.listen(update_packet_error);
         mspHelper = new MspHelper();
         MSP.listen(mspHelper.process_data.bind(mspHelper));
 

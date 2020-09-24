@@ -595,10 +595,6 @@ function notifyOutdatedVersion(releaseData) {
     });
 }
 
-function update_packet_error(caller) {
-    $('span.packet-error').html(caller.packet_error);
-}
-
 function microtime() {
     return new Date().getTime() / 1000;
 }

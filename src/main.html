@@ -155,14 +155,12 @@
         <div id="menu_btn">
             <em class="fas fa-bars"></em>
         </div>
-        <div id="logo">
-            <logo
-                v-bind:configurator-version="CONFIGURATOR.version" 
-                v-bind:firmware-version="FC.CONFIG.flightControllerVersion" 
-                v-bind:firmware-id="FC.CONFIG.flightControllerIdentifier" 
-                v-bind:hardware-id="FC.CONFIG.hardwareName" 
-            />
-        </div>
+        <logo
+            :configurator-version="CONFIGURATOR.version" 
+            :firmware-version="FC.CONFIG.flightControllerVersion" 
+            :firmware-id="FC.CONFIG.flightControllerIdentifier" 
+            :hardware-id="FC.CONFIG.hardwareName" 
+        ></logo>
         <div id="port-picker">
             <div id="port-override-option">
                 <label for="port-override">
@@ -280,11 +278,11 @@
         <div class="tab_container">
             <div id="tab_logoversion">
                 <logo
-                    v-bind:configurator-version="CONFIGURATOR.version" 
-                    v-bind:firmware-version="FC.CONFIG.flightControllerVersion" 
-                    v-bind:firmware-id="FC.CONFIG.flightControllerIdentifier" 
-                    v-bind:hardware-id="FC.CONFIG.hardwareName" 
-                />
+                    :configurator-version="CONFIGURATOR.version" 
+                    :firmware-version="FC.CONFIG.flightControllerVersion" 
+                    :firmware-id="FC.CONFIG.flightControllerIdentifier" 
+                    :hardware-id="FC.CONFIG.hardwareName" 
+                ></logo>
             </div>
             <div id="tabs">
                 <ul class="mode-disconnected">
@@ -354,27 +352,17 @@
             <span i18n="statusbar_port_utilization"></span> <span class="port_usage_down">D: 0%</span> <span
                 class="port_usage_up">U: 0%</span>
         </div>
-        <div>
-            <span i18n="statusbar_packet_error"></span> <span class="packet-error">0</span>
-        </div>
-        <div>
-            <span i18n="statusbar_i2c_error"></span> <span class="i2c-error">0</span>
-        </div>
-        <div>
-            <span i18n="statusbar_cycle_time"></span> <span class="cycle-time">0</span>
-        </div>
-        <div>
-            <span class="cpu-load"> </span>
-        </div>
-        <div class="version">
-            <status-bar-version
-                v-bind:configurator-version="CONFIGURATOR.version" 
-                v-bind:firmware-version="FC.CONFIG.flightControllerVersion" 
-                v-bind:firmware-id="FC.CONFIG.flightControllerIdentifier" 
-                v-bind:hardware-id="FC.CONFIG.hardwareName" 
-                v-bind:git-changeset-id="CONFIGURATOR.gitChangesetId" 
-            />
-        </div>
+        <stat message="statusbar_packet_error" :value="MSP.packet_error"></stat>
+        <stat message="statusbar_i2c_error" :value="FC.CONFIG.i2cError"></stat>
+        <stat message="statusbar_cycle_time" :value="FC.CONFIG.cycleTime"></stat>
+        <stat message="statusbar_cpu_load_vue" :value="FC.CONFIG.cpuload" unit="%"></stat>
+        <status-bar-version
+            :configurator-version="CONFIGURATOR.version" 
+            :firmware-version="FC.CONFIG.flightControllerVersion" 
+            :firmware-id="FC.CONFIG.flightControllerIdentifier" 
+            :hardware-id="FC.CONFIG.hardwareName" 
+            :git-changeset-id="CONFIGURATOR.gitChangesetId" 
+        ></status-bar-version>
     </div>
     <div id="cache">
         <div class="data-loading">

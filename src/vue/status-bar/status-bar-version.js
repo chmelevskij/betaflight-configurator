@@ -9,7 +9,7 @@ Vue.component("status-bar-version", {
         "gitChangesetId",
     ],
     template: `
-        <span>
+        <div class="version">
             {{ $t("versionLabelConfigurator.message") }}: {{ configuratorVersion }}
             <span v-if="firmwareVersion && firmwareId">
                 , {{ $t("versionLabelFirmware.message") }}: {{ firmwareVersion }} {{ firmwareId }}
@@ -18,6 +18,6 @@ Vue.component("status-bar-version", {
                 , {{ $t("versionLabelTarget.message") }}: {{ hardwareId }}
             </span>
             ({{ gitChangesetId }})
-        </span>
+        </div>
     `,
 });

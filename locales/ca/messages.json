@@ -532,6 +532,9 @@
     "statusbar_cpu_load": {
         "message": "Càrrega de CPU: $1%"
     },
+    "statusbar_cpu_load_vue": {
+        "message": "Càrrega de CPU:"
+    },
     "dfu_connect_message": {
         "message": "Si us plau, utilitza el Flashejador de Firmware per accedir als dispositius DFU"
     },
