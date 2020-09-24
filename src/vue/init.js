@@ -1,13 +1,6 @@
 import "./logo.js";
 import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
-import VueI18n from "../../node_modules/vue-i18n/dist/vue-i18n.esm.browser.js";
-
-Vue.use(VueI18n);
-
-const vueI18n = new VueI18n(i18next);
-i18next.on("initialized", () => {
-    vueI18n.setLocaleMessage("en", i18next.getDataByLanguage("en").messages);
-});
+import vueI18n from "./i18n.js";
 
 const logoModel = {
     CONFIGURATOR: CONFIGURATOR,
