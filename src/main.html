@@ -347,23 +347,20 @@
         </div>
         <div id="content"></div>
     </div>
-    <div id="status-bar">
-        <port-utilization
-            :usage-down="PortUsage.port_usage_down"
-            :usage-up="PortUsage.port_usage_up"
-          ></port-utilization>
-        <stat message="statusbar_packet_error" :value="MSP.packet_error"></stat>
-        <stat message="statusbar_i2c_error" :value="FC.CONFIG.i2cError"></stat>
-        <stat message="statusbar_cycle_time" :value="FC.CONFIG.cycleTime"></stat>
-        <stat message="statusbar_cpu_load" :value="FC.CONFIG.cpuload" unit="%"></stat>
-        <status-bar-version
+    <status-bar
+            :port-usage-down="PortUsage.port_usage_down"
+            :port-usage-up="PortUsage.port_usage_up"
+            :packet-error="MSP.packet_error"
+            :i2c-error="FC.CONFIG.i2cError"
+            :cycle-time="FC.CONFIG.cycleTime"
+            :cpu-load="FC.CONFIG.cpuload"
+
             :configurator-version="CONFIGURATOR.version" 
             :firmware-version="FC.CONFIG.flightControllerVersion" 
             :firmware-id="FC.CONFIG.flightControllerIdentifier" 
             :hardware-id="FC.CONFIG.hardwareName" 
             :git-changeset-id="CONFIGURATOR.gitChangesetId" 
-        ></status-bar-version>
-    </div>
+    ></status-bar>
     <div id="cache">
         <div class="data-loading">
             <p>Waiting for data ...</p>

@@ -1,6 +1,4 @@
-import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
-
-Vue.component("status-bar-version", {
+const StatusBarVersion = {
     props: [
         "configuratorVersion",
         "firmwareVersion",
@@ -20,4 +18,6 @@ Vue.component("status-bar-version", {
             ({{ gitChangesetId }})
         </div>
     `,
-});
+};
+
+export default StatusBarVersion;

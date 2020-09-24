@@ -1,7 +1,10 @@
-import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
+import Stat from "./stat.js";
 
-Vue.component("port-utilization", {
+const PortUtilization = {
     props: ["usageDown", "usageUp"],
+    components: {
+        stat: Stat,
+    },
     // a bit of a hack here to get around the current translations.
     // vue i18n provides slightly different api for this. But
     // it's also possible to provide custom formatter
@@ -17,4 +20,6 @@ Vue.component("port-utilization", {
             <stat message="statusbar_usage_upload" :value="usageUp" unit="%"></stat>
         </div>
     `,
-});
+};
+
+export default PortUtilization;

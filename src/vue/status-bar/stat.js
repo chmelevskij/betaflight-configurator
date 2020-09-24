@@ -1,6 +1,4 @@
-import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
-
-Vue.component("stat", {
+const Stat = {
     props: ["message", "value", "unit"],
     // a bit of a hack here to get around the current translations.
     // vue i18n provides slightly different api for this. But
@@ -17,4 +15,6 @@ Vue.component("stat", {
             <span v-if="unit">{{ unit }}</span>
         </span>
     `,
-});
+};
+
+export default Stat;
