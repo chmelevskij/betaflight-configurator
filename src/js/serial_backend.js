@@ -249,7 +249,6 @@ function onOpen(openInfo) {
                             analytics.setFlightControllerData(analytics.DATA.FIRMWARE_VERSION, FC.CONFIG.flightControllerVersion);
 
                             GUI.log(i18n.getMessage('fcInfoReceived', [FC.CONFIG.flightControllerIdentifier, FC.CONFIG.flightControllerVersion]));
-                            updateStatusBarVersion(FC.CONFIG.flightControllerVersion, FC.CONFIG.flightControllerIdentifier);
 
                             MSP.send_message(MSPCodes.MSP_BUILD_INFO, false, false, function () {
 
@@ -319,7 +318,6 @@ function processBoardInfo() {
     analytics.setFlightControllerData(analytics.DATA.MCU_TYPE, FC.getMcuType());
 
     GUI.log(i18n.getMessage('boardInfoReceived', [FC.getHardwareName(), FC.CONFIG.boardVersion]));
-    updateStatusBarVersion(FC.CONFIG.flightControllerVersion, FC.CONFIG.flightControllerIdentifier, FC.getHardwareName());
 
     if (bit_check(FC.CONFIG.targetCapabilities, FC.TARGET_CAPABILITIES_FLAGS.SUPPORTS_CUSTOM_DEFAULTS) && bit_check(FC.CONFIG.targetCapabilities, FC.TARGET_CAPABILITIES_FLAGS.HAS_CUSTOM_DEFAULTS) && FC.CONFIG.configurationState === FC.CONFIGURATION_STATES.DEFAULTS_BARE) {
         var dialog = $('#dialogResetToCustomDefaults')[0];
@@ -537,8 +535,6 @@ function onClosed(result) {
     $('#tabs ul.mode-connected').hide();
     $('#tabs ul.mode-connected-cli').hide();
     $('#tabs ul.mode-disconnected').show();
-
-    updateStatusBarVersion();
 
     var sensor_state = $('#sensor-status');
     sensor_state.hide();

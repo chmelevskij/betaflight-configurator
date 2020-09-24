@@ -1,4 +1,5 @@
 import "./logo.js";
+import "./status-bar/status-bar-version.js";
 import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
 import vueI18n from "./vueI18n.js";
 
@@ -23,4 +24,13 @@ const logoVersionTabsVM = new Vue({
     data: betaflightModel,
 });
 
+const statusBar = new Vue({
+    el: '#status-bar .version',
+    i18n: vueI18n,
+    data: betaflightModel
+})
+
+// Not strictly necessary here, but if needed
+// it's always possible to modify this model in 
+// jquery land to trigger updates in vue
 window.vm = betaflightModel;

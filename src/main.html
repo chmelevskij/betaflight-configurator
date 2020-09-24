@@ -367,7 +367,13 @@
             <span class="cpu-load"> </span>
         </div>
         <div class="version">
-            <!-- configuration version generated here -->
+            <status-bar-version
+                v-bind:configurator-version="CONFIGURATOR.version" 
+                v-bind:firmware-version="FC.CONFIG.flightControllerVersion" 
+                v-bind:firmware-id="FC.CONFIG.flightControllerIdentifier" 
+                v-bind:hardware-id="FC.CONFIG.hardwareName" 
+                v-bind:git-changeset-id="CONFIGURATOR.gitChangesetId" 
+            />
         </div>
     </div>
     <div id="cache">

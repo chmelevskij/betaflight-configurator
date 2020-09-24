@@ -203,7 +203,6 @@ function startProcess() {
     }
 
     $('.connect_b a.connect').removeClass('disabled');
-    updateStatusBarVersion();
     // with Vue reactive system we don't need to call these,
     // our view is reactive to model changes
     // updateTopBarVersion();
