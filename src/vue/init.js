@@ -1,6 +1,7 @@
 import "./logo.js";
 import "./status-bar/status-bar-version.js";
 import "./status-bar/stat.js";
+import "./status-bar/port-utilization.js";
 import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
 import vueI18n from "./vueI18n.js";
 
@@ -12,6 +13,7 @@ const betaflightModel = {
     CONFIGURATOR,
     FC,
     MSP,
+    PortUsage,
 };
 
 const statusBar = new Vue({

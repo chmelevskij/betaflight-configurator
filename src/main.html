@@ -348,10 +348,10 @@
         <div id="content"></div>
     </div>
     <div id="status-bar">
-        <div>
-            <span i18n="statusbar_port_utilization"></span> <span class="port_usage_down">D: 0%</span> <span
-                class="port_usage_up">U: 0%</span>
-        </div>
+        <port-utilization
+            :usage-down="PortUsage.port_usage_down"
+            :usage-up="PortUsage.port_usage_up"
+          ></port-utilization>
         <stat message="statusbar_packet_error" :value="MSP.packet_error"></stat>
         <stat message="statusbar_i2c_error" :value="FC.CONFIG.i2cError"></stat>
         <stat message="statusbar_cycle_time" :value="FC.CONFIG.cycleTime"></stat>
