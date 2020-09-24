@@ -744,14 +744,6 @@ function getConfiguratorVersion() {
     return `${i18n.getMessage('versionLabelConfigurator')}: ${CONFIGURATOR.version}`;
 }
 
-// function updateTopBarVersion(firmwareVersion, firmwareId, hardwareId) {
-//     // Vue migration START
-//     window.vm.firmwareVersion = firmwareVersion;
-//     window.vm.firmwareId = firmwareId;
-//     window.vm.hardwareId = hardwareId;
-//     // Vue migration END
-// }
-
 function updateStatusBarVersion(firmwareVersion, firmwareId, hardwareId) {
     let versionText = '';
 
