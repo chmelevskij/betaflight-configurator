@@ -79,6 +79,9 @@ const FC = {
 
             return name;
         },
+        set hardwareName(name) {
+            // NOOP, can't really be set. Maybe implement some logic?
+        },
     },
     COPY_PROFILE: null,
     CURRENT_METERS: null,

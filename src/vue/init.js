@@ -1,6 +1,6 @@
 import "./logo.js";
 import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
-import vueI18n from "./i18n.js";
+import vueI18n from "./vueI18n.js";
 
 // Most of the global objects can go here at first.
 // It's a bit of overkill for simple components,
