@@ -719,51 +719,6 @@ function generateFilename(prefix, suffix) {
     return `${filename}.${suffix}`;
 }
 
-function getTargetVersion(hardwareId) {
-    let versionText = '';
-
-    if (hardwareId) {
-       versionText = `${i18n.getMessage('versionLabelTarget')}: ${hardwareId}`;
-    }
-
-    return versionText;
-}
-
-function getFirmwareVersion(firmwareVersion, firmwareId) {
-    let versionText = '';
-
-    if (firmwareVersion) {
-        versionText = `${i18n.getMessage('versionLabelFirmware')}: ${firmwareId} ${firmwareVersion}`;
-    }
-
-    return versionText;
-}
-
-function getConfiguratorVersion() {
-    return `${i18n.getMessage('versionLabelConfigurator')}: ${CONFIGURATOR.version}`;
-}
-
-function updateStatusBarVersion(firmwareVersion, firmwareId, hardwareId) {
-    let versionText = '';
-
-    versionText = versionText + getFirmwareVersion(firmwareVersion, firmwareId);
-
-    if (versionText !== '') {
-        versionText = `${versionText}, `;
-    }
-
-    const targetVersion = getTargetVersion(hardwareId);
-    versionText = versionText + targetVersion;
-
-    if (targetVersion !== '') {
-        versionText = `${versionText}, `;
-    }
-
-    versionText = `${versionText}${getConfiguratorVersion()} (${CONFIGURATOR.gitChangesetId})`;
-
-    $('#status-bar .version').text(versionText);
-}
-
 function showErrorDialog(message) {
    const dialog = $('.dialogError')[0];
 
