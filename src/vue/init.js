@@ -10,11 +10,11 @@ i18next.on("initialized", () => {
 });
 
 const logoModel = {
-        CONFIGURATOR: CONFIGURATOR,
-        firmwareVersion: '',
-        firmwareId: '',
-        hardwareId: '',
-    };
+    CONFIGURATOR: CONFIGURATOR,
+    firmwareVersion: "",
+    firmwareId: "",
+    hardwareId: "",
+};
 
 const logoVersionVM = new Vue({
     el: "#logo",

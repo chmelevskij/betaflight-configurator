@@ -1,7 +1,12 @@
-import Vue from '../../node_modules/vue/dist/vue.esm.browser.js';
+import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
 
-Vue.component('logo', {
-    props: ['versionConfigurator', 'firmwareVersion', 'firmwareId', 'hardwareId' ],
+Vue.component("logo", {
+    props: [
+        "versionConfigurator",
+        "firmwareVersion",
+        "firmwareId",
+        "hardwareId",
+    ],
     template: `
         <div class="logo_text">
             <span>
@@ -17,4 +22,4 @@ Vue.component('logo', {
             </span>
         </div>
     `,
-})
+});
