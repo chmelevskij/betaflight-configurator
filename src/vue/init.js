@@ -1,5 +1,6 @@
 import "./logo.js";
 import "./status-bar/index.js";
+import "./quad-status/index.js";
 import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
 import vueI18n from "./vueI18n.js";
 

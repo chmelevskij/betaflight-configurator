@@ -716,9 +716,6 @@ function update_live_status() {
                $(".battery-status").addClass('state-ok').removeClass('state-warning').removeClass('state-empty');
            }
        }
-       
-       let cellsText = (FC.ANALOG.voltage > NO_BATTERY_VOLTAGE_MAXIMUM)? nbCells + 'S' : 'USB';
-       $(".battery-legend").text(FC.ANALOG.voltage.toFixed(2) + "V (" + cellsText + ")");
 
     }
 

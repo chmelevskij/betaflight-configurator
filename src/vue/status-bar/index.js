@@ -1,4 +1,4 @@
-import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
+import Vue from "../../../node_modules/vue/dist/vue.esm.browser.js";
 import StatusBarVersion from "./status-bar-version.js";
 import Stat from "./stat.js";
 import PortUtilization from "./port-utilization.js";

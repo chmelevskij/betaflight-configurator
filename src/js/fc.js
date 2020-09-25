@@ -39,6 +39,23 @@ const INITIAL_CONFIG = {
     hardwareName:                     '',
 };
 
+const INITIAL_ANALOG = {
+    voltage:                    0,
+    mAhdrawn:                   0,
+    rssi:                       0,
+    amperage:                   0,
+    last_received_timestamp:    Date.now(), // FIXME this code lies, it's never been received at this point
+};
+
+const INITIAL_BATTERY_CONFIG = {
+    vbatmincellvoltage:         0,
+    vbatmaxcellvoltage:         0,
+    vbatwarningcellvoltage:     0,
+    capacity:                   0,
+    voltageMeterSource:         0,
+    currentMeterSource:         0,
+};
+
 const FC = {
 
     // define all the global variables that are uses to hold FC state
@@ -46,11 +63,11 @@ const FC = {
     ADJUSTMENT_RANGES: null,
     ADVANCED_TUNING: null,
     ADVANCED_TUNING_ACTIVE: null,
-    ANALOG: null,
+    ANALOG: {...INITIAL_CONFIG},
     ARMING_CONFIG: null,
     AUX_CONFIG: null,
     AUX_CONFIG_IDS: null,
-    BATTERY_CONFIG: null,
+    BATTERY_CONFIG: {...INITIAL_BATTERY_CONFIG},
     BATTERY_STATE: null,
     BEEPER_CONFIG: null,
     BF_CONFIG: null,          // Remove when we officialy retire BF 3.1
@@ -140,6 +157,8 @@ const FC = {
         // Using `Object.assign` instead of reassigning to
         // trigger the updates on the Vue side
         Object.assign(this.CONFIG, INITIAL_CONFIG);
+        Object.assign(this.ANALOG, INITIAL_CONFIG);
+        Object.assign(this.BATTERY_CONFIG, INITIAL_BATTERY_CONFIG);
 
         this.BF_CONFIG = {
             currentscale:               0,
@@ -280,13 +299,6 @@ const FC = {
             cno:                        [],
         };
 
-        this.ANALOG = {
-            voltage:                    0,
-            mAhdrawn:                   0,
-            rssi:                       0,
-            amperage:                   0,
-            last_received_timestamp:    Date.now(), // FIXME this code lies, it's never been received at this point
-        };
 
         this.VOLTAGE_METERS =           [];
         this.VOLTAGE_METER_CONFIGS =    [];
