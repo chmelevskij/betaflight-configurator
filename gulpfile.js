@@ -20,6 +20,7 @@ const commandExistsSync = require('command-exists').sync;
 const targz = require('targz');
 
 const gulp = require('gulp');
+const rollup = require('rollup');
 const concat = require('gulp-concat');
 const yarn = require("gulp-yarn");
 const rename = require('gulp-rename');
@@ -86,7 +87,7 @@ const getChangesetId = gulp.series(getHash, writeChangesetId);
 gulp.task('get-changeset-id', getChangesetId);
 
 // dist_yarn MUST be done after dist_src
-const distBuild = gulp.series(dist_src, dist_changelog, dist_yarn, dist_locale, dist_libraries, dist_resources, getChangesetId, gulp.series(cordova_dist()));
+const distBuild = gulp.series(dist_src, dist_changelog, dist_yarn, dist_locale, dist_libraries, dist_resources, dist_rollup, getChangesetId, gulp.series(cordova_dist()));
 const distRebuild = gulp.series(clean_dist, distBuild);
 gulp.task('dist', distRebuild);
 
@@ -290,6 +291,30 @@ function dist_libraries() {
 function dist_resources() {
     return gulp.src(['./resources/**/*', '!./resources/osd/**/*.png'], { base: '.'})
         .pipe(gulp.dest(DIST_DIR));
+}
+
+function dist_rollup() {
+    const commonjs = require("@rollup/plugin-commonjs");
+    const resolve = require("@rollup/plugin-node-resolve").default;
+    const vue  = require("rollup-plugin-vue");
+    const rollupReplace = require('@rollup/plugin-replace');
+
+    return rollup.rollup({
+        input: "src/vue/init.js",
+        plugins: [
+            rollupReplace({
+                "process.env.NODE_ENV" : JSON.stringify('production'),
+            }),
+            resolve(),
+            commonjs(),
+            vue(),
+          ],
+    }).then(bundle => {
+        return bundle.write({
+            format: "esm",
+            file: "dist/vue/init.js",
+        });
+    });
 }
 
 // Create runable app directories in ./apps

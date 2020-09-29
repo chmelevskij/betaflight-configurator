@@ -155,12 +155,7 @@
         <div id="menu_btn">
             <em class="fas fa-bars"></em>
         </div>
-        <logo
-            :configurator-version="CONFIGURATOR.version" 
-            :firmware-version="FC.CONFIG.flightControllerVersion" 
-            :firmware-id="FC.CONFIG.flightControllerIdentifier" 
-            :hardware-id="FC.CONFIG.hardwareName" 
-        ></logo>
+        <div id="v-logo-1"></div>
         <div id="port-picker">
             <div id="port-override-option">
                 <label for="port-override">
@@ -205,10 +200,7 @@
                         <div class="battery-status"></div>
                     </div>
                 </div>
-                <battery-legend 
-                    :voltage="FC.ANALOG.voltage"
-                    :vbatmaxcellvoltage="FC.BATTERY_CONFIG.vbatmaxcellvoltage"
-                ></battery-legend>
+                <div id="v-battery-legend"> </div>
                 <div class="bottomStatusIcons">
                     <div class="armedicon cf_tip" i18n_title="mainHelpArmed"></div>
                     <div class="failsafeicon cf_tip" i18n_title="mainHelpFailsafe"></div>
@@ -280,12 +272,7 @@
     <div id="tab-content-container">
         <div class="tab_container">
             <div id="tab_logoversion">
-                <logo
-                    :configurator-version="CONFIGURATOR.version" 
-                    :firmware-version="FC.CONFIG.flightControllerVersion" 
-                    :firmware-id="FC.CONFIG.flightControllerIdentifier" 
-                    :hardware-id="FC.CONFIG.hardwareName" 
-                ></logo>
+                <div id="v-logo-2"></div>
             </div>
             <div id="tabs">
                 <ul class="mode-disconnected">
@@ -350,20 +337,7 @@
         </div>
         <div id="content"></div>
     </div>
-    <status-bar
-            :port-usage-down="PortUsage.port_usage_down"
-            :port-usage-up="PortUsage.port_usage_up"
-            :packet-error="MSP.packet_error"
-            :i2c-error="FC.CONFIG.i2cError"
-            :cycle-time="FC.CONFIG.cycleTime"
-            :cpu-load="FC.CONFIG.cpuload"
-
-            :configurator-version="CONFIGURATOR.version" 
-            :firmware-version="FC.CONFIG.flightControllerVersion" 
-            :firmware-id="FC.CONFIG.flightControllerIdentifier" 
-            :hardware-id="FC.CONFIG.hardwareName" 
-            :git-changeset-id="CONFIGURATOR.gitChangesetId" 
-    ></status-bar>
+    <div id="v-status-bar"></div>
     <div id="cache">
         <div class="data-loading">
             <p>Waiting for data ...</p>

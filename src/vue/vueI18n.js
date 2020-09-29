@@ -1,5 +1,5 @@
-import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
-import VueI18n from "../../node_modules/vue-i18n/dist/vue-i18n.esm.browser.js";
+import Vue from "vue";
+import VueI18n from "vue-i18n";
 
 Vue.use(VueI18n);
 

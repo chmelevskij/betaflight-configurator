@@ -1,8 +1,8 @@
-import "./logo.js";
-import "./status-bar/index.js";
-import "./quad-status/index.js";
-import Vue from "../../node_modules/vue/dist/vue.esm.browser.js";
+import Vue from "vue";
 import vueI18n from "./vueI18n.js";
+import QuadStatus from "./quad-status/index.vue";
+import Logo from "./logo/index.vue";
+import StatusBar from "./status-bar/index.vue";
 
 // Most of the global objects can go here at first.
 // It's a bit of overkill for simple components,
@@ -15,11 +15,29 @@ const betaflightModel = {
     PortUsage,
 };
 
-const statusBar = new Vue({
-    el: "#main-wrapper",
+new Vue({
     i18n: vueI18n,
     data: betaflightModel,
-});
+    render: (h) => h(Logo, { props: betaflightModel }),
+}).$mount("#v-logo-1");
+
+new Vue({
+    i18n: vueI18n,
+    data: betaflightModel,
+    render: (h) => h(Logo, { props: betaflightModel }),
+}).$mount("#v-logo-2");
+
+new Vue({
+    i18n: vueI18n,
+    data: betaflightModel,
+    render: (h) => h(QuadStatus, { props: betaflightModel }),
+}).$mount("#v-battery-legend");
+
+new Vue({
+    i18n: vueI18n,
+    data: betaflightModel,
+    render: (h) => h(StatusBar, { props: betaflightModel }),
+}).$mount("#v-status-bar");
 
 // Not strictly necessary here, but if needed
 // it's always possible to modify this model in
