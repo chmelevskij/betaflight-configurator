@@ -9,14 +9,6 @@ export default {
     voltage: { type: Number, default: 0 },
     vbatmaxcellvoltage: { type: Number, default: 1 },
   },
-  // a bit of a hack here to get around the current translations.
-  // vue i18n provides slightly different api for this. But
-  // it's also possible to provide custom formatter
-  filters: {
-    stripEnd(value) {
-      return value.replace(/\$1%/, "");
-    },
-  },
   computed: {
     reading() {
       let nbCells = Math.floor(this.voltage / this.vbatmaxcellvoltage) + 1;
