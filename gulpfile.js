@@ -296,33 +296,35 @@ function dist_resources() {
 }
 
 function dist_rollup() {
-    const commonjs = require("@rollup/plugin-commonjs");
-    const resolve = require("@rollup/plugin-node-resolve").default;
+    const commonjs = require('@rollup/plugin-commonjs');
+    const resolve = require('@rollup/plugin-node-resolve').default;
     const alias = require('@rollup/plugin-alias');
-    const vue  = require("rollup-plugin-vue");
+    const vue = require('rollup-plugin-vue');
     const rollupReplace = require('@rollup/plugin-replace');
 
-    return rollup.rollup({
-        input: "src/vue/init.js",
-        plugins: [
-            alias({ 
-                entries: {
-                    vue: require.resolve('vue/dist/vue.esm.js'),
-                }
+    return rollup
+        .rollup({
+            input: 'src/vue/init.js',
+            plugins: [
+                alias({
+                    entries: {
+                        vue: require.resolve('vue/dist/vue.esm.js'),
+                    },
+                }),
+                rollupReplace({
+                    'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+                }),
+                resolve(),
+                commonjs(),
+                vue(),
+            ],
+        })
+        .then(bundle =>
+            bundle.write({
+                format: 'esm',
+                file: 'dist/vue/init.js',
             }),
-            rollupReplace({
-                "process.env.NODE_ENV" : JSON.stringify(NODE_ENV),
-            }),
-            resolve(),
-            commonjs(),
-            vue(),
-          ],
-    }).then(bundle => {
-        return bundle.write({
-            format: "esm",
-            file: "dist/vue/init.js",
-        });
-    });
+        );
 }
 
 // Create runable app directories in ./apps

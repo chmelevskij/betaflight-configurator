@@ -23,7 +23,7 @@ const betaflightModel = {
     PortUsage,
 };
 
-new Vue({
+const app = new Vue({
     i18n: vueI18n,
     data: betaflightModel,
     components: {
@@ -31,8 +31,8 @@ new Vue({
         BetaflightLogo,
         StatusBar,
     },
-    el: '#main-wrapper'
-})
+    el: '#main-wrapper',
+});
 
 // Not strictly necessary here, but if needed
 // it's always possible to modify this model in
