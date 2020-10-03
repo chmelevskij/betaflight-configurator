@@ -199,26 +199,15 @@ function getRunDebugAppCommand(arch) {
     switch (arch) {
     case 'osx64':
         return 'open ' + path.join(DEBUG_DIR, pkg.name, arch, pkg.name + '.app');
-
-        break;
-
     case 'linux64':
     case 'linux32':
     case 'armv7':
         return path.join(DEBUG_DIR, pkg.name, arch, pkg.name);
-
-        break;
-
     case 'win32':
     case 'win64':
         return path.join(DEBUG_DIR, pkg.name, arch, pkg.name + '.exe');
-
-        break;
-
     default:
         return '';
-
-        break;
     }
 }
 
