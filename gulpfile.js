@@ -43,6 +43,8 @@ const CORDOVA_DIST_DIR = './dist_cordova/';
 
 const LINUX_INSTALL_DIR = '/opt/betaflight';
 
+const NODE_ENV = process.env.NODE_ENV || 'production';
+
 // Global variable to hold the change hash from when we get it, to when we use it.
 var gitChangeSetId;
 
@@ -296,14 +298,20 @@ function dist_resources() {
 function dist_rollup() {
     const commonjs = require("@rollup/plugin-commonjs");
     const resolve = require("@rollup/plugin-node-resolve").default;
+    const alias = require('@rollup/plugin-alias');
     const vue  = require("rollup-plugin-vue");
     const rollupReplace = require('@rollup/plugin-replace');
 
     return rollup.rollup({
         input: "src/vue/init.js",
         plugins: [
+            alias({ 
+                entries: {
+                    vue: require.resolve('vue/dist/vue.esm.js'),
+                }
+            }),
             rollupReplace({
-                "process.env.NODE_ENV" : JSON.stringify('production'),
+                "process.env.NODE_ENV" : JSON.stringify(NODE_ENV),
             }),
             resolve(),
             commonjs(),

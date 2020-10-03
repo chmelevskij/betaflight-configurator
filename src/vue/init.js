@@ -1,6 +1,6 @@
 import Vue from "vue";
 import vueI18n from "./vueI18n.js";
-import QuadStatus from "./quad-status/index.vue";
+import BatteryLegend from "./quad-status/battery-legend.vue";
 import Logo from "./logo/index.vue";
 import StatusBar from "./status-bar/index.vue";
 
@@ -26,26 +26,13 @@ const betaflightModel = {
 new Vue({
     i18n: vueI18n,
     data: betaflightModel,
-    render: (h) => h(Logo, { props: betaflightModel }),
-}).$mount("#v-logo-1");
-
-new Vue({
-    i18n: vueI18n,
-    data: betaflightModel,
-    render: (h) => h(Logo, { props: betaflightModel }),
-}).$mount("#v-logo-2");
-
-new Vue({
-    i18n: vueI18n,
-    data: betaflightModel,
-    render: (h) => h(QuadStatus, { props: betaflightModel }),
-}).$mount("#v-battery-legend");
-
-new Vue({
-    i18n: vueI18n,
-    data: betaflightModel,
-    render: (h) => h(StatusBar, { props: betaflightModel }),
-}).$mount("#v-status-bar");
+    components: {
+        BatteryLegend,
+        Logo,
+        StatusBar,
+    },
+    el: '#main-wrapper'
+})
 
 // Not strictly necessary here, but if needed
 // it's always possible to modify this model in

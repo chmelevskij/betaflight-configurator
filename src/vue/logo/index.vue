@@ -1,18 +1,24 @@
 <template>
-  <logo
-    :configurator-version="CONFIGURATOR.version"
-    :firmware-version="FC.CONFIG.flightControllerVersion"
-    :firmware-id="FC.CONFIG.flightControllerIdentifier"
-    :hardware-id="FC.CONFIG.hardwareName"
-  ></logo>
+  <div id="logo">
+    <div class="logo_text">
+      <span>
+        {{ $t("versionLabelConfigurator.message") }}: {{ configuratorVersion }}
+        <br />
+        <span v-if="firmwareVersion && firmwareId">
+          {{ $t("versionLabelFirmware.message") }}: {{ firmwareVersion }}
+          {{ firmwareId }}
+        </span>
+        <br />
+        <span v-if="hardwareId">
+          {{ $t("versionLabelTarget.message") }}: {{ hardwareId }}
+        </span>
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
-import Logo from "./logo.vue";
 export default {
-  components: {
-    Logo,
-  },
-  props: ["CONFIGURATOR", "FC"],
+  props: ["configuratorVersion", "firmwareVersion", "firmwareId", "hardwareId"],
 };
 </script>
