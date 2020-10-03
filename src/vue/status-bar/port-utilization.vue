@@ -12,7 +12,7 @@ import Stat from "./stat.vue";
 export default {
   props: ["usageDown", "usageUp"],
   components: {
-    stat: Stat,
+    Stat,
   },
 };
 </script>

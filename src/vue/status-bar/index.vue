@@ -38,9 +38,9 @@ export default {
     "gitChangesetId",
   ],
   components: {
-    "port-utilization": PortUtilization,
-    stat: Stat,
-    "status-bar-version": StatusBarVersion,
+    PortUtilization,
+    Stat,
+    StatusBarVersion,
   },
 };
 </script>
