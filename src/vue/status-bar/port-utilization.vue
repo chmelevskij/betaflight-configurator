@@ -10,7 +10,14 @@
 import Stat from "./stat.vue";
 
 export default {
-  props: ["usageDown", "usageUp"],
+  props: {
+    usageDown: {
+      type: Number,
+    },
+    usageUp: {
+      type: Number,
+    },
+  },
   components: {
     Stat,
   },

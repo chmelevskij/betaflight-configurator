@@ -7,6 +7,16 @@
 </template>
 <script>
 export default {
-  props: ["message", "value", "unit"],
+  props: {
+    message: {
+      type: String,
+    },
+    value: {
+      type: String,
+    },
+    unit: {
+      type: String,
+    },
+  },
 };
 </script>

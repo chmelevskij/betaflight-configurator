@@ -19,6 +19,20 @@
 
 <script>
 export default {
-  props: ["configuratorVersion", "firmwareVersion", "firmwareId", "hardwareId"],
+  props: {
+    configuratorVersion: {
+      type: String,
+      required: true,
+    },
+    firmwareVersion: {
+      type: String,
+    },
+    firmwareId: {
+      type: String,
+    },
+    hardwareId: {
+      type: String,
+    },
+  },
 };
 </script>

@@ -23,20 +23,42 @@ import Stat from "./stat.vue";
 import PortUtilization from "./port-utilization.vue";
 
 export default {
-  props: [
-    "portUsageDown",
-    "portUsageUp",
-    "packetError",
-    "i2cError",
-    "cycleTime",
-    "cpuLoad",
+  props: {
+    portUsageDown: {
+      type: Number,
+    },
+    portUsageUp: {
+      type: Number,
+    },
+    packetError: {
+      type: Number,
+    },
+    i2cError: {
+      type: Number,
+    },
+    cycleTime: {
+      type: Number,
+    },
+    cpuLoad: {
+      type: Number,
+    },
 
-    "configuratorVersion",
-    "firmwareVersion",
-    "firmwareId",
-    "hardwareId",
-    "gitChangesetId",
-  ],
+    configuratorVersion: {
+      type: String,
+    },
+    firmwareVersion: {
+      type: String,
+    },
+    firmwareId: {
+      type: String,
+    },
+    hardwareId: {
+      type: String,
+    },
+    gitChangesetId: {
+      type: String,
+    },
+  },
   components: {
     PortUtilization,
     Stat,

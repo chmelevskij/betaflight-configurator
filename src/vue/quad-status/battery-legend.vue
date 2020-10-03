@@ -6,8 +6,14 @@ const NO_BATTERY_VOLTAGE_MAXIMUM = 1.8; // Maybe is better to add a call to MSP_
 
 export default {
   props: {
-    voltage: { type: Number, default: 0 },
-    vbatmaxcellvoltage: { type: Number, default: 1 },
+    voltage: {
+      type: Number,
+      default: 0,
+    },
+    vbatmaxcellvoltage: {
+      type: Number,
+      default: 1,
+    },
   },
   computed: {
     reading() {

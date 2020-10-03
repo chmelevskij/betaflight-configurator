@@ -14,12 +14,22 @@
 
 <script>
 export default {
-  props: [
-    "configuratorVersion",
-    "firmwareVersion",
-    "firmwareId",
-    "hardwareId",
-    "gitChangesetId",
-  ],
+  props: {
+    configuratorVersion: {
+      type: String,
+    },
+    firmwareVersion: {
+      type: String,
+    },
+    firmwareId: {
+      type: String,
+    },
+    hardwareId: {
+      type: String,
+    },
+    gitChangesetId: {
+      type: String,
+    },
+  },
 };
 </script>
