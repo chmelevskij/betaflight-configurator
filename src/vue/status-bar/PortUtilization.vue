@@ -1,13 +1,17 @@
 <template>
   <div>
     <span>{{ $t("statusbar_port_utilization.message") }}</span>
-    <stat message="statusbar_usage_download" :value="usageDown" unit="%"></stat>
-    <stat message="statusbar_usage_upload" :value="usageUp" unit="%"></stat>
+    <ReadingStat
+      message="statusbar_usage_download"
+      :value="usageDown"
+      unit="%"
+    />
+    <ReadingStat message="statusbar_usage_upload" :value="usageUp" unit="%" />
   </div>
 </template>
 
 <script>
-import Stat from "./stat.vue";
+import ReadingStat from "./ReadingStat.vue";
 
 export default {
   props: {
@@ -19,7 +23,7 @@ export default {
     },
   },
   components: {
-    Stat,
+    ReadingStat,
   },
 };
 </script>

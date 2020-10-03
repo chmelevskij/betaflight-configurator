@@ -1,8 +1,8 @@
 import Vue from "vue";
 import vueI18n from "./vueI18n.js";
-import BatteryLegend from "./quad-status/battery-legend.vue";
-import BetaflightLogo from "./betaflight-logo/index.vue";
-import StatusBar from "./status-bar/index.vue";
+import BatteryLegend from "./quad-status/BatteryLegend.vue";
+import BetaflightLogo from "./betaflight-logo/BetaflightLogo.vue";
+import StatusBar from "./status-bar/StatusBar.vue";
 
 // a bit of a hack here to get around the current translations.
 // vue i18n provides slightly different api for this. But
