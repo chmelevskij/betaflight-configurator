@@ -1,7 +1,7 @@
 import Vue from "vue";
 import vueI18n from "./vueI18n.js";
 import BatteryLegend from "./quad-status/battery-legend.vue";
-import Logo from "./logo/index.vue";
+import BetaflightLogo from "./betaflight-logo/index.vue";
 import StatusBar from "./status-bar/index.vue";
 
 // a bit of a hack here to get around the current translations.
@@ -28,7 +28,7 @@ new Vue({
     data: betaflightModel,
     components: {
         BatteryLegend,
-        Logo,
+        BetaflightLogo,
         StatusBar,
     },
     el: '#main-wrapper'

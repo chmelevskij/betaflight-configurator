@@ -155,12 +155,12 @@
         <div id="menu_btn">
             <em class="fas fa-bars"></em>
         </div>
-        <logo
+        <betaflight-logo
             :configurator-version="CONFIGURATOR.version" 
             :firmware-version="FC.CONFIG.flightControllerVersion" 
             :firmware-id="FC.CONFIG.flightControllerIdentifier" 
             :hardware-id="FC.CONFIG.hardwareName" 
-        ></logo>
+        ></betaflight-logo>
         <div id="port-picker">
             <div id="port-override-option">
                 <label for="port-override">
@@ -280,12 +280,12 @@
     <div id="tab-content-container">
         <div class="tab_container">
             <div id="tab_logoversion">
-                <logo
+                <betaflight-logo
                     :configurator-version="CONFIGURATOR.version" 
                     :firmware-version="FC.CONFIG.flightControllerVersion" 
                     :firmware-id="FC.CONFIG.flightControllerIdentifier" 
                     :hardware-id="FC.CONFIG.hardwareName" 
-                ></logo>
+                ></betaflight-logo>
             </div>
             <div id="tabs">
                 <ul class="mode-disconnected">
