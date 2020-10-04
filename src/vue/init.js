@@ -1,6 +1,7 @@
 import Vue from "vue";
 import vueI18n from "./vueI18n.js";
 import BatteryLegend from "./quad-status/BatteryLegend.vue";
+import BatteryIcon from "./quad-status/BatteryIcon.vue";
 import BetaflightLogo from "./betaflight-logo/BetaflightLogo.vue";
 import StatusBar from "./status-bar/StatusBar.vue";
 
@@ -30,6 +31,7 @@ const app = new Vue({
         BatteryLegend,
         BetaflightLogo,
         StatusBar,
+        BatteryIcon,
     },
     el: '#main-wrapper',
 });

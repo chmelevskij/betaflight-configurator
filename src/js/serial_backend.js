@@ -656,10 +656,6 @@ function update_live_status() {
 
     var statuswrapper = $('#quad-status_wrapper');
 
-    $(".quad-status-contents").css({
-       display: 'inline-block'
-    });
-
     if (GUI.active_tab != 'cli') {
         MSP.send_message(MSPCodes.MSP_BOXNAMES, false, false);
         if (semver.gte(FC.CONFIG.apiVersion, "1.32.0")) {
@@ -685,38 +681,6 @@ function update_live_status() {
                else
                        $(".failsafeicon").removeClass('active');
        }
-    }
-
-    if (FC.ANALOG != undefined) {
-        var nbCells = Math.floor(FC.ANALOG.voltage / FC.BATTERY_CONFIG.vbatmaxcellvoltage) + 1;
-
-        if (FC.ANALOG.voltage == 0) {
-               nbCells = 1;
-        }
-
-       var min = FC.BATTERY_CONFIG.vbatmincellvoltage * nbCells;
-       var max = FC.BATTERY_CONFIG.vbatmaxcellvoltage * nbCells;
-       var warn = FC.BATTERY_CONFIG.vbatwarningcellvoltage * nbCells;
-
-       const NO_BATTERY_VOLTAGE_MAXIMUM = 1.8; // Maybe is better to add a call to MSP_BATTERY_STATE but is not available for all versions  
-
-       if (FC.ANALOG.voltage < min && FC.ANALOG.voltage > NO_BATTERY_VOLTAGE_MAXIMUM) {
-           $(".battery-status").addClass('state-empty').removeClass('state-ok').removeClass('state-warning');
-           $(".battery-status").css({
-               width: "100%",
-           });
-       } else {
-           $(".battery-status").css({
-               width: ((FC.ANALOG.voltage - min) / (max - min) * 100) + "%",
-           });
-
-           if (FC.ANALOG.voltage < warn) {
-               $(".battery-status").addClass('state-warning').removeClass('state-empty').removeClass('state-ok');
-           } else  {
-               $(".battery-status").addClass('state-ok').removeClass('state-warning').removeClass('state-empty');
-           }
-       }
-
     }
 
     if (active) {

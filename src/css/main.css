@@ -621,15 +621,6 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 }
 
-.quad-status-contents  {
-    display: none;
-    margin-top: 10px;
-    margin-left: 14px;
-    height: 10px;
-    width: 31px;
-}
-
-
 .battery-legend {
     display: inline;
     position: relative;
@@ -643,53 +634,6 @@ input[type="number"]::-webkit-inner-spin-button {
     margin-left: -8px;
     padding-right: 4px
 }
-
-.quad-status-contents progress::-webkit-progress-bar {
-    height: 12px;
-    background-color: #eee;
-}
-
-.quad-status-contents progress::-webkit-progress-value {
-    background-color: #bcf;
-}
-
-.battery-status {
-    height: 11px;
-}
-
-.battery-status.state-ok {
-    background-color: #59AA29;
-}
-.battery-status.state-warning {
-    background-color: var(--error);
-}
-
-.battery-status.state-empty {
-    animation: error-blinker 1s linear infinite;
-}
-
-@keyframes error-blinker {
-    0% {
-        background-color: transparent;
-    }
-    50% {
-        background-color: var(--error);
-    }
-}
-
-.battery-icon {
-    background-image: url(../images/icons/cf_icon_bat_grey.svg);
-    background-size: contain;
-    background-position: center;
-    display: inline-block;
-    height: 30px;
-    width: 60px;
-    transition: none;
-    margin-top: 4px;
-    margin-left: -4px;
-    background-repeat: no-repeat;
-}
-
 
 .armedicon,
 .failsafeicon,
