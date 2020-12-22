@@ -84,7 +84,8 @@
     "command-exists": "^1.2.8",
     "cordova-lib": "^9.0.1",
     "del": "^5.0.0",
-    "eslint": "^7.10.0",
+    "eslint": "^7.16.0",
+    "eslint-plugin-vue": "^7.3.0",
     "follow-redirects": "^1.10.0",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.6",
@@ -108,6 +109,7 @@
     "karma-sinon-chai": "^2.0.2",
     "karma-spec-reporter": "^0.0.32",
     "karma-tfs-reporter": "^1.0.2",
+    "lint-staged": ">=10",
     "mocha": "^7.0.1",
     "nw-builder": "^3.5.7",
     "os": "^0.1.1",
@@ -129,7 +131,10 @@
   },
   "husky": {
     "hooks": {
-        "pre-commit": "yarn lint"
-      }
-   }
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|vue)": "eslint --cache --fix"
+  }
 }
