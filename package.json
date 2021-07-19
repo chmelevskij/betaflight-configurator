@@ -7,7 +7,7 @@
   "chromium-args": "--disable-features=nw2",
   "scripts": {
     "start": "run-script-os",
-    "start:default": "NODE_ENV=development NW_PRE_ARGS=--load-extension='./node_modules/nw-vue-devtools-prebuilt/extension' gulp debug",
+    "start:default": "NODE_ENV=development gulp debug",
     "start:windows": "set NODE_ENV=development && set NW_PRE_ARGS=--load-extension='./node_modules/nw-vue-devtools-prebuilt/extension' && gulp debug",
     "gulp": "gulp",
     "release": "run-script-os",

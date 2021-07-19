@@ -204,7 +204,12 @@ function getRunDebugAppCommand(arch) {
     switch (arch) {
     case 'osx64':
         const pkgName = `${pkg.name}.app`;
-        command = `open ${path.join(DEBUG_DIR, pkg.name, arch, pkgName)}`;
+        const appPath = path.join(DEBUG_DIR, pkg.name, arch, pkgName);
+        // TODO: some of the suggestions for fixing mentioned
+        // changing the file permissions
+        command = `open ${appPath}`;
+        console.log('changing mode');
+        fs.chmodSync(appPath, 0o755);
 
         break;
 
@@ -575,7 +580,11 @@ function start_debug(done) {
         } else {
             const run = getRunDebugAppCommand(platforms[0]);
             console.log(`Starting debug app (${run})...`);
-            child_process.exec(run);
+            child_process.exec(run, (error) => {
+                if(error) {
+                    console.error(error);
+                }
+            });
         }
     } else {
         console.log('More than one platform specified, not starting debug app');
