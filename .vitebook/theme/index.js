@@ -1,12 +1,3 @@
-import Layout from './layout/Layout.svelte';
-import NotFound from './layout/404.svelte';
-
-const Theme = /** @type {import('@vitebook/client').ClientTheme} */ ({
-  Layout,
-  NotFound,
-  configureRouter(router) {
-    // ...
-  },
-});
+import Theme from '@vitebook/theme-default';
 
 export default Theme;
