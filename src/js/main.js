@@ -1,5 +1,7 @@
+import $ from 'jquery';
 import 'jbox';
-import '../components/init.js';
+// TODO: enable back vue
+// import '../components/init.js';
 import { gui_log } from './gui_log.js';
 // same, msp seems to be everywhere used from global scope
 import './msp/MSPHelper.js';
@@ -22,7 +24,7 @@ import * as d3 from 'd3';
 
 $(document).ready(function () {
 
-    useGlobalNodeFunctions();
+    // useGlobalNodeFunctions();
 
     if (typeof cordovaApp === 'undefined') {
         appReady();
@@ -69,7 +71,7 @@ function cleanupLocalStorage() {
 }
 
 function appReady() {
-    readConfiguratorVersionMetadata();
+    // readConfiguratorVersionMetadata();
 
     cleanupLocalStorage();
 

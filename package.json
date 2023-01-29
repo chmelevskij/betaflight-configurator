@@ -6,6 +6,7 @@
   "main": "main.html",
   "chromium-args": "--disable-features=nw2",
   "scripts": {
+    "dev": "vite",
     "start": "run-script-os",
     "start:default": "NODE_ENV=development NW_PRE_ARGS=--load-extension='./node_modules/nw-vue-devtools-prebuilt/extension' gulp debug",
     "start:windows": "set NODE_ENV=development && set NW_PRE_ARGS=--load-extension='./node_modules/nw-vue-devtools-prebuilt/extension' && gulp debug",
@@ -53,6 +54,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@panter/vue-i18next": "^0.15.2",
+    "@vitejs/plugin-vue": "^4.0.0",
     "bonjour": "^3.5.0",
     "crypto-es": "^1.2.7",
     "d3": "^7.8.2",

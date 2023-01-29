@@ -66,7 +66,7 @@ class GuiControl {
         // Check the method of execution
         this.nwGui = null;
         try {
-            this.nwGui = require('nw.gui');
+            // this.nwGui = require('nw.gui');
             this.Mode = GUI_MODES.NWJS;
         } catch (ex) {
             if (typeof cordovaApp !== 'undefined') {
