@@ -13,15 +13,4 @@ export default defineConfig({
         setupFiles: ["test/setup.js"],
     },
     plugins: [vue()],
-    root: resolve(__dirname, "src"),
-    build: {
-        rollupOptions: {
-            input: {
-                app: "main.html",
-            },
-        },
-    },
-    server: {
-        open: "main.html",
-    },
 });

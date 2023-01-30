@@ -26,6 +26,7 @@ const PortHandler = new function () {
 };
 
 PortHandler.initialize = function () {
+    return console.warn('Not implemented');
     const self = this;
 
     const portPickerElementSelector = "div#port-picker #port";

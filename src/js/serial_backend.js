@@ -170,7 +170,8 @@ export function initializeSerialBackend() {
         setConfig({'auto_connect': GUI.auto_connect});
     });
 
-    MdnsDiscovery.initialize();
+    // TODO: need to use https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/apps/samples/mdns-browser
+    // MdnsDiscovery.initialize();
     PortHandler.initialize();
     PortUsage.initialize();
 }

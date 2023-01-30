@@ -129,7 +129,7 @@ transponder.initialize = function(callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/transponder.html", process_html);
+        $('#content').load("./src/tabs/transponder.html", process_html);
     }
 
     //HELPERS

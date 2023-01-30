@@ -81,7 +81,7 @@ vtx.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/vtx.html", process_html);
+        $('#content').load("./src/tabs/vtx.html", process_html);
     }
 
     function process_html() {

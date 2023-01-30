@@ -31,7 +31,7 @@ presets.initialize = function (callback) {
     self.cliEngine.setProgressCallback(value => this.onApplyProgressChange(value));
     self._presetPanels = [];
 
-    $('#content').load("./tabs/presets/presets.html", () => self.onHtmlLoad(callback));
+    $('#content').load("./src/tabs/presets/presets.html", () => self.onHtmlLoad(callback));
 
     if (GUI.active_tab !== 'presets') {
         GUI.active_tab = 'presets';

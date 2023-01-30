@@ -29,7 +29,7 @@ adjustments.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/adjustments.html", process_html);
+        $('#content').load("./src/tabs/adjustments.html", process_html);
     }
 
     MSP.send_message(MSPCodes.MSP_BOXNAMES, false, false, get_adjustment_ranges);

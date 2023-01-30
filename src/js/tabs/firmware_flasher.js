@@ -1174,7 +1174,7 @@ firmware_flasher.initialize = function (callback) {
     }
 
     self.releaseLoader.loadTargets(() => {
-       $('#content').load("./tabs/firmware_flasher.html", onDocumentLoad);
+       $('#content').load("./src/tabs/firmware_flasher.html", onDocumentLoad);
     });
 };
 

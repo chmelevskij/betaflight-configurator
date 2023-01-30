@@ -40,7 +40,7 @@ led_strip.initialize = function (callback, scrollPosition) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/led_strip.html", process_html);
+        $('#content').load("./src/tabs/led_strip.html", process_html);
     }
 
     load_led_config();

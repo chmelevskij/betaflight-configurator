@@ -72,7 +72,7 @@ failsafe.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/failsafe.html", process_html);
+        $('#content').load("./src/tabs/failsafe.html", process_html);
     }
 
 

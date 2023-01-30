@@ -184,7 +184,7 @@ sensors.initialize = function (callback) {
         }
     }
 
-    $('#content').load("./tabs/sensors.html", function load_html() {
+    $('#content').load("./src/tabs/sensors.html", function load_html() {
         // translate to user-selected language
         i18n.localizePage();
 

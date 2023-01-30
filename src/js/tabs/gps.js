@@ -14,7 +14,7 @@ gps.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/gps.html", process_html);
+        $('#content').load("./src/tabs/gps.html", process_html);
     }
 
     MSP.send_message(MSPCodes.MSP_STATUS, false, false, load_html);

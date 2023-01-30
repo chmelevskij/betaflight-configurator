@@ -19,7 +19,7 @@ setup_osd.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/setup_osd.html", process_html);
+        $('#content').load("./src/tabs/setup_osd.html", process_html);
     }
 
     load_status();

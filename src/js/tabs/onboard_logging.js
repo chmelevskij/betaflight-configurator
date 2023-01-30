@@ -72,7 +72,7 @@ onboard_logging.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/onboard_logging.html", function() {
+        $('#content').load("./src/tabs/onboard_logging.html", function() {
             // translate to user-selected language
             i18n.localizePage();
 
