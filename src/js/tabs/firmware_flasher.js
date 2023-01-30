@@ -17,6 +17,7 @@ import STM32DFU from '../protocols/stm32usbdfu';
 import { gui_log } from '../gui_log';
 import semver from 'semver';
 import { checkChromeRuntimeError } from '../utils/common';
+import $ from 'jquery';
 
 const firmware_flasher = {
     targets: null,

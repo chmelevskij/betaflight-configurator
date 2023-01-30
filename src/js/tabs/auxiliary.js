@@ -9,6 +9,7 @@ import MSPCodes from '../msp/MSPCodes';
 import adjustBoxNameIfPeripheralWithModeID from '../peripherals';
 import { gui_log } from '../gui_log';
 import { getTextWidth } from '../utils/common';
+import $ from 'jquery';
 
 const auxiliary = {};
 

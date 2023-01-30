@@ -7,6 +7,7 @@ import MSP from '../msp';
 import MSPCodes from '../msp/MSPCodes';
 import { gui_log } from '../gui_log';
 import jBox from 'jbox';
+import $ from 'jquery';
 
 const power = {
     supported: false,

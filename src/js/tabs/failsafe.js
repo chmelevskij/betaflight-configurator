@@ -9,6 +9,7 @@ import adjustBoxNameIfPeripheralWithModeID from "../peripherals";
 import { API_VERSION_1_43, API_VERSION_1_44, API_VERSION_1_45 } from "../data_storage";
 import { gui_log } from "../gui_log";
 import semver from 'semver';
+import $ from 'jquery';
 
 const failsafe = {};
 

@@ -4,6 +4,7 @@ import { have_sensor } from "../sensor_helpers";
 import FC from '../fc';
 import MSP from "../msp";
 import MSPCodes from "../msp/MSPCodes";
+import $ from 'jquery';
 
 const gps = {};
 gps.initialize = function (callback) {

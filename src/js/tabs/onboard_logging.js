@@ -12,6 +12,7 @@ import { generateFilename } from "../utils/generate_filename";
 import semver from 'semver';
 import { showErrorDialog } from "../utils/showErrorDialog";
 import { checkChromeRuntimeError } from "../utils/common";
+import $ from 'jquery';
 
 let sdcardTimer;
 

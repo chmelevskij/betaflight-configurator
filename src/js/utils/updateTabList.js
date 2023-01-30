@@ -2,6 +2,7 @@ import semver from "semver";
 import { API_VERSION_1_42 } from "../data_storage";
 import FC from "../fc";
 import { isExpertModeEnabled } from "./isExportModeEnabled";
+import $ from 'jquery';
 
 export function updateTabList(features) {
 

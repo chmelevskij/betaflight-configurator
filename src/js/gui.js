@@ -3,6 +3,7 @@ import MSP from './msp';
 import Switchery from 'switchery-latest';
 import jBox from 'jbox';
 import { checkChromeRuntimeError } from './utils/common';
+import $ from 'jquery';
 
 const TABS = {};
 
@@ -310,7 +311,7 @@ class GuiControl {
         documentationButton.html("Wiki").attr("href", `https://betaflight.com/docs/wiki/configurator/${tRex}-tab`);
 
         // loading tooltip
-        jQuery(function () {
+        $(function () {
 
             new jBox('Tooltip', {
                 attach: '.cf_tip',
@@ -353,7 +354,8 @@ class GuiControl {
         $(`#tabs ul.mode-connected .${tab} a`).trigger('click');
     }
     isNWJS() {
-        return this.Mode === GUI_MODES.NWJS;
+        return false;
+        // return this.Mode === GUI_MODES.NWJS;
     }
     isCordova() {
         return this.Mode === GUI_MODES.Cordova;

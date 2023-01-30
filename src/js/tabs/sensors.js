@@ -7,6 +7,7 @@ import MSP from "../msp";
 import MSPCodes from "../msp/MSPCodes";
 import serial from "../serial";
 import * as d3 from 'd3';
+import $ from 'jquery';
 
 const sensors = {};
 sensors.initialize = function (callback) {

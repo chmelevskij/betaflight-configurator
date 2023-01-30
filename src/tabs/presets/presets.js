@@ -5,6 +5,7 @@ import { i18n } from '../../js/localization';
 import FC from '../../js/fc';
 import CONFIGURATOR from '../../js/data_storage';
 import UI_PHONES from '../../js/phones_ui';
+import $ from 'jquery';
 
 import { favoritePresets } from './FavoritePresets';
 import CliEngine from './CliEngine';
