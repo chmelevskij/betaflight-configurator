@@ -82,6 +82,7 @@ export function initializeSerialBackend() {
             } else {
                 portName = String($('div#port-picker #port').val());
             }
+            // NOTE: this is overwritten for this web serial experiment
             $("div.connect_controls a.connect").on("click", async function () {
                 if (GUI.connect_lock != true) {
                     let thisElement = $(this);
