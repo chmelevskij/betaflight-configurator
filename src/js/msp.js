@@ -1,6 +1,7 @@
 import GUI from "./gui.js";
 import CONFIGURATOR from "./data_storage.js";
-import serial from "./serial.js";
+// import serial from "./serial.js";
+import serial from "./webSerial.js";
 
 const MSP = {
     symbols: {
@@ -66,7 +67,7 @@ const MSP = {
             return;
         }
 
-        const data = new Uint8Array(readInfo.data);
+        const data = new Uint8Array(readInfo.buffer);
 
         for (const chunk of data) {
             switch (this.state) {
@@ -319,7 +320,7 @@ const MSP = {
         bufView[bufferSize - 1] = this.crc8_dvb_s2_data(bufView, 3, bufferSize - 1);
         return bufferOut;
     },
-    send_message: function (code, data, callback_sent, callback_msp, doCallbackOnError) {
+    send_message(code, data, callback_sent, callback_msp, doCallbackOnError) {
         if (CONFIGURATOR.virtualMode) {
             if (callback_msp) {
                 callback_msp();
@@ -327,7 +328,8 @@ const MSP = {
             return false;
         }
 
-        if (code === undefined || !serial.connectionId) {
+        if (code === undefined || !serial.connectionInfo) {
+            console.log(" ERROR: code undefined or no connectionId")
             return false;
         }
 
@@ -352,14 +354,12 @@ const MSP = {
         }
 
         if (!requestExists) {
-            obj.timer = setInterval(function () {
+            obj.timer = setInterval(async function () {
                 console.warn(`MSP: data request timed-out: ${code} ID: ${serial.connectionId} TAB: ${GUI.active_tab} TIMEOUT: ${MSP.timeout} QUEUE: ${MSP.callbacks.length}`);
-                serial.send(bufferOut, function (_sendInfo) {
-                    obj.stop = performance.now();
-                    const executionTime = Math.round(obj.stop - obj.start);
-                    MSP.timeout = Math.max(MSP.MIN_TIMEOUT, Math.min(executionTime, MSP.MAX_TIMEOUT));
-                });
-
+                await serial.send(bufferOut);
+                obj.stop = performance.now();
+                const executionTime = Math.round(obj.stop - obj.start);
+                MSP.timeout = Math.max(MSP.MIN_TIMEOUT, Math.min(executionTime, MSP.MAX_TIMEOUT));
             }, MSP.timeout);
         }
 

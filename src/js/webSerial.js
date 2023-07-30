@@ -18,10 +18,11 @@ class WebSerial extends EventTarget {
     constructor() {
         super();
         this.connected = false;
-        this.connectionId = false;
+        // this.connectionId = false;
         this.openRequested = false;
         this.openCanceled = false;
         this.transmitting = false;
+        this.connectionInfo = null;
 
         this.bitrate = 0;
         this.bytesSent = 0;
@@ -39,10 +40,14 @@ class WebSerial extends EventTarget {
 
     async connect(options) {
         this.openRequested = true;
-        this.port = await navigator.serial.requestPort();
+        this.port = await navigator.serial.requestPort({ filters: [
+            // TODO: what other vendors does betaflight recognize?
+            { usbVendorId: 1155 },
+        ]});
 
         await this.port.open(options);
         const connectionInfo = this.port.getInfo();
+        this.connectionInfo = connectionInfo;
         this.writer = this.port.writable.getWriter();
 
         if (connectionInfo && !this.openCanceled) {
@@ -55,11 +60,11 @@ class WebSerial extends EventTarget {
             this.openRequested = false;
 
             this.addEventListener("receive", (info) => {
-                this.bytesReceived += info.data.byteLength;
+                this.bytesReceived += info.detail.byteLength;
             });
 
             console.log(
-                `${this.logHead} Connection opened with ID: ${connectionInfo.connectionId}, Baud: ${connectionInfo.bitrate}`
+                `${this.logHead} Connection opened with ID: ${connectionInfo.connectionId}, Baud: ${options.baudRate}`
             );
 
             // TODO: this used to have callback, can we use promise?
@@ -67,11 +72,15 @@ class WebSerial extends EventTarget {
             this.dispatchEvent(
                 new CustomEvent("connect", { detail: connectionInfo })
             );
-            // check if this is blocking
+            // Check if we need the helper function or could polyfill
+            // the stream async iterable interface:
+            // https://web.dev/streams/#asynchronous-iteration
+
+            // TODO: check if this is blocking
             for await (let value of streamAsyncIterable(this.port.readable)) {
                 // TODO: this changes the api of the event.
                 this.dispatchEvent(
-                    new CustomEvent("receive", { detail: { data: value } })
+                    new CustomEvent("receive", { detail: value }),
                 );
             }
         } else if (connectionInfo && this.openCanceled) {
@@ -162,4 +171,4 @@ class WebSerial extends EventTarget {
     }
 }
 
-export default WebSerial;
+export default new WebSerial();

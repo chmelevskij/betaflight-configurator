@@ -12,7 +12,8 @@ import PortUsage from "./port_usage";
 import PortHandler from "./port_handler";
 import CONFIGURATOR, { API_VERSION_1_45 } from "./data_storage";
 // import serial from "./serial";
-import { serial } from "./webSerial";
+// import { serial } from "./webSerialLegacy";
+import serial from "./webSerial.js";
 // import MdnsDiscovery from "./mdns_discovery";
 import UI_PHONES from "./phones_ui";
 import { bit_check } from './bit.js';
@@ -94,8 +95,6 @@ export function initializeSerialBackend() {
 
                     const baudRate = parseInt($("div#port-picker #baud").val());
 
-                    let portName;
-
                     if (!clicks) {
                         console.log(`Connecting to: ${portName}`);
                         GUI.connecting_to = portName;
@@ -106,9 +105,12 @@ export function initializeSerialBackend() {
                             i18n.getMessage("connecting"),
                         );
 
-                        serial.connect({ baudRate }, onOpen);
+                        serial.addEventListener('connect', event => {
+                            onOpen(event.detail);
+                            toggleStatus();
+                        });
 
-                        toggleStatus();
+                        serial.connect({ baudRate });
                     } else {
                         await mspHelper.setArmingEnabled(true, false);
                         finishClose(toggleStatus);
@@ -260,7 +262,7 @@ function onOpen(openInfo) {
         result = getConfig('expertMode')?.expertMode ?? false;
         $('input[name="expertModeCheckbox"]').prop('checked', result).trigger('change');
 
-        serial.onReceive.addListener(read_serial);
+        serial.addEventListener('receive', read_serial);
         setConnectionTimeout();
         FC.resetState();
         mspHelper = new MspHelper();
@@ -615,7 +617,7 @@ export function read_serial(info) {
     } else if (CONFIGURATOR.cliEngineActive) {
         TABS.presets.read(info);
     } else {
-        MSP.read(info);
+        MSP.read(new DataView(info.detail.buffer));
     }
 }
 
