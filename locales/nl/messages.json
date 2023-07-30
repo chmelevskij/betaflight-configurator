@@ -77,9 +77,6 @@
     "expertMode": {
         "message": "Schakel expert modus in"
     },
-    "permanentExpertMode": {
-        "message": "Expert modus permanent inschakelen"
-    },
     "rememberLastTab": {
         "message": "Heropen waar je laatst mee bezig was bij verbinding"
     },
@@ -571,9 +568,6 @@
     "defaultContributingHead": {
         "message": "Bijdragen"
     },
-    "defaultContributingText": {
-        "message": "Als u wilt helpen met Betaflight nog beter te maken, kunt u op vele manieren helpen. Bijvoorbeeld:<br /><ul><li>Gebruikt uw kennis van Betaflight om onze wiki aan te vullen <a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki</a>, of beantwoord vragen van andere gebruikers op onze forums;</li><li><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/development/Development.md\" target=\"_blank\" rel=\"noopener noreferrer\">Draag bij aan de code</a> van zowel de firmware als de Configurator;</li><li>Test <a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">nieuwe functies en oplossingen</a> en geef feedback;</li><li>Help andere gebruikers met hun problemen op te lossen die gemeld worden in <a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\">onze issuetracker</a>. Neem deel aan discussies over functieverzoeken;</li><li>Help mee met het <a href=\"https://github.com/betaflight/betaflight/tree/master/README.md#Translators\" target=\"_blank\" rel=\"noopener noreferrer\">vertalen</a> van de Betaflight Configurator, of helpt bij het onderhouden van de bestaande vertalingen.</li></ul>"
-    },
     "defaultFacebookText": {
         "message": "We hebben ook een <a href=\"https://www.facebook.com/groups/betaflightgroup/\" target=\"_blank\" rel=\"noopener noreferrer\">Facebook Groep</a>.<br />Sluit je aan bij ons om een plek te krijgen waar je over Betaflight kunt praten, stel vragen over configuratie of hang rond met je mede piloten."
     },
@@ -608,9 +602,6 @@
     "defaultDocumentation": {
         "message": "Betaflight documentatie is beschikbaar in de release notes en de wiki.<br /><br />"
     },
-    "defaultDocumentation1": {
-        "message": "De Betaflight wiki is een goede bron voor informatie, deze kan <a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">hier worden gevonden</a>."
-    },
     "defaultDocumentation2": {
         "message": "De release opmerkingen voor het besturingssysteem kunnen gelezen worden op de pagina van GitHub, <a href=\"https://github.com/Betaflight/Betaflight/releases\" target=\"_blank\" rel=\"noopener noreferrer\">Link</a>."
     },
@@ -629,14 +620,8 @@
     "defaultSupport1": {
         "message": "<a href=\"http://www.rcgroups.com/forums/showthread.php?t=2464844&page=1\" target=\"_blank\" rel=\"noopener noreferrer\">RC Groups discussie</a>"
     },
-    "defaultSupport2": {
-        "message": "<a href=\"http://betaflight.info\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Wiki</a>"
-    },
     "defaultSupport4": {
         "message": "<a href=\"https://github.com/Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>"
-    },
-    "defaultSupport5": {
-        "message": "<a href=\"https://slack.betaflight.com\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight devs op slack</a>"
     },
     "initialSetupButtonCalibrateAccel": {
         "message": "Kalibreer Versnellingsmeter"
@@ -671,6 +656,12 @@
     "initialSetupButtonResetZaxisValue": {
         "message": "Herstel Z axis, verschil $1 graden"
     },
+    "initialSetupPitch": {
+        "message": "Pitch:"
+    },
+    "initialSetupRoll": {
+        "message": "Roll:"
+    },
     "initialSetupMixerHead": {
         "message": "Mixer Type"
     },
@@ -704,17 +695,8 @@
     "initialSetupAccelTrimsHead": {
         "message": "Versnellingsmeter trims"
     },
-    "initialSetupPitch": {
-        "message": "Pitch:"
-    },
-    "initialSetupRoll": {
-        "message": "Roll:"
-    },
     "initialSetupMagHead": {
         "message": "Magnetometer"
-    },
-    "initialSetupInfoHead": {
-        "message": "Info"
     },
     "initialSetupBattery": {
         "message": "Accuspanning:"
@@ -773,10 +755,6 @@
         "message": "Runway Takeoff preventie is geactiveerd",
         "description": "Message that pops up to describe the RUNAWAY_TAKEOFF arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCRASH": {
-        "message": "Uitgeschakeld via crash detectie",
-        "description": "Message that pops up to describe the CRASH arming disable flag"
-    },
     "initialSetupArmingDisableFlagsTooltipTHROTTLE": {
         "message": "Throttle kanaal is te hoog",
         "description": "Message that pops up to describe the THROTTLE arming disable flag"
@@ -796,10 +774,6 @@
     "initialSetupArmingDisableFlagsTooltipLOAD": {
         "message": "Systeembelasting is te hoog voor een veilige vlucht",
         "description": "Message that pops up to describe the LOAD arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
-        "message": "Sensor kalibratie is nog steeds bezig",
-        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipCLI": {
         "message": "CLI is actief",
@@ -836,22 +810,6 @@
     "initialSetupArmingDisableFlagsTooltipRPMFILTER": {
         "message": "RPM-gebaseerde filtering is ingeschakeld, maar één of meerdere ESC's leveren geen geldige DSHOT telemetry aan. Controleer of de ESC's de vereiste firmware geïnstalleerd hebben om zo bidirectionele DSHOT telemetry te ondersteunen.",
         "description": "Message that pops up to describe the RPMFILTER arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipREBOOT_REQD": {
-        "message": "Een configuratie wijziging vereist een herstart",
-        "description": "Message that pops up to describe the REBOOT_REQD arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipDSHOT_BBANG": {
-        "message": "Bitbanged DSHOT werkt niet correct. De motoren kunnen niet worden gecontroleerd. Waarschijnlijk wordt dit veroorzaakt door een timer conflict van andere functies die zijn ingeschakeld op de vluchtcontroller.",
-        "description": "Message that pops up to describe the DSHOT_BBANG arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipNO_ACC_CAL": {
-        "message": "De versnellingsmeter is niet gekalibreerd. Er zijn functies ingeschakeld die hierop vertrouwen. Kalibreer de versnellingsmeter.",
-        "description": "Message that pops up to describe the NO_ACC_CAL arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTO": {
-        "message": "Er is geen motoruitgangsprotocol geselecteerd",
-        "description": "Message that pops up to describe the MOTOR_PROTO arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipARM_SWITCH": {
         "message": "Een van de andere disarm flags is actief bij arming",
@@ -1229,9 +1187,6 @@
     "configurationLoopTimeHelp": {
         "message": "<strong>Let op:</strong> zorg ervoor dat uw FC met deze snelheden kan werken! Controleer CPU- en cyclustijdstabiliteit. Als u dit wilt wijzigen moet u mogelijk opnieuw PID re-tuning doen. TIP: Schakel de versnellingsmeter en andere sensoren uit om meer prestaties te behalen."
     },
-    "configurationGPS": {
-        "message": "GPS"
-    },
     "configurationGPSProtocol": {
         "message": "Protocol"
     },
@@ -1258,9 +1213,6 @@
     "configurationGPSHomeOnceHelp": {
         "message": "Wanneer ingeschakeld wordt je startpunt (Home point) bepaald bij de eerste keer \"Armen\" na het inpluggen van je batterij. Als dit niet is ingeschakeld wordt je startpunt bij elke keer dat je \"Armt\" opnieuw bepaald.",
         "description": "Help text for the option to set the Home Point with the first arm only, not with each arm in the GPS Configuration"
-    },
-    "configurationGPSHelp": {
-        "message": "<strong>Opmerking:</strong> Vergeet niet om een Serial Port (via het tabblad poorten) te configureren wanneer je de GPS functie gebruikt."
     },
     "configurationSerialRX": {
         "message": "Seriële Ontvanger Provider"
@@ -1732,9 +1684,6 @@
     "receiverButtonBindMessage": {
         "message": "Koppel verzoek verzonden naar de vlucht controller."
     },
-    "receiverButtonSticks": {
-        "message": "Controle sticks"
-    },
     "receiverDataRefreshed": {
         "message": "RC Tuning data <strong>vernieuwd</strong>"
     },
@@ -1771,9 +1720,6 @@
     },
     "auxiliaryButtonSave": {
         "message": "Opslaan"
-    },
-    "auxiliaryEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">opgeslagen</span>"
     },
     "auxiliaryAutoChannelSelect": {
         "message": "AUTO"
@@ -1991,9 +1937,6 @@
     "transponderDataInvalid": {
         "message": "Transponder data is <span class=\"message-negative\">ongeldig</span>"
     },
-    "transponderEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">opgeslagen</span>"
-    },
     "servosFirmwareUpgradeRequired": {
         "message": "Servos vereisen firmware &gt;= 1.10.0. en doel ondersteuning."
     },
@@ -2051,20 +1994,8 @@
     "gps3dFix": {
         "message": "3D Fix:"
     },
-    "gpsFixTrue": {
-        "message": "<span class=\"fixtrue\">Waar</span>"
-    },
-    "gpsFixFalse": {
-        "message": "<span class=\"fixfalse\">Onwaar</span>"
-    },
     "gpsAltitude": {
         "message": "Hoogte:"
-    },
-    "gpsLat": {
-        "message": "Breedtegraad:"
-    },
-    "gpsLon": {
-        "message": "Lengtegraad:"
     },
     "gpsSpeed": {
         "message": "Snelheid:"
@@ -2226,9 +2157,6 @@
     "motorsRemapDialogRiskNotice": {
         "message": "<strong>Veiligheidswaarschuwing</strong><br /><strong class=\"message-negative\">Verwijder alle propellers om letsel te voorkomen!</strong><br />De motoren zullen gaan <strong>draaien!</strong>"
     },
-    "motorsRemapDialogExplanations": {
-        "message": "<strong>Informatiemelding</strong><br />Motoren zullen een voor een gaan draaien en u kunt selecteren welke motor er draait. De batterij moet aangesloten zijn, het juiste ESC-protocol moet geselecteerd zijn. Dit hulpprogramma kan momenteel alleen actieve motoren opnieuw rangschikken. Voor complexere toewijzingen dien je gebruik te maken van het commando Resource in de CLI. Raadpleeg hiervoor deze <a href=\"https://github.com/betaflight/betaflight/wiki/Betaflight-resource-remapping\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki-pagina</a>."
-    },
     "motorsRemapDialogSave": {
         "message": "Opslaan"
     },
@@ -2297,9 +2225,6 @@
     },
     "escDshotDirectionDialog-WrongProtocolText": {
         "message": "Deze functie werkt alleen met DSHOT ESC's.<br />Controleer of uw ESC (elektrische snelheidsregelaar) het DSHOT-protocol ondersteunt en wijzig het zo nodig op het tabblad $t(tabMotorTesting.message)."
-    },
-    "escDshotDirectionDialog-WrongMixerText": {
-        "message": "Het aantal motoren is 0.<br />Controleer de huidige mixer op het tabblad $t(tabMotorTesting.message) of stel een aangepaste mixer in via de CLI. Raadpleeg deze <a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Mixer.md\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki-pagina</a>."
     },
     "escDshotDirectionDialog-WrongFirmwareText": {
         "message": "Update de firmware.<br />Zorg ervoor dat u de nieuwste firmware gebruikt: Betaflight 4.3 of nieuwer."
@@ -2706,9 +2631,6 @@
     "firmwareFlasherRecoveryHead": {
         "message": "<strong>Herstellen / Communicatie verloren</strong>"
     },
-    "firmwareFlasherRecoveryText": {
-        "message": "Als je de communicatie met je board bent verloren, volg dan deze stappen om de communicatie te herstellen: <ul><li>Uitschakelen</li><li> Schakel 'Geen herstartsequentie' in, schakel 'Volledige chip wissen' in.</li><li>Sluit de BOOT-pinnen kort of houd de BOOT-knop ingedrukt.</li><li>Inschakelen (activiteits-LED knippert NIET indien correct gedaan).</li><li>Installeer alle STM32-stuurprogramma's en Zadig indien nodig (zie <a href = \"https://github.com/betaflight/betaflight/wiki/Installing-Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">USB Flashing</a> sectie van de Betaflight-handleiding).</li><li>Sluit de configurator, herstart de Configurator.</li><li>Laat de BOOT-knop los.</li><li>Flash met de juiste firmware (gebruik handmatige baudrate indien dit gespecificeerd in de handleiding van je FC).</li><li>Uitschakelen.</li><li>BOOT-jumper verwijderen.</li><li> Inschakelen (activiteits-LED moet knipperen).</li><li>Maak normaal verbinding.</li></ul>"
-    },
     "firmwareFlasherButtonLeave": {
         "message": "Firmware Flasher verlaten"
     },
@@ -2811,9 +2733,6 @@
     "ledStripClearAllButton": {
         "message": "Wis alles",
         "description": "In the LED STRIP, clear all leds"
-    },
-    "ledStripEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">opgeslagen</span>"
     },
     "ledStripVtxOverlay": {
         "message": "VTX (maakt gebruik van vtx frequentie om kleur toe te kennen)"
@@ -2966,17 +2885,8 @@
         "message": "LED's zonder volgorde nummer worden niet opgeslagen.",
         "description": "Message in the wiring modes in Led Strip"
     },
-    "ledStripVtxFunction": {
-        "message": "Larson scanner"
-    },
-    "ledStripBlinkTitle": {
-        "message": "Knipperen"
-    },
     "ledStripBlinkAlwaysOverlay": {
         "message": "Altijd knipperen"
-    },
-    "ledStripBlinkLandingOverlay": {
-        "message": "Knipperen bij landen"
     },
     "ledStripOverlayTitle": {
         "message": "Overlay"
@@ -3346,9 +3256,6 @@
     },
     "pidTuningIntegratedYaw": {
         "message": "Geïntegreerde Yaw"
-    },
-    "pidTuningIntegratedYawCaution": {
-        "message": "<span class=\"message-negative\">WAARSCHUWING</span>: als je deze functie inschakelt, moet je de YAW PID instellingen aanpassen. Meer informatie <a href=\"https://github.com/betaflight/betaflight/wiki/Integrated-Yaw\" target=\"_blank\" rel=\"noopener noreferrer\">hier</a>"
     },
     "configHelp2": {
         "message": "Willekeurige rotatie van het bord in graden. Hiermee maak je het mogelijk de vluchtcontroller gedraaid, ondersteboven of in een andere dan gebruikelijke positie te monteren. Gebruik bij externe sensoren de sensoruitlijningen (Gyro, Acc, Mag) om de sensorpositie onafhankelijk van de oriëntatie van het bord te definiëren. "
@@ -4353,9 +4260,6 @@
         "message": "Flip na crash pijl",
         "description": "One of the elements of the OSD"
     },
-    "osdDescElementFlipArrow": {
-        "message": "Pijl die laat zien welke kant de motoren hoger liggen in turtle modus"
-    },
     "osdTextElementLinkQuality": {
         "message": "Kwaliteit van de verbinding",
         "description": "One of the elements of the OSD"
@@ -4882,10 +4786,6 @@
     },
     "osdButtonSaved": {
         "message": "Opgeslagen"
-    },
-    "vtxHelp": {
-        "message": "Hier kun u de waarden voor uw video zender (VTX) configureren. U kunt de transmissiewaarden en de VTX-tabellen bekijken maar ook wijzigen als de vluchtcontroller en de VTX dit ondersteunen.<br>Om uw VTX in te stellen volgt u de volgende stappen:<br>1. Ga naar <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight/wiki/VTX-tables\">deze</a> pagina;<br>2. Zoek het juiste VTX-configuratiebestand op voor uw land en uw VTX model en download deze;<br>3. Klik hieronder op '$t(vtxButtonLoadFile.message)', selecteer het VTX configuratiebestand wat u gedownload heeft en laad deze in;<br>4. Controleer of de instellingen correct zijn;<br>5. Klik op ''$t(vtxButtonSave.message)' om de instellingen op te slaan op uw vluchtcontroller.<br>6. Klik optioneel op '$t(vtxButtonSaveLua.message)' om een lua configuratiebestand op te slaan dat u kunt gebruiken met de betaflight lua scripts (Lees meer hierover op <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight-tx-lua-scripts/\">deze link</a>.)",
-        "description": "Introduction message in the VTX tab"
     },
     "vtxMessageNotSupported": {
         "message": "<span class=\"message-negative\">Waarschuwing:</span> Uw VTX is niet geconfigureerd of wordt niet ondersteund. U kunt de VTX-waarden daardoor hier niet wijzigen. Dit is alleen mogelijk als uw vluchtcontroller is aangesloten op uw VTX met behulp van een protocol zoals Tramp of SmartAudio. En deze correct is geconfigureerd in het tabblad $t(tabPorts.message).",

@@ -1,5 +1,5 @@
 import { bit_check, bit_set, bit_clear } from "./bit";
-import { API_VERSION_1_44 } from './data_storage';
+import { API_VERSION_1_44, API_VERSION_1_45 } from './data_storage';
 import semver from "semver";
 import { tracking } from "./Analytics";
 import $ from 'jquery';
@@ -12,20 +12,20 @@ const Features = function (config) {
         {bit: 2, group: 'other', name: 'INFLIGHT_ACC_CAL'},
         {bit: 3, group: 'rxMode', mode: 'select', name: 'RX_SERIAL'},
         {bit: 4, group: 'escMotorStop', name: 'MOTOR_STOP'},
-        {bit: 5, group: 'other', name: 'SERVO_TILT', haveTip: true},
+        {bit: 5, group: 'other', name: 'SERVO_TILT', haveTip: true, dependsOn: 'SERVOS'},
         {bit: 6, group: 'other', name: 'SOFTSERIAL', haveTip: true},
-        {bit: 7, group: 'gps', name: 'GPS', haveTip: true},
-        {bit: 9, group: 'other', name: 'SONAR'},
-        {bit: 10, group: 'telemetry', name: 'TELEMETRY'},
-        {bit: 12, group: '3D', name: '3D'},
+        {bit: 7, group: 'other', name: 'GPS', haveTip: true, dependsOn: 'GPS'},
+        {bit: 9, group: 'other', name: 'SONAR', haveTip: true, dependsOn: 'RANGEFINDER'},
+        {bit: 10, group: 'telemetry', name: 'TELEMETRY', haveTip: true, dependsOn: 'TELEMETRY'},
+        {bit: 12, group: '3D', name: '3D', haveTip: true},
         {bit: 13, group: 'rxMode', mode: 'select', name: 'RX_PARALLEL_PWM'},
         {bit: 14, group: 'rxMode', mode: 'select', name: 'RX_MSP'},
         {bit: 15, group: 'rssi', name: 'RSSI_ADC'},
-        {bit: 16, group: 'other', name: 'LED_STRIP'},
-        {bit: 17, group: 'other', name: 'DISPLAY', haveTip: true},
-        {bit: 18, group: 'other', name: 'OSD'},
-        {bit: 20, group: 'other', name: 'CHANNEL_FORWARDING'},
-        {bit: 21, group: 'other', name: 'TRANSPONDER', haveTip: true},
+        {bit: 16, group: 'other', name: 'LED_STRIP', haveTip: true, dependsOn: 'LED_STRIP'},
+        {bit: 17, group: 'other', name: 'DISPLAY', haveTip: true, dependsOn: 'DASHBOARD'},
+        {bit: 18, group: 'other', name: 'OSD', haveTip: true, dependsOn: 'OSD'},
+        {bit: 20, group: 'other', name: 'CHANNEL_FORWARDING', dependsOn: 'SERVOS'},
+        {bit: 21, group: 'other', name: 'TRANSPONDER', haveTip: true, dependsOn: 'TRANSPONDER'},
         {bit: 22, group: 'other', name: 'AIRMODE'},
         {bit: 25, group: 'rxMode', mode: 'select', name: 'RX_SPI'},
         {bit: 27, group: 'escSensor', name: 'ESC_SENSOR'},
@@ -39,6 +39,19 @@ const Features = function (config) {
     }
 
     self._features = features;
+
+    // Filter features based on build options
+    if (semver.gte(config.apiVersion, API_VERSION_1_45) && config.buildOptions.length) {
+        self._features = [];
+
+        for (const feature of features) {
+            if (config.buildOptions.some(opt => opt.includes(feature.dependsOn)) || feature.dependsOn === undefined) {
+                self._features.push(feature);
+            }
+        }
+    }
+
+    self._features.sort((a, b) => a.name.localeCompare(b.name, window.navigator.language, { ignorePunctuation: true }));
     self._featureMask = 0;
 
     self._analyticsChanges = {};
@@ -97,36 +110,36 @@ Features.prototype.generateElements = function (featuresElements) {
 
     const listElements = [];
 
-    for (let i = 0; i < self._features.length; i++) {
+    for (const feature of self._features) {
         let feature_tip_html = '';
-        const rawFeatureName = self._features[i].name;
-        const featureBit = self._features[i].bit;
+        const featureName = feature.name;
+        const featureBit = feature.bit;
 
-        if (self._features[i].haveTip) {
-            feature_tip_html = `<div class="helpicon cf_tip" i18n_title="feature${rawFeatureName}Tip"></div>`;
+        if (feature.haveTip) {
+            feature_tip_html = `<div class="helpicon cf_tip" i18n_title="feature${featureName}Tip"></div>`;
         }
 
         const newElements = [];
 
-        if (self._features[i].mode === 'select') {
+        if (feature.mode === 'select') {
             if (listElements.length === 0) {
                 newElements.push($('<option class="feature" value="-1" i18n="featureNone" />'));
             }
-            const newElement = $(`<option class="feature" id="feature${i}" name="${rawFeatureName}" value="${featureBit}" i18n="feature${rawFeatureName}" />`);
+            const newElement = $(`<option class="feature" id="feature${featureBit}" name="${featureName}" value="${featureBit}" i18n="feature${featureName}" />`);
 
             newElements.push(newElement);
             listElements.push(newElement);
         } else {
-            let featureName = '';
-            if (!self._features[i].hideName) {
-                featureName = `<td><div>${rawFeatureName}</div></td>`;
+            let newFeatureName = '';
+            if (!feature.hideName) {
+                newFeatureName = `<td><div>${featureName}</div></td>`;
             }
 
-            let element = `<tr><td><input class="feature toggle" id="feature${i}"`;
-            element += `name="${self._features[i].name}" title="${self._features[i].name}"`;
-            element += `type="checkbox"/></td><td><div>${featureName}</div>`;
-            element += `<span class="xs" i18n="feature${self._features[i].name}"></span></td>`;
-            element += `<td><span class="sm-min" i18n="feature${self._features[i].name}"></span>`;
+            let element = `<tr><td><input class="feature toggle" id="feature${featureBit}"`;
+            element += `name="${featureName}" title="${featureName}"`;
+            element += `type="checkbox"/></td><td><div>${newFeatureName}</div>`;
+            element += `<span class="xs" i18n="feature${featureName}"></span></td>`;
+            element += `<td><span class="sm-min" i18n="feature${featureName}"></span>`;
             element += `${feature_tip_html}</td></tr>`;
 
             const newElement = $(element);
@@ -140,7 +153,7 @@ Features.prototype.generateElements = function (featuresElements) {
         }
 
         featuresElements.each(function () {
-            if ($(this).hasClass(self._features[i].group)) {
+            if ($(this).hasClass(feature.group)) {
                 $(this).append(newElements);
             }
         });

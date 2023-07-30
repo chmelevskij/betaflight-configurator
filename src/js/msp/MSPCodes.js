@@ -35,7 +35,7 @@ const MSPCodes = {
     MSP_SET_CF_SERIAL_CONFIG:       55,
     MSP_VOLTAGE_METER_CONFIG:       56,
     MSP_SET_VOLTAGE_METER_CONFIG:   57,
-    MSP_SONAR:                      58,
+    MSP_SONAR:                      58, // notice, in firmware named as MSP_SONAR_ALTITUDE
     MSP_PID_CONTROLLER:             59,
     MSP_SET_PID_CONTROLLER:         60,
     MSP_ARMING_CONFIG:              61,
@@ -202,6 +202,7 @@ const MSPCodes = {
     CRAFT_NAME:                     2,
     PID_PROFILE_NAME:               3,
     RATE_PROFILE_NAME:              4,
+    BUILD_KEY:                      5,
 };
 
 export default MSPCodes;

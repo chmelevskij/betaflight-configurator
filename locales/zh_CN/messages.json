@@ -83,9 +83,6 @@
     "expertMode": {
         "message": "启用专家模式"
     },
-    "permanentExpertMode": {
-        "message": "默认启用专家模式"
-    },
     "warningSettings": {
         "message": "显示警告"
     },
@@ -575,9 +572,6 @@
     "defaultContributingHead": {
         "message": "参与开发"
     },
-    "defaultContributingText": {
-        "message": "如果你想帮助 Betaflight 变得更好，你可以：<br /><ul><li>用您的 Betaflight 知识来为 <a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">我们的wiki</a> 创建或更新内容，或者是在论坛里回答其他用户的问题；</li><li>为固件和配置程序 <a href=\"https://github.com/betaflight/betaflight/blob/master/docs/development/Development.md\" target=\"_blank\" rel=\"noopener noreferrer\">贡献代码</a> - 增加新功能，解决漏洞，改善代码；</li><li>测试 <a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">新功能和修改</a> 并提供测试反馈；</li><li>帮助在 <a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\">问题追踪器</a> 上报告问题的用户解决问题，并参与功能请求的讨论；</li><li><a href=\"https://github.com/betaflight/betaflight/tree/master/README.md#Translators\" target=\"_blank\" rel=\"noopener noreferrer\">为 Betaflight 配置程序添加新语言的翻译</a>，或者帮助维护既有的翻译。</li></ul>"
-    },
     "defaultFacebookText": {
         "message": "我们还有一个 <a href=\"https://www.facebook.com/groups/betaflightgroup/\" target=\"_blank\" rel=\"noopener noreferrer\">Facebook 小组</a>。<br />加入我们来一起讨论 Betaflight，询问配置问题，或者只是和小伙伴们闲聊。"
     },
@@ -615,9 +609,6 @@
     "defaultDocumentation": {
         "message": "Betaflight 的文档和发布说明可以在 wiki 里面找到。<br /><br />"
     },
-    "defaultDocumentation1": {
-        "message": "学习 Betaflight 最好的资源是使用 Betaflight wiki，而不是听信各种“老师”和质量堪忧的“教学”视频，它在 <a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">这里</a> 。"
-    },
     "defaultDocumentation2": {
         "message": "最新发布版本的信息可以在 <a href=\"https://github.com/Betaflight/Betaflight/releases\" target=\"_blank\" rel=\"noopener noreferrer\">这里</a> 找到。"
     },
@@ -636,17 +627,11 @@
     "defaultSupport1": {
         "message": "<a href=\"http://www.rcgroups.com/forums/showthread.php?t=2464844&page=1\" target=\"_blank\" rel=\"noopener noreferrer\">RC Groups thread</a>"
     },
-    "defaultSupport2": {
-        "message": "<a href=\"http://betaflight.info\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Wiki</a>"
-    },
     "defaultSupport3": {
         "message": "<a href=\"https://www.youtube.com/playlist?list=PLwoDb7WF6c8nT4jjsE4VENEmwu9x8zDiE\" target=\"_blank\" rel=\"noopener noreferrer\">Joshua Bardwell Betaflight 4.3 视频</a>"
     },
     "defaultSupport4": {
         "message": "<a href=\"https://github.com/Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>"
-    },
-    "defaultSupport5": {
-        "message": "<a href=\"https://slack.betaflight.com\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight 开发者 Slack</a>"
     },
     "initialSetupButtonCalibrateAccel": {
         "message": "校准加速度计"
@@ -681,6 +666,12 @@
     "initialSetupButtonResetZaxisValue": {
         "message": "重置 Z 轴，补偿: $1 度"
     },
+    "initialSetupPitch": {
+        "message": "俯仰:"
+    },
+    "initialSetupRoll": {
+        "message": "横滚:"
+    },
     "initialSetupMixerHead": {
         "message": "混控类型"
     },
@@ -714,17 +705,8 @@
     "initialSetupAccelTrimsHead": {
         "message": "加速度计微调"
     },
-    "initialSetupPitch": {
-        "message": "俯仰:"
-    },
-    "initialSetupRoll": {
-        "message": "横滚:"
-    },
     "initialSetupMagHead": {
         "message": "磁力计"
-    },
-    "initialSetupInfoHead": {
-        "message": "信息"
     },
     "initialSetupBattery": {
         "message": "电池电压："
@@ -783,10 +765,6 @@
         "message": "已触发预防起飞失控",
         "description": "Message that pops up to describe the RUNAWAY_TAKEOFF arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCRASH": {
-        "message": "检测到坠机事故",
-        "description": "Message that pops up to describe the CRASH arming disable flag"
-    },
     "initialSetupArmingDisableFlagsTooltipTHROTTLE": {
         "message": "油门通道值过高",
         "description": "Message that pops up to describe the THROTTLE arming disable flag"
@@ -806,10 +784,6 @@
     "initialSetupArmingDisableFlagsTooltipLOAD": {
         "message": "系统负载过高, 无法安全飞行",
         "description": "Message that pops up to describe the LOAD arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
-        "message": "传感器校准仍在进行中",
-        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipCLI": {
         "message": "CLI (命令行) 已激活",
@@ -846,22 +820,6 @@
     "initialSetupArmingDisableFlagsTooltipRPMFILTER": {
         "message": "基于转速的滤波器已开启，但一个或多个电调未发送有效的 DSHOT 回传数据。请确认电调支持 DSHOT 回传功能并且已刷入支持双向 DSHOT 回传的固件。",
         "description": "Message that pops up to describe the RPMFILTER arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipREBOOT_REQD": {
-        "message": "配置更改需要重启",
-        "description": "Message that pops up to describe the REBOOT_REQD arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipDSHOT_BBANG": {
-        "message": "Bitbanged Dshot 无法正常工作，无法正常控制电机。可能是由于在飞控上启用了其他功能造成了定时器冲突。",
-        "description": "Message that pops up to describe the DSHOT_BBANG arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipNO_ACC_CAL": {
-        "message": "已启用了使用加速度计的功能，但加速度计未校准。请校准加速度计。",
-        "description": "Message that pops up to describe the NO_ACC_CAL arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTO": {
-        "message": "尚未选择电机输出协议",
-        "description": "Message that pops up to describe the MOTOR_PROTO arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipARM_SWITCH": {
         "message": "解锁时有一个阻止解锁的标志处于活跃状态",
@@ -1275,9 +1233,6 @@
     "configurationLoopTimeHelp": {
         "message": "<strong>注意：</strong>确保你的飞控有能力运行在这些频率上！检查CPU循环时间是否稳定。改变频率可能需要重新调校PID。提示：关闭加速度计和其他传感器可以节省运算资源以获得更高性能。"
     },
-    "configurationGPS": {
-        "message": "GPS"
-    },
     "configurationGPSProtocol": {
         "message": "协议"
     },
@@ -1308,9 +1263,6 @@
     "configurationGPSHomeOnceHelp": {
         "message": "启用后，当接通电池后第一次解锁的地点将被视为返航点。如果未开启，返航点将随每次解锁而更新。",
         "description": "Help text for the option to set the Home Point with the first arm only, not with each arm in the GPS Configuration"
-    },
-    "configurationGPSHelp": {
-        "message": "<strong>注意:</strong>使用 GPS 之前需要先在串口页面设置一个串口。"
     },
     "configurationSerialRX": {
         "message": "串行数字接收机协议"
@@ -1885,9 +1837,6 @@
     "pidTuningSliderModeHelp": {
         "message": "<strong>PID 滑块模式</strong><br><br>PID 滑块模式可以是：<br><br>&bull; 关闭，手动输入值<br>&bull; RP - 滑块仅控制Pitch 和 Roll 轴上的值，并需要手动输入 Yaw 轴的值<br>&bull; RPY - 滑块控制所有 PID 值<br><br><span class=\"message-negative\"><b>警告:</b></span>从 RP 切换到 RPY 模式将会用固件默认设置覆盖 Yaw 轴上的设置。"
     },
-    "receiverHelp": {
-        "message": "&#8226; <b><strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Failsafe.md#testing\" target=\"_blank\" rel=\"noopener noreferrer\">请始终检查您的失控保护能够正常工作！</a></strong></b> 具体设置在 失控保护 选项卡中，需要启用专家模式以查看。<br>&#8226; <b>务必使用最新的 TX 固件！</b><br> &#8226; 如果使用 OpenTX 或 EdgeTX 请务必 <strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Rx.md#disabling-the-opentxedgetx-adc-filter\" target=\"_blank\" rel=\"noopener noreferrer\">关闭硬件 ADC 滤波器</a></strong>。<br>基本设置：正确配置 “接收机” 设置。为您的遥控器选择正确的 “通道映射”。检查 Roll、Pitch 和其他图块是否可以正确移动。将遥控器中的通道端点值或通道范围调整为 ~1000 到 ~2000，并将中点设置为 1500。有关更多信息，请阅读 <strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Rx.md\" target=\"_blank\" rel=\"noopener noreferrer\">文档</a></strong>。"
-    },
     "receiverThrottleMid": {
         "message": "油门中点"
     },
@@ -1966,9 +1915,6 @@
     "receiverButtonBindMessage": {
         "message": "对频请求已发送到飞行控制器。"
     },
-    "receiverButtonSticks": {
-        "message": "控制摇杆"
-    },
     "receiverDataRefreshed": {
         "message": "RC 调整数据 <strong>已刷新</strong>"
     },
@@ -2008,9 +1954,6 @@
     },
     "auxiliaryButtonSave": {
         "message": "保存"
-    },
-    "auxiliaryEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">已保存</span>"
     },
     "auxiliaryAutoChannelSelect": {
         "message": "自动"
@@ -2228,9 +2171,6 @@
     "transponderDataInvalid": {
         "message": "收发器数据<span class=\"message-negative\">无效</span>"
     },
-    "transponderEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">已保存</span>"
-    },
     "servosFirmwareUpgradeRequired": {
         "message": "舵机功能支持要求固件版本大于1.10.0 且飞控支持"
     },
@@ -2288,20 +2228,8 @@
     "gps3dFix": {
         "message": "3D 定位："
     },
-    "gpsFixTrue": {
-        "message": "<span class=\"fixtrue\">定位成功</span>"
-    },
-    "gpsFixFalse": {
-        "message": "<span class=\"fixfalse\">定位失败</span>"
-    },
     "gpsAltitude": {
         "message": "高度："
-    },
-    "gpsLat": {
-        "message": "纬度："
-    },
-    "gpsLon": {
-        "message": "经度："
     },
     "gpsSpeed": {
         "message": "速度："
@@ -2502,9 +2430,6 @@
     "motorsRemapDialogRiskNotice": {
         "message": "<strong>安全提示</strong><br /><strong class=\"message-negative\">请拆除所有螺旋桨以免受伤！</strong><br />电机<strong>将会转动</strong>"
     },
-    "motorsRemapDialogExplanations": {
-        "message": "<strong>重要信息</strong><br /> 电机将开始一个接一个的转动，你可以选择让哪个电机转动。需要接入电池，并确保选择了正确的电调协议。这个工具只能对当前已激活的电机进行排序。更多复杂的重新映射工作请在CLI中使用 resource 命令。详细操作见 <a href=\"https://github.com/betaflight/betaflight/wiki/Betaflight-resource-remapping\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki页</a> 。"
-    },
     "motorsRemapDialogSave": {
         "message": "保存"
     },
@@ -2573,9 +2498,6 @@
     },
     "escDshotDirectionDialog-WrongProtocolText": {
         "message": "该功能只适用于DSHOT电调。<br />验证您的电调是否支持DSHOT 协议，并在 $t(tabMotorTesting.message) 页内更改。"
-    },
-    "escDshotDirectionDialog-WrongMixerText": {
-        "message": "电机数为 0。<br />在 $t(tabMotorTesting.message) 页面内检查当前混控器或通过 CLI 设置一个自定义混控器。参见此 <a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Mixer.md\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki 页面</a>。"
     },
     "escDshotDirectionDialog-WrongFirmwareText": {
         "message": "更新固件。<br /> 请确保您正在使用最新的固件：Betaflight 4.3或更高版本。"
@@ -2985,9 +2907,6 @@
     "firmwareFlasherRecoveryHead": {
         "message": "<strong> 恢复/丢失通信 </strong>"
     },
-    "firmwareFlasherRecoveryText": {
-        "message": "如果飞控板失去通信，你可以按照以下的几个步骤来恢复：<ul><li>关闭电源</li><li>打开'无重启序列'，打开‘擦除整个芯片‘选项。</li><li>短接 BOOT 引脚，或者按住 BOOT 按键。</li><li>上电(如果操作正确，飞控的“活动”灯不会闪烁)。</li><li>如果需要请安装 STM32 驱动和 Zadig (参阅 Betaflight 手册<a href=\"https://github.com/betaflight/betaflight/wiki/Installing-Betaflight\"target=\"_blank\" rel=\"noopener noreferrer\">USB Flashing</a> 部分 ).</li><li>关闭 Befaflight 配置程序，关闭 Chrome 浏览器，关闭所有 Chrome 应用，然后重新启动Betaflight。</li><li>释放 BOOT 按键（如有）。</li><li>烧写正确的固件(参照飞控厂商制定的波特率)。</li><li>断电。</li><li>移除 BOOT 引脚的短接。</li><li>上电(飞控“活动”灯应该会闪烁).</li><li>正常连接。</li></ul>"
-    },
     "firmwareFlasherButtonLeave": {
         "message": "关闭固件烧写"
     },
@@ -3103,9 +3022,6 @@
     "ledStripClearAllButton": {
         "message": "全部清除",
         "description": "In the LED STRIP, clear all leds"
-    },
-    "ledStripEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">已保存</span>"
     },
     "ledStripVtxOverlay": {
         "message": "图传(颜色根据图传频率而变化)"
@@ -3258,17 +3174,8 @@
         "message": "没有布线序号的 LED 不会被保存。",
         "description": "Message in the wiring modes in Led Strip"
     },
-    "ledStripVtxFunction": {
-        "message": "左右扫描"
-    },
-    "ledStripBlinkTitle": {
-        "message": "闪烁"
-    },
     "ledStripBlinkAlwaysOverlay": {
         "message": "持续闪烁"
-    },
-    "ledStripBlinkLandingOverlay": {
-        "message": "着陆时闪烁"
     },
     "ledStripOverlayTitle": {
         "message": "叠加功能"
@@ -3831,9 +3738,6 @@
     "pidTuningVbatSagCompensation": {
         "message": "电池压降补偿"
     },
-    "pidTuningVbatSagCompensationHelp": {
-        "message": "通过增加电机输出来补偿电池电压，使得在可用的电池电压范围内，能够提供一致的油门和PID性能。<br /><br />补偿量可以是0至100%之间任意数值。推荐使用全额补偿（100%）。<br /><br />访问<a href=\"https://github.com/betaflight/betaflight/wiki/4.2-Tuning-Notes#dynamic-battery-sag-compensation\"target=\"_blank\" rel=\"noopener noreferrer\">这个wiki词条</a>以获取更多信息。"
-    },
     "pidTuningVbatSagValue": {
         "message": "%"
     },
@@ -3912,9 +3816,6 @@
     "pidTuningIdleMinRpm": {
         "message": "动态怠速值 [* 100 RPM]"
     },
-    "pidTuningIdleMinRpmHelp": {
-        "message": "动态怠速能够改善低 RPM 下的控制，降低电机失步的风险。<br /><br />它能提高 PID 权重，提高零油门稳定性，延长零油门倒挂滞空时间，增强电机刹车力矩。<br /><br />动态怠速最低 RPM 应设置为 3000 - 3500 RPM。对于4.2，DShot 怠速值应设置得尽量低，如 1%。4.3 中则不需要调整 Dshot 怠速值。<br /><br />请访问 <a href=\"https://github.com/betaflight/betaflight/wiki/Tuning-Dynamic-Idle\"target=\"_blank\" rel=\"noopener noreferrer\">此 wiki 词条</a> 以获取更多信息。"
-    },
     "pidTuningIdleMinRpmDisabled": {
         "message": "由于Dshot 回传已关闭，动态怠速已关闭"
     },
@@ -3926,9 +3827,6 @@
     },
     "pidTuningIntegratedYaw": {
         "message": "整合式偏航"
-    },
-    "pidTuningIntegratedYawCaution": {
-        "message": "<span class=\"message-negative\">注意</span>: 如果你启用此功能，则必须相应地调整偏航PID。更多信息在<a href=\"https://github.com/betaflight/betaflight/wiki/Integrated-Yaw\" target=\"_blank\" rel=\"noopener noreferrer\">此处</a>"
     },
     "pidTuningIntegratedYawHelp": {
         "message": "整合式偏航将对 Yaw 轴的 P, I, D 值进行积分，以允许您像调整 Pitch 和 Roll 轴的 PID 一样调整 Yaw 轴 PID。<br><br>几乎不需要 I，因为积分后的 P 行为与 I 类似，积分后的 D 行为与 P 类似。<br><br>注意：因为整合式偏航中并不包含 I，故其需要启用绝对控制。"
@@ -4945,9 +4843,6 @@
         "message": "反乌龟箭头",
         "description": "One of the elements of the OSD"
     },
-    "osdDescElementFlipArrow": {
-        "message": "在反乌龟模式中，箭头指示哪边的电机朝上"
-    },
     "osdTextElementLinkQuality": {
         "message": "连接质量",
         "description": "One of the elements of the OSD"
@@ -5474,10 +5369,6 @@
     },
     "osdButtonSaved": {
         "message": "已保存"
-    },
-    "vtxHelp": {
-        "message": "这里可以定义图传用到的值。如果你的图传支持，你可以查看和修改发送功率和图传表。<br>按以下步骤设置你的图传：<br>1. 打开<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight/wiki/VTX-tables\">这个</a>页面；<br>2. 找到并下载适合你的图传型号和所在地区的图传配置文件；<br>3. 点击下方'$t(vtxButtonLoadFile.message)'，选择并加载图传配置文件；<br>4. 确认设置正确；<br>5. 点击'$t(vtxButtonSave.message)'保存图传设置到飞控。<br>6. （可选）点击'$t(vtxButtonSaveLua.message)'保存 Lua 配置文件供 Betaflight Lua 脚本使用。（在<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight-tx-lua-scripts/\">这里</a>查看更多。）",
-        "description": "Introduction message in the VTX tab"
     },
     "vtxMessageNotSupported": {
         "message": "<span class=\"message-negative\">注意:</span>您的图传未配置或不支持。所以您不能在此修改图传值。只有当图传使用Tramp或SmartAudio等协议，连接到飞行控制器，并在$t(tabPorts.message)页面中正确配置后，才可以使用。",

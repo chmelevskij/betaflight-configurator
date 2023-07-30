@@ -2,7 +2,6 @@ import { i18n } from "../localization";
 import GUI, { TABS } from '../gui';
 import { get as getConfig, set as setConfig } from '../ConfigStorage';
 import { tracking } from "../Analytics";
-import { reinitializeConnection } from "../serial_backend";
 import { bit_check } from "../bit";
 import { mspHelper } from "../msp/MSPHelper";
 import FC from "../fc";
@@ -520,16 +519,7 @@ receiver.initialize = function (callback) {
             }
 
             function save_to_eeprom() {
-                MSP.send_message(MSPCodes.MSP_EEPROM_WRITE, false, false, reboot);
-            }
-
-            function reboot() {
-                gui_log(i18n.getMessage('configurationEepromSaved'));
-                if (boot) {
-                    GUI.tab_switch_cleanup(function() {
-                        MSP.send_message(MSPCodes.MSP_SET_REBOOT, false, false, reinitializeConnection);
-                    });
-                }
+                mspHelper.writeConfiguration(boot);
             }
 
             tracking.sendSaveAndChangeEvents(tracking.EVENT_CATEGORIES.FLIGHT_CONTROLLER, tab.analyticsChanges, 'receiver');
@@ -849,11 +839,6 @@ receiver.initialize = function (callback) {
 
         // TODO: Combine two polls together
         GUI.interval_add('receiver_pull_for_model_preview', tab.getReceiverData, 33, false);
-
-        // status data pulled via separate timer with static speed
-        GUI.interval_add('status_pull', function status_pull() {
-            MSP.send_message(MSPCodes.MSP_STATUS);
-        }, 250, true);
 
         GUI.content_ready(callback);
     }

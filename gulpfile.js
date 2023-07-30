@@ -46,7 +46,7 @@ const NODE_ENV = process.env.NODE_ENV || 'production';
 const NAME_REGEX = /-/g;
 
 const nwBuilderOptions = {
-    version: '0.67.1',
+    version: '0.77.0',
     files: `${DIST_DIR}**/*`,
     macIcns: './src/images/bf_icon.icns',
     macPlist: { 'CFBundleDisplayName': 'Betaflight Configurator'},
@@ -404,6 +404,7 @@ function dist_rollup() {
                 'js/main_cordova': 'src/js/main_cordova.js',
                 'js/utils/common': 'src/js/utils/common.js',
                 'js/main': 'src/js/main.js',
+                'js/tabs/receiver_msp': 'src/js/tabs/receiver_msp.js',
             },
             plugins: [
                 alias({

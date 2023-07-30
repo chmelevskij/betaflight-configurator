@@ -11,7 +11,6 @@ export default class BuildApi {
     }
 
     load(url, onSuccess, onFailure) {
-
         const dataTag = `${url}_Data`;
         const cacheLastUpdateTag = `${url}_LastUpdate`;
 
@@ -50,25 +49,21 @@ export default class BuildApi {
     }
 
     loadTargets(callback) {
-
         const url = `${this._url}/api/targets`;
         this.load(url, callback);
     }
 
     loadTargetReleases(target, callback) {
-
         const url = `${this._url}/api/targets/${target}`;
         this.load(url, callback);
     }
 
     loadTarget(target, release, onSuccess, onFailure) {
-
         const url = `${this._url}/api/builds/${release}/${target}`;
         this.load(url, onSuccess, onFailure);
     }
 
     loadTargetHex(path, onSuccess, onFailure) {
-
         const url = `${this._url}${path}`;
         $.get(url, function (data) {
             gui_log(i18n.getMessage('buildServerSuccess', [path]));
@@ -82,7 +77,6 @@ export default class BuildApi {
     }
 
     getSupportCommands(onSuccess, onFailure) {
-
         const url = `${this._url}/api/support/commands`;
         $.get(url, function (data) {
             onSuccess(data);
@@ -95,7 +89,6 @@ export default class BuildApi {
     }
 
     submitSupportData(data, onSuccess, onFailure) {
-
         const url = `${this._url}/api/support`;
         $.ajax({
             url: url,
@@ -116,7 +109,6 @@ export default class BuildApi {
     }
 
     requestBuild(request, onSuccess, onFailure) {
-
         const url = `${this._url}/api/builds`;
         $.ajax({
             url: url,
@@ -137,7 +129,6 @@ export default class BuildApi {
     }
 
     requestBuildStatus(key, onSuccess, onFailure) {
-
         const url = `${this._url}/api/builds/${key}/status`;
         $.get(url, function (data) {
             gui_log(i18n.getMessage('buildServerSuccess', [url]));
@@ -150,15 +141,39 @@ export default class BuildApi {
         });
     }
 
-    loadOptions(onSuccess, onFailure) {
+    requestBuildOptions(key, onSuccess, onFailure) {
+        const url = `${this._url}/api/builds/${key}/json`;
+        $.get(url, function (data) {
+            onSuccess(data);
+        }).fail(xhr => {
+            if (onFailure !== undefined) {
+                onFailure();
+            }
+        });
+    }
 
-        const url = `${this._url}/api/options`;
+    loadOptions(release, onSuccess, onFailure) {
+        const url = `${this._url}/api/options/${release}`;
+        this.load(url, onSuccess, onFailure);
+    }
+
+    loadOptionsByBuildKey(release, key, onSuccess, onFailure) {
+        const url = `${this._url}/api/options/${release}/${key}`;
         this.load(url, onSuccess, onFailure);
     }
 
     loadCommits(release, onSuccess, onFailure) {
-
         const url = `${this._url}/api/releases/${release}/commits`;
+        this.load(url, onSuccess, onFailure);
+    }
+
+    loadConfiguratorRelease(type, onSuccess, onFailure) {
+        const url = `${this._url}/api/configurator/releases/${type}`;
+        this.load(url, onSuccess, onFailure);
+    }
+
+    loadSponsorTile(onSuccess, onFailure) {
+        const url = `${this._url}/api/configurator/sponsors`;
         this.load(url, onSuccess, onFailure);
     }
 }

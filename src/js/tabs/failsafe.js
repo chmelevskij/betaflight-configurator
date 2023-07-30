@@ -1,13 +1,11 @@
 import { i18n } from "../localization";
 import GUI, { TABS } from '../gui';
-import { reinitializeConnection } from "../serial_backend";
 import { mspHelper } from "../msp/MSPHelper";
 import MSP from "../msp";
 import FC from "../fc";
 import MSPCodes from "../msp/MSPCodes";
 import adjustBoxNameIfPeripheralWithModeID from "../peripherals";
 import { API_VERSION_1_43, API_VERSION_1_44, API_VERSION_1_45 } from "../data_storage";
-import { gui_log } from "../gui_log";
 import semver from 'semver';
 import $ from 'jquery';
 
@@ -365,19 +363,7 @@ failsafe.initialize = function (callback) {
             }
 
             function save_gps_rescue() {
-                MSP.send_message(MSPCodes.MSP_SET_GPS_RESCUE, mspHelper.crunch(MSPCodes.MSP_SET_GPS_RESCUE), false, save_to_eeprom);
-            }
-
-            function save_to_eeprom() {
-                MSP.send_message(MSPCodes.MSP_EEPROM_WRITE, false, false, reboot);
-            }
-
-            function reboot() {
-                gui_log(i18n.getMessage('configurationEepromSaved'));
-
-                GUI.tab_switch_cleanup(function() {
-                    MSP.send_message(MSPCodes.MSP_SET_REBOOT, false, false, reinitializeConnection);
-                });
+                MSP.send_message(MSPCodes.MSP_SET_GPS_RESCUE, mspHelper.crunch(MSPCodes.MSP_SET_GPS_RESCUE), false, mspHelper.writeConfiguration(true));
             }
 
             MSP.send_message(MSPCodes.MSP_SET_RX_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_RX_CONFIG), false, save_failssafe_config);
@@ -385,11 +371,6 @@ failsafe.initialize = function (callback) {
 
         // translate to user-selected language
         i18n.localizePage();
-
-        // status data pulled via separate timer with static speed
-        GUI.interval_add('status_pull', function status_pull() {
-            MSP.send_message(MSPCodes.MSP_STATUS);
-        }, 250, true);
 
         GUI.content_ready(callback);
     }

@@ -78,19 +78,16 @@
         "message": "Indsend"
     },
     "autoConnectEnabled": {
-        "message": "Autotilslut: Aktiveret - Opsæt automatiske tilslutningsforsøg, når ny port registreres"
+        "message": "Autotilslut er aktiv - tilslutning forsøges automatisk, når ny port registreres"
     },
     "autoConnectDisabled": {
         "message": "Autotilslut er slået fra - Du skal selv vælge den korrekte serielle port og klikke på knappen \"Tilslut\""
     },
     "expertMode": {
-        "message": "Aktiver eksperttilstand"
+        "message": "Aktiver ekspert tilstand"
     },
     "expertModeDescription": {
-        "message": "Vis udviklings releases som muligvis ikke er fejlfri"
-    },
-    "permanentExpertMode": {
-        "message": "Aktivér Eksperttilstand permanent"
+        "message": "Vis valg for ekspert tilstand"
     },
     "warningSettings": {
         "message": "Vis advarsler"
@@ -108,6 +105,10 @@
     "showAllSerialDevices": {
         "message": "Vis alle serielle enheder (for producenter eller ved udvikling)",
         "description": "Do not filter serial devices using VID/PID values (for manufacturers or development)"
+    },
+    "useMdnsBrowser": {
+        "message": "Brug mDNS Browser Device opdagelse på netværk (eksperimentel)",
+        "description": "Enable mDNS Browser Device discovery in PortHandler (experimental)"
     },
     "showVirtualMode": {
         "message": "Aktiver virtuel forbindelse",
@@ -396,7 +397,7 @@
         "message": "Adresseindlæsning til valg bytes-sektor mislykkedes med ukendt fejl. Afbryder."
     },
     "stm32NotReadProtected": {
-        "message": "Læsebeskyttelse inaktiv"
+        "message": "Skrivebeskyttelse slået fra"
     },
     "stm32ReadProtected": {
         "message": "Board synes læsbeskyttet. Afbeskytter. Afbryd ikke/fjern ikke stikket!"
@@ -466,11 +467,17 @@
     "buildServerSupportRequestSubmission": {
         "message": "<br>*** Logoplysninger sendt *** <br>Id: $1<br><br><br># medsend kopi af ID ved henvendelser til Betaflight team."
     },
+    "buildKey": {
+        "message": "Build ID: <strong>$1</strong>"
+    },
     "supportWarningDialogTitle": {
         "message": "Bekræft indsendelse af log oplysninger"
     },
     "supportWarningDialogText": {
         "message": "Bekræft venligst indsendelse af logoplysninger til Betaflight-teamet.<br><br>Denne proces vil køre nogle kommandoer og indsende data til release server.<br><br>Du vil derefter få en entydig identifikator på din indsendelse af data.<br><br>Angiv denne entydige identifikator til Betaflight-teamet, når du bruger Discord eller åbner problemer på Github."
+    },
+    "supportWarningDialogInputPlaceHolder": {
+        "message": "Beskriv problem"
     },
     "releaseCheckLoaded": {
         "message": "Indlæst udgivelsesinformation for $1 fra GitHub."
@@ -521,7 +528,7 @@
         "message": "Board: <strong>$1</strong>, version: <strong>$2</strong>"
     },
     "buildInfoReceived": {
-        "message": "Kørende firmware udgivet: <strong>$1</strong>"
+        "message": "Anvendt firmware release: <strong>$1</strong>"
     },
     "fcInfoReceived": {
         "message": "Flight controller (FC) info, identifikator: <strong>$1</strong>, version: <strong>$2</strong>"
@@ -558,7 +565,7 @@
         "description": "Packet error text shown in the status bar"
     },
     "statusbar_i2c_error": {
-        "message": "I2C-fejl:",
+        "message": "I2C fejl:",
         "description": "CPU load text shown in the status bar"
     },
     "statusbar_cycle_time": {
@@ -600,7 +607,7 @@
         "message": "Bidrag"
     },
     "defaultContributingText": {
-        "message": "Hvis du gerne vil hjælpe med at gøre Betaflight endnu bedre, kan du hjælpe på mange måder, herunder:<br /><ul><li>ved at bruge din viden om Betaflight til at oprette eller opdatere indhold på <a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">vores Wiki</a>, eller ved at besvare andre brugeres spørgsmål i onlinefora</li><li><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/development/Development.md\" target=\"_blank\" rel=\"noopener noreferrer\">bidrage med kode</a> til firmware og Configurator - nye funktioner, rettelser, forbedringer,</li><li>test af <a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">nye funktioner og rettelser</a> og give feedback;</li><li>hjælper andre brugere med at løse de problemer, de rapporterer i <a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\">vores issue tracker</a>, deltagelse i diskussioner om ønsker til rettelser og forbedringer</li><li><a href=\"https://github.com/betaflight/betaflight/tree/master/README.md#Translators\" target=\"_blank\" rel=\"noopener noreferrer\">oversætte</a> Betaflight Configurator til et nyt sprog eller hjælpe med at vedligeholde eksisterende oversættelser.</li></ul>"
+        "message": "Hvis du gerne vil hjælpe med at gøre Betaflight endnu bedre, kan du hjælpe på mange måder, herunder:<br /><ul><li>ved at bruge din viden om Betaflight til at oprette eller opdatere indhold på <a href=\"https://betaflight.com/docs/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">vores Wiki</a>, eller ved at besvare andre brugeres spørgsmål i onlinefora</li><li><a href=\"https://betaflight.com/docs/development\" target=\"_blank\" rel=\"noopener noreferrer\">bidrage med kode</a> til firmware og Configurator - nye funktioner, rettelser, forbedringer,</li><li>test af <a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">nye funktioner og rettelser</a> og give feedback;</li><li>hjælper andre brugere med at løse de problemer, de rapporterer i <a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\">vores issue tracker</a>, deltagelse i diskussioner om ønsker til rettelser og forbedringer</li><li><a href=\"https://github.com/betaflight/betaflight/tree/master/README.md#Translators\" target=\"_blank\" rel=\"noopener noreferrer\">oversætte</a> Betaflight Configurator til et nyt sprog eller hjælpe med at vedligeholde eksisterende oversættelser.</li></ul>"
     },
     "defaultFacebookText": {
         "message": "Vi har også en <a href=\"https://www.facebook.com/groups/betaflightgroup/\" target=\"_blank\" rel=\"noopener noreferrer\">Facebook-gruppe</a>.<br />Meld dig ind i gruppen vedrørende Betaflight, for at stille spørgsmål om opsætning eller blot hænge ud med andre piloter."
@@ -618,7 +625,7 @@
         "message": "Brænd firmware"
     },
     "defaultDonateHead": {
-        "message": "Open Source/Donations meddelelse"
+        "message": "Vedrørende Open Source og støtte med donation"
     },
     "defaultDonateText": {
         "message": "<p><strong>Betaflight</strong> er <strong>open source</strong> programmel til opsætning af flight controller (FC) som er tilgængelig uden beregning, for alle brugere, men også <strong>uden garanti</strong>.</p><p>Hvis du fandt Betaflight eller Betaflight-Configurator nyttig, så overvej venligst at <strong>støtte</strong> udviklingen ved en donation.</p>"
@@ -643,7 +650,7 @@
         "message": "Betaflight dokumentation er tilgængelig i release notes og wiki.<br /><br />"
     },
     "defaultDocumentation1": {
-        "message": "Betaflight wiki er en god informationskilde og kan findes <a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">hér</a>."
+        "message": "Betaflight wiki er en god informationskilde og kan findes <a href=\"https://betaflight.com/docs/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">her</a>."
     },
     "defaultDocumentation2": {
         "message": "Releasenotes til firmware kan læses på GitHub under Releases <a href=\"https://github.com/Betaflight/Betaflight/releases\" target=\"_blank\" rel=\"noopener noreferrer\">hér</a>."
@@ -664,7 +671,7 @@
         "message": "<a href=\"http://www.rcgroups.com/forums/showthread.php?t=2464844&page=1\" target=\"_blank\" rel=\"noopener noreferrer\">RC-gruppe debatter</a>"
     },
     "defaultSupport2": {
-        "message": "<a href=\"http://betaflight.info\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Wiki</a>"
+        "message": "<a href=\"https://betaflight.com/docs/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Wiki</a>"
     },
     "defaultSupport3": {
         "message": "<a href=\"https://www.youtube.com/playlist?list=PLwoDb7WF6c8nT4jjsE4VENEmwu9x8zDiE\" target=\"_blank\" rel=\"noopener noreferrer\">Joshua Bardwell Betaflight videoer</a>"
@@ -673,7 +680,7 @@
         "message": "<a href=\"https://github.com/Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>"
     },
     "defaultSupport5": {
-        "message": "<a href=\"https://slack.betaflight.com\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight udvikling på slack</a>"
+        "message": "<a href=\"https://discord.betaflight.com/invite\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight discord</a>"
     },
     "initialSetupButtonCalibrateAccel": {
         "message": "Kalibrering af Accelerometer"
@@ -682,10 +689,10 @@
         "message": "Anbring FC/drone på en <strong>plan og ret</strong> overflade, fortsæt kalibreringen, tjek at overfladen/FC/dronen ikke bevæges under kalibreringen"
     },
     "initialSetupButtonCalibrateMag": {
-        "message": "Kalibrering af Magnetometer (kompas)"
+        "message": "Kalibrering af Magnetometer / kompas"
     },
     "initialSetupCalibrateMagText": {
-        "message": "Bevæg indenfor 30 sek. multirotoren mindst <strong>360</strong> grader i alle dens rotationsakser"
+        "message": "Bevæg indenfor 30 sek. dronen <strong>360</strong> grader i alle dens rotationsakser"
     },
     "initialSetupButtonCalibratingText": {
         "message": "Kalibrerér..."
@@ -726,6 +733,16 @@
     "initialSetupButtonResetZaxisValue": {
         "message": "Nulstil Z-akse, forskydn.: $1 gr"
     },
+    "initialSetupHeading": {
+        "message": "Kurs:",
+        "description": "Heading shown on Setup tab"
+    },
+    "initialSetupPitch": {
+        "message": "Højderor:"
+    },
+    "initialSetupRoll": {
+        "message": "Krængror:"
+    },
     "initialSetupMixerHead": {
         "message": "Mixertype"
     },
@@ -759,17 +776,15 @@
     "initialSetupAccelTrimsHead": {
         "message": "Accelerometer trim"
     },
-    "initialSetupPitch": {
-        "message": "Højderor:"
-    },
-    "initialSetupRoll": {
-        "message": "Krængror:"
-    },
     "initialSetupMagHead": {
         "message": "Magnetometer"
     },
     "initialSetupInfoHead": {
-        "message": "Info"
+        "message": "System info"
+    },
+    "initialSetupInfoHeadHelp": {
+        "message": "Viser FC flag som betyder deaktivering. Også batteri information, RSSI niveau og Sensor hardware",
+        "description": "Message that pops up to describe the System info section"
     },
     "initialSetupBattery": {
         "message": "Batteri spænding:"
@@ -789,8 +804,14 @@
     "initialSetupBatteryAValue": {
         "message": "$1 A"
     },
+    "initialSetupCpuTemp": {
+        "message": "CPU temperatur:"
+    },
     "initialSetupRSSI": {
         "message": "RSSI:"
+    },
+    "initialSetupSensorHardware": {
+        "message": "Sensorer:"
     },
     "initialSetupRSSIValue": {
         "message": "$1 %"
@@ -828,9 +849,13 @@
         "message": "Runway Takeoff-beskyttelse er blevet udløst",
         "description": "Message that pops up to describe the RUNAWAY_TAKEOFF arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCRASH": {
-        "message": "Deaktiveret via havaridetektering",
-        "description": "Message that pops up to describe the CRASH arming disable flag"
+    "initialSetupArmingDisableFlagsTooltipCRASH_DETECTED": {
+        "message": "Nedstyrtet drone er aktiv",
+        "description": "Message that pops up to describe the CRASH_DETECTED arming disable flag"
+    },
+    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
+        "message": "Dronen kalibrerer sig i øjeblikket",
+        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipTHROTTLE": {
         "message": "Gas kanalværdi er for høj",
@@ -852,9 +877,9 @@
         "message": "Systembelastning for høj til sikker flyvning",
         "description": "Message that pops up to describe the LOAD arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
-        "message": "Sensorkalibrering er stadig i gang",
-        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
+    "initialSetupArmingDisableFlagsTooltipACC_CALIBRATION": {
+        "message": "Accelerometerkalibrering er stadig i gang",
+        "description": "Message that pops up to describe the ACC_CALIBRATION arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipCLI": {
         "message": "CLI er aktiv",
@@ -892,19 +917,19 @@
         "message": "RPM eller omdrejnings-baseret filtrering er aktiv, men èn eller flere esc'ere sender ikke gyldige DShot telemetri data. Tjek at esc'erne har den nødvendige firmware for at kunne køre to-vejs DShot telemetri.",
         "description": "Message that pops up to describe the RPMFILTER arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipREBOOT_REQD": {
+    "initialSetupArmingDisableFlagsTooltipREBOOT_REQUIRED": {
         "message": "Ændringer i opsætning kræver en genstart",
         "description": "Message that pops up to describe the REBOOT_REQD arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipDSHOT_BBANG": {
-        "message": "Bitbanged / kommunikation med DSHOT fungerer ikke korrekt og motorerne kan ikke kontrolleres. Sandsynligvis forårsaget af en timer konflikt med andre funktioner aktiveret på FC.",
+    "initialSetupArmingDisableFlagsTooltipDSHOT_BITBANG": {
+        "message": "Motor protokol (DSHOT) melder fejl, fungerer ikke korrekt og motorere er ikke i kontrol. Sandsynligvis på grund af en timer konflikt med andre funktioner aktiveret i FC.",
         "description": "Message that pops up to describe the DSHOT_BBANG arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipNO_ACC_CAL": {
-        "message": "Accelerometeret er ikke kalibreret og der er ændret opsætninger som kræver kalibriering. Kalibrer accelerometret.",
+    "initialSetupArmingDisableFlagsTooltipNO_ACC_CALIBRATION": {
+        "message": "Accelerometeret er ikke kalibreret og funktioner er ændret, der er afhængige af det. Kalibrer accelerometret.",
         "description": "Message that pops up to describe the NO_ACC_CAL arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTO": {
+    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTOCOL": {
         "message": "Der er ikke valgt en protokol til motor kontrol",
         "description": "Message that pops up to describe the MOTOR_PROTO arming disable flag"
     },
@@ -915,8 +940,63 @@
     "initialSetupGPSHead": {
         "message": "GPS"
     },
+    "initialSetupGPSHeadHelp": {
+        "message": "Viser GPS information, hvis indstillet i Porte, Opsætning og GPS fane",
+        "description": "Message that pops up to describe the GPS section"
+    },
+    "initialSetupSonarHead": {
+        "message": "Sonar"
+    },
+    "initialSetupSonarHeadHelp": {
+        "message": "Viser information fra Sonar, hvis den er indstillet rigtigt på fanen Opsætning ",
+        "description": "Message that pops up to describe the Sonar section"
+    },
+    "initialSetupAltitudeSonar": {
+        "message": "Højde"
+    },
     "initialSetupInstrumentsHead": {
         "message": "Instrumenter"
+    },
+    "initialSetupInstrumentsHeadHelp": {
+        "message": "Viser kurs, stigning og krængning",
+        "description": "Message that pops up to describe the Instruments section"
+    },
+    "initialSetupInfoAPIversion": {
+        "message": "MSP API:"
+    },
+    "initialSetupInfoBuild": {
+        "message": "Firmware info"
+    },
+    "initialSetupInfoBuildHelp": {
+        "message": "Viser oplysninger om release. Release Konfiguration og release Log peger til links i skyen via Release ID",
+        "description": "Message that pops up to describe the Build / Firmware section"
+    },
+    "initialSetupInfoBuildDate": {
+        "message": "Release dato:"
+    },
+    "initialSetupInfoBuildInfo": {
+        "message": "Release info:"
+    },
+    "initialSetupInfoBuildInfoKey": {
+        "message": "Release ID"
+    },
+    "initialSetupInfoBuildInfoConfig": {
+        "message": "Konfiguration"
+    },
+    "initialSetupInfoBuildInfoLog": {
+        "message": "Log"
+    },
+    "initialSetupInfoBuildOptions": {
+        "message": "Release valg:"
+    },
+    "initialSetupInfoBuildOptionsList": {
+        "message": "Defines for release"
+    },
+    "initialSetupInfoBuildOptionsEmpty": {
+        "message": "Lokal release - ingen Defines anvendt"
+    },
+    "initialSetupNotOnline": {
+        "message": "Serveren kan ikke kontaktes"
     },
     "initialSetupButtonSave": {
         "message": "Gem"
@@ -955,7 +1035,7 @@
         "message": "Nivellieringskalibrering under flyvning"
     },
     "featureRX_SERIAL": {
-        "message": "Seriel (via UART)"
+        "message": "Seriel (UART styring)"
     },
     "featureMOTOR_STOP": {
         "message": "Rotér ikke motorerer, når aktiveret"
@@ -979,25 +1059,37 @@
         "message": "Her tilvælges GPS til navigation, men du skal først konfigurere en port til GPS i fanen Porte, før aktiveringen kan gemmes."
     },
     "featureSONAR": {
-        "message": "Sonar"
+        "message": "Sonar afstandsmåler"
+    },
+    "featureSONARTip": {
+        "message": "Aktiver Sonar afstandsbestemmer for at måle afstand til overfladen i cm"
     },
     "featureTELEMETRY": {
         "message": "Telemetri protokol"
     },
+    "featureTELEMETRYTip": {
+        "message": "Aktiver for at sende telemetri data til radio sender"
+    },
     "feature3D": {
         "message": "3D-tilstand (til brug med vendbare ESC'er)"
+    },
+    "feature3DTip": {
+        "message": "Aktiver 3D tilstand til brug med reversible ESC, indstilles på fanen Motorer"
     },
     "featureRX_PARALLEL_PWM": {
         "message": "PWM RX-input (en ledning pr. kanal)"
     },
     "featureRX_MSP": {
-        "message": "MSP RX-input (styring via MSP-port)"
+        "message": "MSP RX-input (MSP styring)"
     },
     "featureRSSI_ADC": {
         "message": "Analog RSSI-input"
     },
     "featureLED_STRIP": {
         "message": "Flerfarvet RGB LED-strimmel understøttelse"
+    },
+    "featureLED_STRIPTip": {
+        "message": "Aktiver flerfavet LED strimmel, indstil på fanen LED-strimmel"
     },
     "featureDISPLAY": {
         "message": "OLED-skærmvisning"
@@ -1006,7 +1098,10 @@
         "message": "Er denne funktion aktiveret, og er ingen visningsenhed tilsluttet (eller er visningsenheden ikke tændt), vil der være en forsinkelse på ca. 10 sek. ved genstart af FC."
     },
     "featureOSD": {
-        "message": "On Screen-visning"
+        "message": "On Screen Display (OSD)"
+    },
+    "featureOSDTip": {
+        "message": "Aktiver OSD, indstil på fanen OSD"
     },
     "featureCHANNEL_FORWARDING": {
         "message": "Videresend aux-kanaler til servoudgange"
@@ -1060,7 +1155,7 @@
         "message": "Telemetri"
     },
     "configurationTelemetryHelp": {
-        "message": "Telemetri output sendes fra modtager"
+        "message": "Telemetri data transmitteres til sender"
     },
     "configurationRSSI": {
         "message": "RSSI (signalstyrke)"
@@ -1072,7 +1167,7 @@
         "message": "ESC-/Motorfunktioner"
     },
     "configurationFeaturesHelp": {
-        "message": "<strong>Bemærk:</strong> Ikke alle kombinationer af funktioner fungerer. Opdager FC firmwaren modstridende kombinationer, deaktiveres de     uden videre.<br /><strong>Bemærk:</strong> Opsæt seriel porte <span class=\"message-negative\">inden</span> aktivering af funktioner, som skal benytter portene."
+        "message": "<strong>Bemærk:</strong> Ikke alle kombinationer af funktioner fungerer. Opdager FC firmwaren modstridende kombinationer, deaktiveres de uden videre.<br /><strong>Bemærk:</strong> Opsæt porte og andet <span class=\"message-negative\">inden</span> aktivering af funktioner , på fanen Porte."
     },
     "configurationSerialRXHelp": {
         "message": "&#8226; UART til modtageren skal indstilles til ‘Serial Rx’ (i fanen <i>Porte</i>)<br>&#8226; Vælg den korrekte leverandør protokol i rullemenu"
@@ -1123,7 +1218,7 @@
         "message": "ACCEL-justering"
     },
     "configurationSensorAlignmentMag": {
-        "message": "Magnetometer (kompas) justering"
+        "message": "Justering af Magnetometer / kompas"
     },
     "configurationSensorAlignmentDefaultOption": {
         "message": "Standard"
@@ -1270,7 +1365,7 @@
         "message": "Bip ved fuldført Blackbox-sletning"
     },
     "beeperCRASH_FLIP": {
-        "message": "Bip, når crash flip-tistand er aktiv"
+        "message": "Bip, når \"Vend styrtet drone\" er aktiv"
     },
     "beeperCAM_CONNECTION_OPEN": {
         "message": "Bip, når 5-tasts kamerakontrol tilgås"
@@ -1318,16 +1413,20 @@
         "description": "Value for some options that show the speed of gyro, pid, etc. in kHz"
     },
     "configurationLoopTimeHelp": {
-        "message": "<strong>Benærk:</strong> Tjek, at din FC er i stand til at fungere ved disse frekvenser! Tjek CPU- og klokfrekvensstabilitet. Ændring af dette kan kræve PID-genindstilling. TIP: Deaktivér accelerometer og evt. andre sensorer for højere CPU ydeevne."
+        "message": "<strong>Bemærk:</strong> Tjek, at din FC er i stand til at fungere ved disse frekvenser! Tjek CPU- og klokfrekvensstabilitet. Ændring kan betyde PID-genindstilling. <br>TIP: Deaktivér accelerometer og evt. andre sensorer for højere CPU ydeevne."
     },
     "configurationGPS": {
-        "message": "GPS"
+        "message": "GPS konfiguration"
+    },
+    "configurationGPSHelp": {
+        "message": "Indstilling af GPS protokol (husk at indstille port i Porte menu), brug auto baud (eller indstil hastighed i Porte menu) og andre muligheder.",
+        "description": "Help text GPS configuration"
     },
     "configurationGPSProtocol": {
         "message": "Protokol"
     },
     "configurationGPSBaudrate": {
-        "message": "Baud-hastighed"
+        "message": "Baud hastighed"
     },
     "configurationGPSubxSbas": {
         "message": "Type af jordbaserede referencestationer"
@@ -1347,21 +1446,18 @@
         "description": "Help text for the option to use Galileo in the GPS configuration"
     },
     "configurationGPSHomeOnce": {
-        "message": "Sæt hjempunkt 1. gang",
+        "message": "Sæt Hjem position når strøm tilsluttes",
         "description": "Option to set the Home Point with the first arm only, not with each arm in the GPS Configuration"
     },
     "configurationGPSHomeOnceHelp": {
-        "message": "Når valgt, vil kun den første aktivering efter batteriet er tilsluttet blive brugt som startpunkt. Hvis det ikke er aktiveret, opdateres hjempunkt, hver gang fartøj aktiveres.",
+        "message": "Når valgt, vil kun den første aktivering efter batteriet er tilsluttet blive brugt som Hjem position. Hvis indstilling ikke er valgt, opdateres Hjem position, hver gang fartøj aktiveres.",
         "description": "Help text for the option to set the Home Point with the first arm only, not with each arm in the GPS Configuration"
     },
-    "configurationGPSHelp": {
-        "message": "<strong>Bemærk:</strong> Husk først at konfiguere sensor-input (via fanen Porte) for at bruge GPS-funktion."
-    },
     "configurationSerialRX": {
-        "message": "Leverandør protokol til seriel modtagelse"
+        "message": "Leverandør af seriel protokol"
     },
     "configurationSpiRX": {
-        "message": "SPI-busmodtagerleverandør"
+        "message": "Leverandør af SPI modtager bus"
     },
     "configurationEepromSaved": {
         "message": "Konfiguration  <span class=\"message-positive\">gemt</span> i EEPROM"
@@ -1388,7 +1484,7 @@
         "message": "Sensor input protokol"
     },
     "portsTelemetryOut": {
-        "message": "Telemetri output protokol"
+        "message": "Telemetri protokol"
     },
     "portsPeripherals": {
         "message": "Tilbehør"
@@ -1475,7 +1571,7 @@
         "message": "PID profil $1"
     },
     "pidTuningRateProfileOption": {
-        "message": "Rate profil $1"
+        "message": "Hastighed profil $1"
     },
     "portsFunction_LIDAR_TF": {
         "message": "Benewake LIDAR"
@@ -1487,7 +1583,7 @@
         "message": "PID profiler"
     },
     "pidTuningSubTabRates": {
-        "message": "Rate profiler"
+        "message": "Hastighed profiler"
     },
     "pidTuningSubTabFilter": {
         "message": "Filter indstillinger"
@@ -1499,10 +1595,10 @@
         "message": "Beskrivelse af PID profil, som kan angive hvad profilen er beregnet til, fx let/tungere batteri, actionkamera/intet actionkamera, højere højde osv."
     },
     "rateProfileName": {
-        "message": "Rate profil beskrivelse"
+        "message": "Hastighed profil beskrivelse"
     },
     "rateProfileNameHelp": {
-        "message": "Beskrivelse af Rate profil, som kan angive hvad profilen er beregnet til, fx Filme, Ræs, etc"
+        "message": "Beskrivelse af hastighed profil, som kan angive hvad profilen er beregnet til, fx Filme, Ræs, etc"
     },
     "pidTuningShowAllPids": {
         "message": "Vis alle PID profiler"
@@ -1760,7 +1856,7 @@
         "message": "Feedforward boost tilføjer ekstra skub i respons på pind acceleration eller deceleration.<br><br>Dette minimerer gyro strøj, der er forårsaget af motor acceleration forsinkelse, og reducerer overskridelsen, når pindene decelererer ved at trække tilbage hårdt på motorerne.<br><br>Standard boost virker for de fleste opsætninger. Race piloter kan foretrække at øge det en lille smule. Boost kan finjusteres med omhyggelig log analyse."
     },
     "pidTuningFeedforwardMaxRateLimit": {
-        "message": "Maksimal grænse for Rate"
+        "message": "Maksimal grænse for hastighed"
     },
     "pidTuningFeedforwardMaxRateLimitHelp": {
         "message": "Sænker hastighed fremad, efterhånden som pindene bevæger sig mod maksimal position, for at minimere overskydning ved starten af en flip- eller krænging.<br><br>Gør intet i slutningen af et flip eller krænging. \nLavere værdier får dæmpning til at begynde tidligere.<br><br>Normalt kræver denne værdi ikke ændring. Den højeste værdi, der er i overensstemmelse med acceptabel overskridelse ved starten af krængning eller flips, er bedst."
@@ -1807,19 +1903,19 @@
         "description": "Feedforward Term helpicon message on PID table titlebar"
     },
     "pidTuningMaxRateWarning": {
-        "message": "<span class=\"message-negative\"><b>Advarsel:</b></span> meget høje rater kan resultere i desynk fra hurtige decelerationer."
+        "message": "<span class=\"message-negative\"><b>Advarsel:</b></span> meget høje hastigheder kan resultere i desynk ved hurtige deaccelerationer."
     },
     "pidTuningRcRate": {
-        "message": "RC rate"
+        "message": "RC hastighed"
     },
     "pidTuningMaxVel": {
         "message": "Maks hastighed [grad/s]"
     },
     "pidTuningRate": {
-        "message": "Rate"
+        "message": "Hastighed"
     },
     "pidTuningSuperRate": {
-        "message": "Super Rate"
+        "message": "Super hastighed"
     },
     "pidTuningRatesPreview": {
         "message": "Forhåndsvisning bevægelse"
@@ -1900,13 +1996,13 @@
         "message": "Kopier PID profil"
     },
     "pidTuningCopyRateProfile": {
-        "message": "Kopier Rate profil"
+        "message": "Kopier hastigheds profil"
     },
     "dialogCopyProfileText": {
         "message": "Kopiér værdier fra aktuel profil til"
     },
     "dialogCopyRateProfileText": {
-        "message": "Kopiér værdier fra aktuel rate-profil til"
+        "message": "Kopier aktuel hastigheds profil til"
     },
     "dialogCopyProfileTitle": {
         "message": "Kopier profil"
@@ -1930,13 +2026,13 @@
         "message": "Opsat PID profil: <strong class=\"message-positive\">$1</strong>"
     },
     "pidTuningReceivedRateProfile": {
-        "message": "Opsat Rate profil: <strong class=\"message-positive\">$1</strong>"
+        "message": "Opsat hastigheds profil: <strong class=\"message-positive\">$1</strong>"
     },
     "pidTuningLoadedProfile": {
         "message": "Indlæst PID profil: <strong class=\"message-positive\">$1</strong>"
     },
     "pidTuningLoadedRateProfile": {
-        "message": "Indlæst Rate profil: <strong class=\"message-positive\">$1</strong>"
+        "message": "Indlæst hastigheds profil: <strong class=\"message-positive\">$1</strong>"
     },
     "pidTuningDataRefreshed": {
         "message": "PID-data <strong>opfrisket</strong>"
@@ -1962,7 +2058,7 @@
         "message": "<strong>Pid Tuning Slider tilstand</strong><br><br>Pidtuning slider mode kan være:<br><br>&bull; FRA - ingen skydere, indtast værdier manuelt<br>&bull; RP - skydere kontrol Roll og Pitch kun, indtast sideror værdier manuelt<br>&bull; RPY - skydere styrer alle PID værdier<br><br><span class=\"message-negative\"><b>Advarsel:</b></span>At gå fra RP til RPY tilstand vil overskrive sideror indstillinger med firmware indstillinger."
     },
     "receiverHelp": {
-        "message": "&#8226;  <b><strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Failsafe.md#testing\" target=\"_blank\" rel=\"noopener noreferrer\">Kontrollér altid, at din Fejlsikring fungerer korrekt!</a></strong></b> Indstillingerne på fanen Fejlsikring kræver Configuration er i Eksperttilstand.<br> &#8226; <b>Brug den seneste Tx firmware!</b><br> &#8226; <strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Rx.md#disabling-the-opentxedgetx-adc-filter\" target=\"_blank\" rel=\"noopener noreferrer\">Deaktivér hardware-ADC-filteret</a></strong> i senderen, hvis du bruger OpenTx eller EdgeTx.<br>Grundlæggende opsætning: Indstil indstillingerne 'Modtager' korrekt. Vælg det korrekte 'Kanalkort' for din radio. Kontroller at krængror, højderor og andre søjlegrafer bevæger sig korrekt. Justér kanalens endepunkt eller intervalværdier i senderen til ~1000 til ~2000, og sæt midtpunktet til 1500. <br>For mere information, læs <strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Rx.md\" target=\"_blank\" rel=\"noopener noreferrer\">dokumentationen</a></strong>."
+        "message": "&#8226;  <b><strong><a href=\"https://betaflight.com/docs/development/Failsafe#testing-failsafe\" target=\"_blank\" rel=\"noopener noreferrer\">Kontroller altid, at din konfiguration af fejlsikring fungerer korrekt !</a></strong></b> Indstillingerne på fanen Fejlsikring kræver Configurator er i Eksperttilstand.<br> &#8226; <b>Brug den seneste firmware i din sender / transmitter  !</b>&nbsp<strong><a href=\"https://betaflight.com/docs/development/Rx#disabling-the-opentxedgetx-adc-filter\" target=\"_blank\" rel=\"noopener noreferrer\">Deaktiver altid ADC filter</a></strong> i senderen, hvis du bruger fx OpenTx eller EdgeTx.<br>Grundlæggende opsætning: Indstil indstillingerne 'Modtager' korrekt. Vælg det korrekte 'Kanalkort' for din radio. Kontroller at krængror, højderor, gas, sideror og andre søjlegrafer bevæger sig korrekt. Justér kanalens endepunkt eller intervalværdier i senderen til ~1000 til ~2000, og sæt midtpunktet til 1500. <br>For mere information, læs <strong><a href=\"https://betaflight.com/docs/Rx\" target=\"_blank\" rel=\"noopener noreferrer\">dokumentationen</a></strong>."
     },
     "receiverThrottleMid": {
         "message": "Gas MID"
@@ -2022,7 +2118,7 @@
         "message": "Deaktiveret"
     },
     "receiverRefreshRateTitle": {
-        "message": "Grafopfriskningrate"
+        "message": "Graf opfriskning frekvens"
     },
     "receiverResetRefreshRate": {
         "message": "Nulstil"
@@ -2046,7 +2142,8 @@
         "message": "Forbind fase"
     },
     "receiverButtonSticks": {
-        "message": "Styrpinde"
+        "message": "Radio emulering",
+        "description": "Button that opens a window with a radio emulator on the receiver tab. Actually only enabled for MSP protocol"
     },
     "receiverDataRefreshed": {
         "message": "RC tuningdata <strong>opfrisket</strong>"
@@ -2064,7 +2161,7 @@
         "message": "Aktivér kontroller"
     },
     "auxiliaryHelp": {
-        "message": "Opsæt kanal tilstande her vha. en kombination af kanal tilknytninger og/eller kanalområder (kanal områder understøttes fra BF 4.0). Benyt <strong>kanal</strong> til at definere kanaler og tilhørende kanal områder. En modtagerkanal med en udlæsning mellem et min/maks område, aktiverer tilstanden. Benyt et <strong>område</strong> for at aktivere en tilstand, når et andet område er aktiveret. <strong>Undtagelser:</strong> Aktiver(ARM) kan ikke linkes til eller fra en anden tilstand, tilstande kan ikke linkes til andre tilstande, som er opsat med et link (kædede links). Flere områder/links kan benyttes til at aktivere enhver tilstand. Er derdefineret mere end ét område/link for en tilstand, kan hver af dem opsættes til <strong>AND</strong> eller <strong>OR</strong>. En tilstand aktiveres, når: <br />- ALLE <strong>AND</strong> områder/links er aktive; ELLER<br /> - mindst ét <strong>OR</strong> område/link er aktivt.<br /> <br />Husk at gemme dine indstillinger med knappen Gem."
+        "message": "Opsæt kanal tilstande her vha. en kombination af kanal tilknytninger og/eller kanalområder (kanal områder understøttes fra BF 4.0). Benyt <strong>Tilknyt kanal</strong> til at definere kanaler og tilhørende kanal områder. En modtagerkanal med signal mellem et min/maks område, aktiverer tilstanden. Benyt et <strong>område</strong> for at aktivere en tilstand, når et andet område er aktiveret. <strong>Undtagelser:</strong> Aktiver(ARM) kan ikke tilknyttes til eller fra en anden tilstand, tilstande kan ikke tilknyttes til andre tilstande, som er opsat med en tilknytning (kædede tilknytninger). Flere områder/tilknytninger kan benyttes til at aktivere enhver tilstand.<br>Er der defineret mere end ét område/tilknytning for en tilstand, kan hver af dem opsættes til <strong>OG</strong> eller <strong>ELLER</strong>. En tilstand aktiveres, når: <br />- ALLE <strong>OG</strong> områder/tilknytninger er aktive; <br /> - ELLER mindst ét <strong>ELLER</strong> område/tilknytning er aktivt.<br /> <br />Husk at gemme dine indstillinger med knappen Gem."
     },
     "auxiliaryToggleUnused": {
         "message": "Skjul ubrugte kanal tilstande"
@@ -2088,9 +2185,6 @@
     "auxiliaryButtonSave": {
         "message": "Gem"
     },
-    "auxiliaryEepromSaved": {
-        "message": "Konfiguration  <span class=\"message-positive\">gemt</span> i EEPROM"
-    },
     "auxiliaryAutoChannelSelect": {
         "message": "AUTO"
     },
@@ -2099,6 +2193,146 @@
     },
     "auxiliaryModeLogicAND": {
         "message": "OG"
+    },
+    "auxiliaryHelpMode_ARM": {
+        "message": "Aktiver / deaktiver drone",
+        "description": "Help text to ARM mode"
+    },
+    "auxiliaryHelpMode_ANGLE": {
+        "message": "I denne auto-nivelleret tilstand styrer krængror og højderor vinklen mellem den relevante akse og den lodrette akse, for at udjævne flyning ved blot at lade pindende være centreret",
+        "description": "Help text to ANGLE mode"
+    },
+    "auxiliaryHelpMode_HORIZON": {
+        "message": "Denne hybrid tilstand fungerer præcis som ANGLE tilstand med centreret krængror og højderor pind (dermed muliggør auto-nivelleret flyvning).<br>Når pind flyttes væk fra center position, går styring mere og mere mod ACRO tilstand",
+        "description": "Help text to HORIZON mode"
+    },
+    "auxiliaryHelpMode_MAG": {
+        "message": "Lås kurs i kompas retning",
+        "description": "Help text to MAG mode"
+    },
+    "auxiliaryHelpMode_HEADFREE": {
+        "message": "I denne tilstand pegerkursen for dronen altid i samme retning som da funktionen blev aktiveret. Det betyder, at når dronen roterer rundt om Z-aksen (sideror), vil kontrollerne altid reagere mod samme kurs.<br>Med denne tilstand er det nemmere at styre dronen, fx kan du flyve med kursen mod dig, da kontrollerne altid reagerer omgående. Dette er en venlig tilstand til nye brugere af droner og kan forhindre du mister kontrollen, hvis du ikke kender dronens kurs",
+        "description": "Help text to HEADFREE mode"
+    },
+    "auxiliaryHelpMode_PASSTHRU": {
+        "message": "Gennemstiller krængeror, sideror og højderor fra radio sender direkte til servo",
+        "description": "Help text to PASSTHRU mode"
+    },
+    "auxiliaryHelpMode_FAILSAFE": {
+        "message": "Aktiver mauelt fejlsikring trin 2",
+        "description": "Help text to FAILSAFE mode"
+    },
+    "auxiliaryHelpMode_GPSRESCUE": {
+        "message": "Aktiver 'GPS redning' for at returnere fartøjet til det sted, hvor det sidst var aktiveret (Home)",
+        "description": "Help text to GPS RESCUE mode"
+    },
+    "auxiliaryHelpMode_HEADADJ": {
+        "message": "Kurs korrektion - indstiller ny sideror værdi for HEADFREE tilstand",
+        "description": "Help text to HEAD ADJ mode"
+    },
+    "auxiliaryHelpMode_BEEPER": {
+        "message": "Aktiver bippen - nyttigt til at lokalisere en styrtet drone",
+        "description": "Help text to BEEPER mode"
+    },
+    "auxiliaryHelpMode_LEDLOW": {
+        "message": "Tænd eller sluk for LED lys",
+        "description": "Help text to LEDLOW mode"
+    },
+    "auxiliaryHelpMode_OSDDISABLE": {
+        "message": "Aktiver/deaktiver On-Screen-Display - OSD",
+        "description": "Help text to OSD mode"
+    },
+    "auxiliaryHelpMode_TELEMETRY": {
+        "message": "Aktiver telemetri via kontakt",
+        "description": "Help text to TELEMETRY mode"
+    },
+    "auxiliaryHelpMode_BLACKBOX": {
+        "message": "Aktiver Blackbox logning",
+        "description": "Help text to BLACKBOX mode"
+    },
+    "auxiliaryHelpMode_BLACKBOXERASE": {
+        "message": "Slet BlackBox log",
+        "description": "Help text to BLACKBOX ERASE mode"
+    },
+    "auxiliaryHelpMode_AIRMODE": {
+        "message": "I standard mixer tilstand, når krængror, højderor og sideror beregnes og styrer en motor, vil alle motorer blive ændret ens. Når en motor går under minimum, bliver styring reduceret. Fx hvis du har din gas lige over minimum og forsøger en hurtig krængning - da to motorer ikke kan gå under minimum, vil du hovedsagelig kun få halvdelen af kraften (halvdelen af din PID værdi). Hvis dit input ville have bedt om mere end 100% forskel mellem de høje og lave motores hastighed ville de de langsomm motorer blive reduceret og symmetrien i motorens balance vil blive brudt",
+        "description": "Help text to AIRMODE mode"
+    },
+    "auxiliaryHelpMode_FPVANGLEMIX": {
+        "message": "Styrer sideror bevægelse i forhold til et FPV-kamera monteret i en forud indstillet vinkel",
+        "description": "Help text to FPV ANGLE MIX mode"
+    },
+    "auxiliaryHelpMode_CAMERACONTROL1": {
+        "message": "Brug til at skifte leverandør bestemte CAMERA CONTROL 1. Se i leverandørs manual",
+        "description": "Help text to customized CAMERA CONTROL 1 mode"
+    },
+    "auxiliaryHelpMode_CAMERACONTROL2": {
+        "message": "Brug til at skifte leverandør bestemte CAMERA CONTROL 2. Se i leverandørs manual",
+        "description": "Help text to customized CAMERA CONTROL 2 mode"
+    },
+    "auxiliaryHelpMode_CAMERACONTROL3": {
+        "message": "Brug til at skifte leverandør bestemte CAMERA CONTROL 3. Se i leverandørs manual",
+        "description": "Help text to customized CAMERA CONTROL 3 mode"
+    },
+    "auxiliaryHelpMode_USER1": {
+        "message": "Brug til at skifte brugerdefineret USER1. Se i leverandør manual",
+        "description": "Help text to customized USER1 mode"
+    },
+    "auxiliaryHelpMode_USER2": {
+        "message": "Brug til at skifte brugerdefineret USER2. Se i leverandør manual",
+        "description": "Help text to customized USER2 mode"
+    },
+    "auxiliaryHelpMode_USER3": {
+        "message": "Brug til at skifte brugerdefineret USER3. Se i leverandør manual",
+        "description": "Help text to customized USER3 mode"
+    },
+    "auxiliaryHelpMode_USER4": {
+        "message": "Brug til at skifte brugerdefineret USER4. Se i leverandør manual",
+        "description": "Help text to customized USER4 mode"
+    },
+    "auxiliaryHelpMode_FLIPOVERAFTERCRASH": {
+        "message": "Vender motor retning for at vende en styrtet drone (kun ved DShot protokol)",
+        "description": "Help text to FLIP OVER AFTER CRASH mode"
+    },
+    "auxiliaryHelpMode_PREARM": {
+        "message": "Ved aktivering, skal denne kontakt også aktiveres, før dronen reelt er klar til flyvning = helt aktiveret",
+        "description": "Help text to PREARM mode"
+    },
+    "auxiliaryHelpMode_GPSBEEPSATELLITECOUNT": {
+        "message": "Fortæl med antal bip, hvormange GPS satellitter som er fundet",
+        "description": "Help text to GPS BEEP SATELLITE COUNT mode"
+    },
+    "auxiliaryHelpMode_VTXPITMODE": {
+        "message": "Skift VTX til pit mode (lav udgangseffekt), skal være understøttet af VTX",
+        "description": "Help text to VTX PIT MODE mode"
+    },
+    "auxiliaryHelpMode_PARALYZE": {
+        "message": "Deaktiver permanent en styrtet drone. For at aktivere skal strøm slukkes helt",
+        "description": "Help text to PARALYZE mode"
+    },
+    "auxiliaryHelpMode_ACROTRAINER": {
+        "message": "Aktiver ACRO træner vinkelbegrænsning i ACRO tilstand",
+        "description": "Help text to ACRO TRAINER mode"
+    },
+    "auxiliaryHelpMode_VTXCONTROLDISABLE": {
+        "message": "Deaktiver kontrol af VTX indstillinger via OSD",
+        "description": "Help text to VTX CONTROL DISABLE mode"
+    },
+    "auxiliaryHelpMode_LAUNCHCONTROL": {
+        "message": "Ræs assistance system",
+        "description": "Help text to LAUNCH CONTROL mode"
+    },
+    "auxiliaryHelpMode_STICKCOMMANDSDISABLE": {
+        "message": "Deaktiver/aktiver pind kommandoer",
+        "description": "Help text to STICK COMMANDS DISABLE mode"
+    },
+    "auxiliaryHelpMode_BEEPERMUTE": {
+        "message": "Deaktiver / aktiver bippen, heruder advarsler, status og anden bippen.",
+        "description": "Help text to BEEPERMUTE mode"
+    },
+    "auxiliaryHelpMode_READY": {
+        "message": "Tilføjet i BF4.4, så du kan vise 'KLAR' i OSD ved hjælp af en kontakt. Dette er en forbedring til ræs, hvor alle piloters video vises på en central skærm. Piloten kan vippe en kontakt for at indikere, at han er klar til at flyve, og ordet READY vises på deres OSD. Løbsinstruktøren kan derefter se om alle piloter er klar, ved at se på den centrale skærm. Ved aktivering forsvinder READY teksten",
+        "description": "Help text to READY mode"
     },
     "adjustmentsHelp": {
         "message": "Opsætning af kanal justeringer. Se 'in-flight adjustments' delen af manualen for detaljer. Ændringer gemmes Ikke automatisk."
@@ -2188,7 +2422,7 @@
         "message": "Sideror D justering"
     },
     "adjustmentsFunction12": {
-        "message": "Profilvalg Rate"
+        "message": "Profilvalg hastighed"
     },
     "adjustmentsFunction13": {
         "message": "Højderor hastighed"
@@ -2313,9 +2547,6 @@
     "transponderDataInvalid": {
         "message": "Transponderdata er <span class=\"message-negative\">ugyldig</span>"
     },
-    "transponderEepromSaved": {
-        "message": "Konfiguration  <span class=\"message-positive\">gemt</span> i EEPROM"
-    },
     "servosFirmwareUpgradeRequired": {
         "message": "Servoer kræver firmware version &gt;= 1.10.0 og understøttelse af FC"
     },
@@ -2341,7 +2572,7 @@
         "message": "Vinkel ved maks"
     },
     "servosDirectionAndRate": {
-        "message": "Retning og rate"
+        "message": "Retning og hastighed"
     },
     "servosLiveMode": {
         "message": "Aktivér Live-tilstand"
@@ -2361,8 +2592,16 @@
     "gpsHead": {
         "message": "GPS status"
     },
+    "gpsHeadHelp": {
+        "message": "Angiver forskellig GPS information. Kurs vises kun hvis kompas anvendes.",
+        "description": "Help text for gpsHead"
+    },
     "gpsMapHead": {
         "message": "Aktuel GPS position"
+    },
+    "gpsMapHeadHelp": {
+        "message": "Angiver GPS prosition på kortet, rul med muse hjul for at zoome ind/ud eller tryk på +/-.<br>Positions ikon viser retning for Nord, når kompas er i anvendelse.",
+        "description": "Help text for gpsHeadMap"
     },
     "gpsMapMessage1": {
         "message": "Tjek Internetforbindelsen"
@@ -2374,19 +2613,20 @@
         "message": "3D-fiksering:"
     },
     "gpsFixTrue": {
-        "message": "<span class=\"text\">Sand</span>"
+        "message": "Sand"
     },
     "gpsFixFalse": {
-        "message": "<span class=\"text\">Falsk</span>"
+        "message": "Falsk"
+    },
+    "gpsPositionUnit": {
+        "message": "grad",
+        "description": "Unit for GPS position."
     },
     "gpsAltitude": {
         "message": "Højde:"
     },
-    "gpsLat": {
-        "message": "Breddegrad:"
-    },
-    "gpsLon": {
-        "message": "Længdegrad:"
+    "gpsHeading": {
+        "message": "Kurs:"
     },
     "gpsSpeed": {
         "message": "Hastighed:"
@@ -2395,10 +2635,14 @@
         "message": "Antal satelitter:"
     },
     "gpsDistToHome": {
-        "message": "Afstand til Hjem:"
+        "message": "Hjem afstand:"
     },
     "gpsSignalStrHead": {
         "message": "GPS signalstyrke"
+    },
+    "gpsSignalStrHeadHelp": {
+        "message": "Angiver signal styrke, kvalitet og status for hver opdaget GPS station.",
+        "description": "Help text for gpsSignalStrHead"
     },
     "gpsSignalStr": {
         "message": "Signalstyrke"
@@ -2534,15 +2778,15 @@
         "description": "Help text for the telemetry values in the motors tab."
     },
     "motorsRPM": {
-        "message": "R: {{motorsRpmValue}}",
+        "message": "Rpm: {{motorsRpmValue}}",
         "description": "To put under the motors in the motors tab. KEEP IT SHORT or not translate. Keep the letters as prefix. Shows the RPM of the motor if telemetry is available."
     },
     "motorsRPMError": {
-        "message": "F: {{motorsErrorValue}}%",
+        "message": "Fejl: {{motorsErrorValue}}%",
         "description": "To put under the motors in the motors tab. KEEP IT SHORT or not translate. Shows the error of motor telemetry if available."
     },
     "motorsESCTemperature": {
-        "message": "T: {{motorsESCTempValue}}&deg;C",
+        "message": "Temp: {{motorsESCTempValue}}&deg;C",
         "description": "To put under the motors in the motors tab. KEEP IT SHORT or not translate. Shows the ESC temperature if available."
     },
     "motorsMaster": {
@@ -2588,7 +2832,7 @@
         "message": "<strong>Sikkerheds meddelelse</strong><br /><strong class=\"message-negative\">Fjern alle propeller for at forhindre skader !</strong><br />Motorerne vil <strong>rotere !</strong>"
     },
     "motorsRemapDialogExplanations": {
-        "message": "<strong>Bemærk</strong><br />Motorer vil rotere en efter en, og du vil være i stand til at vælge hvilken motor der skal rotere. Batteriet skal tilsluttes, den korrekte ESC-protokol skal vælges. Dette værktøj kan kun omarrangere motorer som er opdaget af FC . Mere komplekse ommapping kræver CLI Resource kommandoen. Se denne <a href=\"https://github.com/betaflight/betaflight/wiki/Betaflight-resource-remapping\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki side</a>."
+        "message": "<strong>Bemærk</strong><br />Motorer vil rotere en efter en, og du vil være i stand til at vælge hvilken motor der skal rotere. Batteriet skal tilsluttes, den korrekte ESC-protokol skal vælges. Dette værktøj kan kun omarrangere motorer som er opdaget af FC . Mere komplekse ommapping kan ske med CLI 'resource' kommando. Se denne <a href=\"https://betaflight.com/docs/wiki/archive/Resource-remapping\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki side</a>."
     },
     "motorsRemapDialogSave": {
         "message": "Gem"
@@ -2660,7 +2904,7 @@
         "message": "Funktionen fungerer kun med DSHOT ESC'er.<br />Kontroller, at din ESC understøtter Dshot protokol og sæt protokol på fanen $t(tabMotorTesting.message)."
     },
     "escDshotDirectionDialog-WrongMixerText": {
-        "message": "Antallet af motorer er 0.<br />Kontroller den aktuelle Mix på fanen $t(tabMotorTesting.message), eller brug et tilpasset Mix via CLI. Se denne <a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Mixer.md\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki side</a>."
+        "message": "Antallet af motorer er 0.<br />Kontroller den aktuelle Mix på fanen $t(tabMotorTesting.message), eller brug et tilpasset mix via CLI. Se denne <a href=\"https://betaflight.com/docs/development/Mixer\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki side</a>."
     },
     "escDshotDirectionDialog-WrongFirmwareText": {
         "message": "Opdater firmwaren.<br /> Sørg for at du bruger den seneste firmware: Betaflight 4.3 eller nyere."
@@ -2735,7 +2979,7 @@
         "message": "Vent venligst mens der opbygges autoudfyld cache..."
     },
     "cliEnter": {
-        "message": "CLI tilstand opdaget"
+        "message": "CLI tilstand !"
     },
     "cliReboot": {
         "message": "CLI genstart registreret"
@@ -2775,6 +3019,9 @@
     },
     "loggingLogSize": {
         "message": "Logstørrelse:"
+    },
+    "loggingLogName": {
+        "message": "Log navn:"
     },
     "loggingButtonLogFile": {
         "message": "Vælg logfil"
@@ -2828,7 +3075,7 @@
         "message": "Du kan logge til en ekstern logningsenhed (såsom OpenLager) ved at bruge en seriel port. Indstil seriel port på fanen Porte."
     },
     "sdcardNote": {
-        "message": "Flyvelog kan optages vha. din indbyggede flash i FC eller dit SD kort."
+        "message": "Flyvelog kan optages og gemmes på indsat SD kort eller i FC flash."
     },
     "dataflashUsedSpace": {
         "message": "Anvendt plads"
@@ -2843,7 +3090,7 @@
         "message": "Ledig plads til logfiler"
     },
     "dataflashNote": {
-        "message": "Flyvelog kan optages vha. din indbyggede flash i FC eller dit SD kort."
+        "message": "Flyvelog kan optages og gemmes på indsat SD kort eller i FC flash."
     },
     "dataflashNotPresentNote": {
         "message": "Din FC har ingen tilgængelig kompatibel dataflash chip."
@@ -2918,7 +3165,7 @@
         "message": "Vælg github commit"
     },
     "firmwareFlasherReleaseSummaryHead": {
-        "message": "Release og build information"
+        "message": "Release information"
     },
     "firmwareFlasherReleaseManufacturer": {
         "message": "Producent ID:"
@@ -2945,7 +3192,7 @@
         "message": "MCU:"
     },
     "firmwareFlasherCloudBuildDetails": {
-        "message": "Build i skyen - detajler:"
+        "message": "Release i skyen - detajler:"
     },
     "firmwareFlasherCloudBuildLogUrl": {
         "message": "Vis log."
@@ -2975,7 +3222,7 @@
         "message": "Download manuelt."
     },
     "firmwareFlasherTargetWarning": {
-        "message": "<span class=\"message-negative\">VIGTIGT</span>: Sørg for at brænde med et image som passer til din FC. Brænder du et forkert image til din FC kan du risikere at <span class=\"message-negative\">dårlige</span> ting sker."
+        "message": "<span class=\"message-negative\">VIGTIGT</span>: Sørg for at bruge et image som passer til din FC. Brænder du et forkert image til din FC, kan du risikere at <span class=\"message-negative\">dårlige</span> ting sker."
     },
     "firmwareFlasherPath": {
         "message": "Sti:"
@@ -3035,13 +3282,13 @@
         "message": "Port"
     },
     "firmwareFlasherManualBaud": {
-        "message": "Manuel baud-rate"
+        "message": "Manuel baud hastighed"
     },
     "firmwareFlasherManualBaudDescription": {
         "message": "Manuel valg af baud rate for FC, som ikke understøtter standard hastighed eller forbinder via bluetooth.<br /><span class=\"message-negative\">Bemærk:</span> Ikke brugt hvis forbundet via USB DFU"
     },
     "firmwareFlasherBaudRate": {
-        "message": "Baudhastighed"
+        "message": "Baud hastighed"
     },
     "firmwareFlasherShowDevelopmentReleases": {
         "message": "Vis udviklings releases"
@@ -3113,13 +3360,13 @@
         "message": "Besked:"
     },
     "firmwareFlasherWarningText": {
-        "message": "Prøv venligst <span class=\"message-negative\">ikke</span> at brænde <strong>ikke-Betaflight</strong> hardware med denne firmware brænder.<br />Du må <span class=\"message-negative\">ikke</span> <strong>frakoble</strong> FC eller <strong>slukke</strong> din pc under brænding.<br /><br /><strong>Bemærk: </strong>STM32 bootloader er gemt i ROM, som ikke kan ændres.<br /><strong>Bemærk: </strong><span class=\"message-negative\">Auto-Connect</span> er altid deaktiveret, mens du er inde i firmware brænder.<br /><strong>Bemærk: </strong>Sørg for at du har en sikkerhedskopi af din FC konfiguration; nogle opgraderinger/nedgraderinger vil slette/ændre din konfiguration.<br /><strong>Bemærk:</strong> Hvis du har problemer efter brænding <strong>prøv først at frakoble alle kabler fra din FC</strong> prøv genstart, genindstaller/opgrader drivere.<br /><strong>Bemærk:</strong> Når du brænder FC, som er direkte tilsluttet USB (de fleste nyere FC), sørg for at have læst afsnittet USB Flashing i Betaflight manual og at du har installeret den korrekte software og drivere"
+        "message": "Du bør <span class=\"message-negative\">ikke</span> brænde <strong>ikke-Betaflight / ikke-complient Betaflight</strong> hardware med denne firmware brænder.<br />Du må <span class=\"message-negative\">ikke</span> <strong>frakoble</strong> FC eller <strong>slukke</strong> din pc under brænding.<br /><br /><strong>Bemærk: </strong>STM32 bootloader er gemt i ROM, som ikke kan ændres.<br /><strong>Bemærk: </strong><span class=\"message-negative\">Autotilslut</span> er altid deaktiveret, mens du er inde i firmware brænder.<br /><strong>Bemærk: </strong>Sørg for at du har en sikkerhedskopi af din FC konfiguration; nogle opgraderinger/nedgraderinger vil slette/ændre din konfiguration.<br /><strong>Bemærk:</strong> Hvis du har problemer efter brænding, <strong>prøv først at frakoble alle kabler fra din FC</strong>, prøv genstart, prøv at genindstaller/opgrader drivere.<br /><strong>Bemærk:</strong> Når du brænder FC, som er direkte tilsluttet USB (de fleste nyere FC), sørg for at have læst afsnittet USB Flashing i Betaflight manual og at du har installeret den korrekte software og drivere"
     },
     "firmwareFlasherRecoveryHead": {
         "message": "<strong>Gendannelse / tabt kommunikation</strong>"
     },
     "firmwareFlasherRecoveryText": {
-        "message": "Hvis du har mistet kommunikationen med din FC, skal du følge disse trin for at gendanne kommunikation: <ul><li>Sluk</li><li>Aktiver 'Ingen genstartssekvens', aktiver 'Slet alt på chip'.</li><li>Hold FC BOOT knap nede eller BOOT kontakt sluttet.</li><li>Tænd (aktivitet LED vil IKKE blinke, hvis det er gjort korrekt).</li><li>Installer alle STM32 drivere og Zadig om nødvendigt (se <a href=\"https://github.com/betaflight/betaflight/wiki/Installing-Betaflight\"target=\"_blank\" rel=\"noopener noreferrer\">USB blinkende</a> sektion i Betaflight manual).</li><li>Luk konfigurator, Genstart konfigurator.</li><li>Slip BOOT-knappen eller fjern jumper på FC BOOT kontakt, på din FC.</li><li>Flash med korrekt firmware (ved hjælp af manuel baud sats, hvis angivet i din FC's manual).</li><li>Sluk FC.</li><li>Fjern BOOT jumper.</li><li>Tænd (aktivitet LED skal blinke).</li><li>Forbind normalt.</li></ul>"
+        "message": "Hvis du har mistet kommunikationen med din FC, skal du følge disse trin for at gendanne kommunikation: <ul><li>Sluk</li><li>Aktiver 'Ingen genstartssekvens', aktiver 'Slet alt på chip'.</li><li>Hold FC BOOT knap nede eller sæt BOOT jumper til sluttet.</li><li>Tænd (aktivitet LED vil IKKE blinke, hvis det er gjort korrekt).</li><li>Installer alle STM32 drivere og Zadig om nødvendigt, se evt. <a href=\\\"https://betaflight.com/docs/wiki/archive/Installing-Betaflight\\\"target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Betaflight installation</a> sektion i Betaflight manual (engelsk).</li><li>Luk konfigurator, Genstart konfigurator.</li><li>Slip BOOT-knappen eller fjern jumper over BOOT kontakt, på din FC.</li><li>Flash med korrekt firmware (ved hjælp af manuel baud hastighed, hvis angivet i din FC's manual).</li><li>Sluk FC.</li><li>Hvis der er en BOOT jumper, fjern den.</li><li>Tænd (aktivitet LED skal blinke).</li><li>Forbind normalt.</li></ul><a href=\"https://betaflight.com/docs/wiki/archive/Installing-Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\"><a href=\"https://betaflight.com/docs/wiki/archive/Installing-Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">"
     },
     "firmwareFlasherButtonLeave": {
         "message": "Forlad Firmware brænder"
@@ -3207,10 +3454,26 @@
         "message": "Jeg har læst ovenstående og <strong>Jeg påtager mig det fulde ansvar<strong> for at anvende en udviklings firmware release"
     },
     "unstableFirmwareAcknowledgementFlash": {
-        "message": "Installer firmware"
+        "message": "Brænd firmware"
     },
     "firmwareFlasherPreviousDevice": {
         "message": "Detekteret: <strong>$1</strong> - tidligere enhed flashes stadig, gentilslut og forsøg igen"
+    },
+    "firmwareFlasherRemindBackupTitle": {
+        "message": "Slet alle indstillinger",
+        "description": "Warning message title before actual flashing takes place"
+    },
+    "firmwareFlasherRemindBackup": {
+        "message": "Brændning af firmware vil slette alle indstillinger. Vi anbefaler kraftigt at der gemmes en sikkerhedskopi, før fortsættelse.",
+        "description": "Warning message before actual flashing takes place"
+    },
+    "firmwareFlasherBackup": {
+        "message": "Opret backup",
+        "description": "Create a backup before actual flashing takes place"
+    },
+    "firmwareFlasherBackupIgnore": {
+        "message": "Ignorer risiko",
+        "description": "Ignore creating a backup before actual flashing takes place"
     },
     "ledStripHelp": {
         "message": "Flight controlleren kan styre farver og effekter på individuelle LED'er på en strimmel.<br />Opsæt LED'er i gitteret, opsæt ledningsrækkefølge og forbnd så LED'erne på dit fly jf. gitterpositionerne. LED'er uden ledningsnummer vil ikke blive gemt.<br />Dobbeltklik på en farve for at redigere HSV-værdierne."
@@ -3245,9 +3508,6 @@
     "ledStripClearAllButton": {
         "message": "Slet ALT",
         "description": "In the LED STRIP, clear all leds"
-    },
-    "ledStripEepromSaved": {
-        "message": "Konfiguration  <span class=\"message-positive\">gemt</span> i EEPROM"
     },
     "ledStripVtxOverlay": {
         "message": "VTX (bruger vtx-frekvens til at bestemme farve)"
@@ -3400,17 +3660,16 @@
         "message": "LED'er uden ledningsnummer gemmes ikke.",
         "description": "Message in the wiring modes in Led Strip"
     },
-    "ledStripVtxFunction": {
-        "message": "Larson scanner"
-    },
-    "ledStripBlinkTitle": {
-        "message": "Blink"
+    "ledStripLarsonOverlay": {
+        "message": "Larson scanner",
+        "description": "Larson effect switch label on LED Strip tab"
     },
     "ledStripBlinkAlwaysOverlay": {
         "message": "Blink altid"
     },
-    "ledStripBlinkLandingOverlay": {
-        "message": "Blink ved landing"
+    "ledStripRainbowOverlay": {
+        "message": "Regnbue",
+        "description": "Rainbow effect switch label on LED Strip tab"
     },
     "ledStripOverlayTitle": {
         "message": "Overlag"
@@ -3662,7 +3921,7 @@
         "description": "Disable or enable D Term Filter Tuning Slider"
     },
     "pidTuningPidSlidersHelp": {
-        "message": "Skyderne til at justere fartøj flyveegenskaber (PID forstærkning)<br /><br />Dæmpning (D forstærkning): Modstår hurtig bevægelse, minimerer P svingning.<br /><br />Sporing (P og I forstærkning): Sporer fartøjets reaktionshastighed, hvis den er for høj, kan den forårsage trilling eller resonans.<br /><br />Pind svarhastighed (Feedforward): Øger fartøjets reaktionshastighed ved for hurtigere pind bevægelser.<br /><br />Drift - Wobble (I forstærkning, ekspert): Fin justering af I.<br /><br />Dynamisk D (D Max, ekspert): Indstiller den maksimale værdi, som D kan øges til ved hurtige bevægelser.<br /><br />Højderor dæmpning (højderor:krængror D ratio, ekspert): Øger dæmpning af højderor i forhold til krængror.<br /><br />Højderor sporing (højderor:krængror P, I og F ratio, ekspert): Øger stabiliserende værdier til højderor i forhold til krængror.<br /><br />Master Multiplier (alle forstærkninger, ekspert): Hæver eller sænker alle PID værdier, holder deres indbyrdes forhold konstant.",
+        "message": "Skyderne til at justere fartøj flyveegenskaber (PID forstærkning)<br /><br />Dæmpning (D forstærkning): Modstår hurtig bevægelse, minimerer P svingning.<br /><br />Sporing (P og I forstærkning): Sporer fartøjets reaktionshastighed, hvis den er for høj, kan den forårsage rullen eller resonans.<br /><br />Pind svarhastighed (Feedforward): Øger fartøjets reaktionshastighed ved for hurtigere pind bevægelser.<br /><br />Drift - Wobble (I forstærkning, for ekspert): Fin justering af I.<br /><br />Dynamisk D (D Max, for ekspert): Indstiller den maksimale værdi, som D kan øges til ved hurtige bevægelser.<br /><br />Højderor dæmpning (højderor:krængror D ratio, for ekspert): Øger dæmpning af højderor i forhold til krængror.<br /><br />Højderor sporing (højderor:krængror P, I og F ratio, for ekspert): Øger stabiliserende værdier til højderor i forhold til krængror.<br /><br />Generel (påvirker alle forstærkninger, for ekspert): Hæver eller sænker alle PID værdier, holder deres indbyrdes forhold konstant.",
         "description": "Overall helpicon message for PID tuning sliders"
     },
     "pidTuningSliderWarning": {
@@ -3702,7 +3961,7 @@
         "description": "Firmware filter sliders restricted message"
     },
     "pidTuningSlidersExpertSettingsDetectedNote": {
-        "message": "<strong>Bemærk:</strong> Skyder(e) er deaktiveret fordi de aktuelle værdier er uden for området for justering af grundtilstanden. Skift til eksperttilstand for at foretage ændringer",
+        "message": "<strong>Bemærk:</strong> Skyder(e) er deaktiveret fordi de aktuelle værdier er uden for området for justering af grundtilstanden. Skift til ekspert tilstand for at foretage ændringer",
         "description": "Slider expert settings detected while in non-expert mode"
     },
     "pidTuningSliderLow": {
@@ -3718,11 +3977,11 @@
         "description": "Tuning Slider High header"
     },
     "pidTuningMasterSlider": {
-        "message": "Master multiplikator:",
+        "message": "Generel multiplikator:",
         "description": "Master tuning slider label"
     },
     "pidTuningMasterSliderHelp": {
-        "message": "Øger alle PID parametre ens. Undlad at ændre denne skyder medmindre du løber tør for justering på de andre skydere. Typisk er dette kun nødvendigt for langsomme fartøjer eller ved højt inerti (MoI) fartøjer som X-Class eller cinelifter fartøjer. For meget master forstærkning kan forårsage trilling svingninger eller varme motorer.",
+        "message": "Øger alle PID parametre ens. Undlad at ændre denne skyder medmindre du løber tør for justering på de andre skydere. Typisk er dette kun nødvendigt for langsomme fartøjer eller ved højt inerti (MoI) fartøjer som X-Class eller cinelifter fartøjer. For meget generel forstærkning kan forårsage rullende svingninger eller varme motorer.",
         "description": "Master Gain tuning slider helpicon message"
     },
     "pidTuningPDRatioSlider": {
@@ -3938,7 +4197,7 @@
         "description": "Header text for the RPM Filter group"
     },
     "pidTuningRpmFilterHelp": {
-        "message": "RPM filtrering er en gruppe af hak filtre på gyro som bruger RPM telemetri data til at fjerne motorstøj med kirurgisk præcision.<br /><br /><b><span class=\"message-positive\">VIGTIGT</span>: ESC skal understøtte todirectional DShot protokollen og værdien af $t(configurationMotorPoles.message) i $t(tabMotorTesting.message) fanen skal være korrekt for at dette filter kan virke.</b>",
+        "message": "RPM filtrering er en gruppe af hak filtre på gyro som bruger RPM telemetri data til at fjerne motorstøj med kirurgisk præcision.<br /><br /><b><span class=\"message-positive\">VIGTIGT</span>: </b><br>ESC skal understøtte todirectional DShot protokollen og værdien af $t(configurationMotorPoles.message) i $t(tabMotorTesting.message) fanen skal være korrekt for at dette filter kan virke.",
         "description": "Header text for the RPM Filter group"
     },
     "pidTuningRpmHarmonics": {
@@ -4020,7 +4279,7 @@
         "message": "Vbat Sag Compensation"
     },
     "pidTuningVbatSagCompensationHelp": {
-        "message": "Giver konsekvent gas og PID ydeevne over det brugbare batteri spændingsområde ved at øge motorens output som batteri spænding falder.<br /><br />Kompensationen kan variere mellem 0 og 100%. Fuld kompensation (100%) anbefales.<br /><br />Besøg <a href=\"https://github.com/betaflight/betaflight/wiki/4.2-Tuning-Notes#dynamic-battery-sag-compensation\"target=\"_blank\" rel=\"noopener noreferrer\">denne wiki-post</a> for mere info."
+        "message": "Giver stabil gas og PID ydeevne i hele batteris spændingsområde ved at øge motoren output som kompensation for fald i batteri spænding.<br /><br />Kompensationen kan variere mellem 0 og 100%. Fuld kompensation (100%) anbefales.<br /><br />Besøg <a href=\"https://betaflight.com/docs/tuning/4.2-Tuning-Notes#dynamic-battery-sag-compensation\" target=\"_blank\" rel=\"noopener noreferrer\">denne wiki-post</a> for mere info."
     },
     "pidTuningVbatSagValue": {
         "message": "%"
@@ -4101,7 +4360,7 @@
         "message": "Dynamisk tomgang [* 100 RPM]"
     },
     "pidTuningIdleMinRpmHelp": {
-        "message": "Dynamisk tomgang forbedrer styringen ved lav omdr/min og reducerer risikoen for desynkronisering af motor. <br /><br />Det forbedrer PID myndighed, nul gashåndtag stabilitet, omvendt hænge tid og motorbremsning.<br /><br />Dynamic Idle min rpm skal sættes til omkring 3000 - 3500 rpm. For 4.2, indstille Dshot inaktiv værdi lav, fx 1%. Der er ingen grund til at justere Dshot tomgang værdi i 4.3. <br /><br />Besøg <a href=\"https://github.com/betaflight/betaflight/wiki/Tuning-Dynamic-Idle\"target=\"_blank\" rel=\"noopener noreferrer\">denne wiki-post</a> for mere info."
+        "message": "Dynamisk tomgang forbedrer styringen ved lav omdr/min og reducerer risikoen for desynkronisering af motor. <br /><br /> Det forbedrer PID værdi, stabilitet ved nul gas, omvendt hænge tid og motorbremsning.<br /><br />Dynamic tomgang min rpm skal sættes til omkring 3000 - 3500 rpm. For 4.2, indstil DShot tomgangs værdi lavt, fx 1%. Der er ingen grund til at justere DShot tomgangs værdi i 4.3. <br /><br />Besøg <a href=\"https://betaflight.com/docs/wiki/archive/Tuning-Dynamic-Idle\" target=\"_blank\" rel=\"noopener noreferrer\">denne wiki-post</a> for mere info."
     },
     "pidTuningIdleMinRpmDisabled": {
         "message": "Dynamisk tomgang er slået fra, fordi Dshot Telemetry er slået FRA"
@@ -4116,13 +4375,13 @@
         "message": "Integreret sideror"
     },
     "pidTuningIntegratedYawCaution": {
-        "message": "<span class=\"message-negative\">FORSIKRING</span>: Hvis du aktiverer denne funktion, skal du justere sideror PID i overensstemmelse hermed (Yaw PID). Mere info <a href=\"https://github.com/betaflight/betaflight/wiki/Integrated-Yaw\" target=\"_blank\" rel=\"noopener noreferrer\">her</a>"
+        "message": "<span class=\"message-negative\">ADVARSEL</span>: Hvis du aktiverer denne funktion, skal du justere sideror PID i overensstemmelse hermed (Yaw PID). Mere info <a href=\"https://betaflight.com/docs/wiki/archive/Integrated-Yaw\" target=\"_blank\" rel=\"noopener noreferrer\">her</a>"
     },
     "pidTuningIntegratedYawHelp": {
         "message": "Integreret sideror integrerer sideror P, I og D værdier, der tillader at sideror P, I og D kan tunes lidt, som hvis du tuner højderor og krængror.<br><br>Meget lidt I er påkrævet, fordi den integrerede P fungerer som I, og integreret D fungerer som P.<br><br>BEMÆRK: Integreret sideror kræver brug af Absolut kontrol, da der ikke er brug for I med Integreret sideror."
     },
     "configHelp2": {
-        "message": "Voldgiftspanelrotation i grader, for at tillade montering det sidelæns / på hovedet / roteret osv. Når du kører eksterne sensorer, skal du bruge sensorindstillingerne (Gyro, Acc, Mag) til at definere sensorpositionen uafhængigt af brætretning. "
+        "message": "Relativ rotation i grader, for at tillade montering sidelæns / på hovedet / roteret osv. Når du anvender eksterne sensorer, skal du bruge sensorindstillingerne (Gyro, Acc, Mag) til at definere sensorposition uafhængigt af montering. "
     },
     "failsafeFeaturesHelpOld": {
         "message": "Fejlsikring konfiguration er ændret betydeligt. Brug Betaflight <strong>v1.12.0+</strong> for at aktivere det forbedrede konfigurationspanel."
@@ -4134,28 +4393,28 @@
         "message": "Fejlsikring har to faser. <strong><br>\nFase 1</strong> begynder, når en flykanal har en ugyldig pulslængde, modtageren rapporterer fejlsikret tilstand eller der mangler signal fra modtageren, hvorefter kanalreserveindstillingerne for <span class=\"message- negativ\">alle kanaler</span> anvendes, og der ventes et kort øjeblik for at muliggøre gendannelse. <strong><br>\nFase 2</strong> begynder, når fejltilstanden, mens fartøjet er <span class=\"message-negative\">aktiveret</span>, tager længere tid end den opsatte beskyttelsestid, og her forbliver alle kanaler på den anvendte kanalreserveindstilling, medmindre den tilsidesættes af den valgte procedure.<br /><strong>Bemærk:</strong> Inden Fase 1 begynder, anvendes kanalreserveindstillingerne også på individuelle AUX-kanaler, som har ugyldige impulser."
     },
     "failsafePulsrangeTitle": {
-        "message": "Gyldig Pulse Range-indstillinger"
+        "message": "Indstilling af gyldigt signal interval"
     },
     "failsafePulsrangeHelp": {
-        "message": "Pulser kortere end minimum eller længere end maksimum er ugyldige og vil udløse anvendelse af individuelle kanalreserveindstillinger for AUX-kanaler eller effektuering af trin 1 for flykanaler"
+        "message": "Forsvinder signal fra sender kortere end minimum eller længere end maksimum, udløses fejlsikring for kanaler efter indstilling nedenfor og aktivering af fejlsikring indstilling - trin 1 eller trin 2"
     },
     "failsafeRxMinUsecItem": {
-        "message": "Minimumslængde"
+        "message": "Mindste signal"
     },
     "failsafeRxMaxUsecItem": {
-        "message": "Maskimumslængde"
+        "message": "Største signal"
     },
     "failsafeChannelFallbackSettingsTitle": {
-        "message": "Kanal Fallback indstillinger"
+        "message": "Fejlsikring for kanaler"
     },
     "failsafeChannelFallbackSettingsHelp": {
-        "message": "Disse indstillinger anvendes på ugyldige individuelle AUX-kanaler eller på alle kanaler, når disse overgår til Trin 1. <strong>Bemærk:</strong> Værdierne gemmes i trin på 25 mikrosek, så små ændringer forsvinder"
+        "message": "Disse indstillinger anvendes ved fejlsikring for individuelle kanaler eller på alle kanaler, når disse overgår til fejlsikring Trin 1. <strong>Bemærk:</strong> Værdierne gemmes i trin på 25 mikrosek, så små ændringer udjævnes"
     },
     "failsafeChannelFallbackSettingsAuto": {
-        "message": "<strong>Auto</strong> betyder krængror, højderor og sideror til centrum og gas lav. <strong>Hold</strong> betyder at den sidste gode modtagne værdi fastholdes"
+        "message": "<strong>Auto</strong> betyder krængror, højderor og sideror til centrum og gas lav. <br><strong>Hold</strong> betyder at den sidste gode modtagne værdi fastholdes"
     },
     "failsafeChannelFallbackSettingsHold": {
-        "message": "<strong>Hold</strong> betyder at opretholde den sidste gode værdi modtaget. <strong>Sæt</strong> betyder, at værdien angivet her vil blive brugt"
+        "message": "<strong>Hold</strong> betyder at opretholde den sidste gode værdi modtaget. <br><strong>Sæt</strong> betyder, at værdien angivet her vil blive brugt"
     },
     "failsafeStageTwoSettingsTitle": {
         "message": "Trin 2 - Indstillinger"
@@ -4221,10 +4480,10 @@
         "message": "Gas værdi ved svævning"
     },
     "failsafeGpsRescueItemAscendRate": {
-        "message": "Jordhastighed (meter/sekund)"
+        "message": "Stignings hastighed (meter/sekund)"
     },
     "failsafeGpsRescueItemDescendRate": {
-        "message": "Stignings hastighed (meter/sekund)"
+        "message": "Nedstignings hastighed (meter/sekund)"
     },
     "failsafeGpsRescueItemMinSats": {
         "message": "Mindste antal satellitter"
@@ -4269,7 +4528,7 @@
         "message": "Trin som startes ved, når aktivering sker fra AUX knap"
     },
     "failsafeSwitchModeHelp": {
-        "message": "Denne indstilling afgør, hvad der sker, når fejlsikring via AUX-knappen:<br/><strong>Trin 1</strong> aktiverer Trin 1 fejlsikring, der er nyttig til at simulere den nøjagtige fejlsikringsadfærd ved signaltab.<br/><strong>Trin 2</strong> overspringer Trin 1 og aktiverer omgående Trin 2-proceduren <br/><strong>SLUK</strong>, der straks afkobler (fartøjet havarerer)"
+        "message": "Denne indstilling afgør, hvad der sker, når fejlsikring via AUX-knappen:<br/><strong>Trin 1</strong> aktiverer Trin 1 fejlsikring, der er nyttig til at simulere den nøjagtige fejlsikringsadfærd ved signaltab.<br/><strong>Trin 2</strong> overspringer Trin 1 og aktiverer omgående Trin 2-proceduren <br/><strong>SLUK</strong>, der straks afkobler (dronen styrter ned)"
     },
     "failsafeSwitchOptionStage1": {
         "message": "Trin 1"
@@ -4557,7 +4816,7 @@
         "message": "<span class=\"message-negative\"><b>ADVARSEL:</b></span> Der blev ikke fundet nogen OSD chip. Nogle FC kan ikke aktivere OSD chippen, medmindre de er tilsluttet batteri. Tilslut batteriet, før du tilslutter USB (Husk at fjerne propellerne!)."
     },
     "osdSetupPreviewHelp": {
-        "message": "<strong>Bemærk:</strong> OSD forhåndsvisning viser muligvis ikke den skrifttype, der er installeret i FC. Layoutet af individuelle elementer kan se anderledes ud, når ældre versioner af firmwaren bruges - tjek venligst udseendet af din opsætning, fx med dine briller, før du flyver."
+        "message": "<strong>Bemærk:</strong> OSD forhåndsvisning viser muligvis ikke den skrifttype, der er installeret i FC. Layoutet af individuelle elementer kan se anderledes ud, afhænigt af din version af firmware, derfor tjek udseendet af din opsætning, fx med dine briller, før du flyver."
     },
     "osdSetupUnsupportedNote1": {
         "message": "Din FC reagerer ikke på OSD kommandoer. Det betyder sandsynligvis, at den ikke har et integreret BetaFlight OSD."
@@ -4639,7 +4898,7 @@
         "description": "Option for the units system used in the OSD"
     },
     "osdSetupTimersTitle": {
-        "message": "Tidstagning"
+        "message": "Tidtagning"
     },
     "osdSetupAlarmsTitle": {
         "message": "Alarmer"
@@ -4730,7 +4989,7 @@
         "message": "Nulstil indstillinger"
     },
     "osdTextElementMainBattVoltage": {
-        "message": "Batteri spænding: realtid",
+        "message": "Batteri spænding i realtid",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementMainBattVoltage": {
@@ -4769,7 +5028,7 @@
         "description": "One of the elements of the OSD"
     },
     "osdDescElementVtxChannel": {
-        "message": "Aktuel VTX kanal og effekt"
+        "message": "Aktuel VTX effekt eller VTX bånd:kanal:spænding:pit"
     },
     "osdTextElementVTXchannelVariantPower": {
         "message": "VTX effekt",
@@ -4794,11 +5053,11 @@
         "message": "Aktiverings meddelelse"
     },
     "osdTextElementDisarmed": {
-        "message": "Deaktiveret",
+        "message": "Meddelse hvis Deaktiveret",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementDisarmed": {
-        "message": "Afkoblings meddelelse"
+        "message": "Vis meddelelse hvis deaktiveret"
     },
     "osdTextElementCrosshairs": {
         "message": "Sigtekorn",
@@ -4829,14 +5088,14 @@
         "message": "Aktuel batteri strømforbrug"
     },
     "osdTextElementMahDrawn": {
-        "message": "Batteri nuværende forbrug i mAh",
+        "message": "Batteri samlet forbrug i mAh",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementMahDrawn": {
         "message": "Den samlede anvendte batterikapacitet"
     },
     "osdTextElementWhDrawn": {
-        "message": "Batteri strøm forbrug i Wh",
+        "message": "Batteri samlet forbrug i Wh",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementWhDrawn": {
@@ -5050,7 +5309,7 @@
         "message": "Effektforbrug "
     },
     "osdTextElementPIDRateProfile": {
-        "message": "Profil: PID og Rate",
+        "message": "Profil: PID og hastighed",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementPIDRateProfile": {
@@ -5089,7 +5348,7 @@
         "description": "One of the elements of the OSD"
     },
     "osdDescElementMainBattUsage": {
-        "message": "Grafisk gengivelse af batteriets kapacitetsforbrug"
+        "message": "Grafisk eller procent visning af batteriets kapacitet"
     },
     "osdTextElementMainBattUsageVariantGraphrRemain": {
         "message": "Resterende grafisk",
@@ -5108,7 +5367,7 @@
         "description": "One of the variants for the Main Battery Usage element of the OSD"
     },
     "osdTextElementArmedTime": {
-        "message": "Tidstagning: aktiveret tid",
+        "message": "Tidtagning: aktiveret tid",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementArmedTime": {
@@ -5122,11 +5381,11 @@
         "message": "Pil der viser retning til Hjem position"
     },
     "osdTextElementHomeDistance": {
-        "message": "Afstand til Hjem",
+        "message": "Hjem afstand",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementHomeDistance": {
-        "message": "Afstand til Hjem position (målt den valgte enhed for FC - Enheder)"
+        "message": "Afstand til Hjem position (bestemt med værdi i den valgte enhed for FC - Enheder)"
     },
     "osdTextElementNumericalHeading": {
         "message": "Numerisk overskrift",
@@ -5171,7 +5430,7 @@
         "message": "RPM rapporteret af ESC telemetri"
     },
     "osdTextElementRemaningTimeEstimate": {
-        "message": "Tidstagning: estimeret resterende flyvetid",
+        "message": "Tidtagning: estimeret resterende flyvetid",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementRemaningTimeEstimate": {
@@ -5192,18 +5451,18 @@
         "message": "Aktuelt aktivt justeringsområde indstilling og værdi"
     },
     "osdTextElementTimer1": {
-        "message": "Tidstagning 1",
+        "message": "Tidtagning 1",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementTimer1": {
-        "message": "Viser værdien af tidstagning 1"
+        "message": "Viser værdien af tidtagning 1"
     },
     "osdTextElementTimer2": {
-        "message": "Tidstagning 2",
+        "message": "Tidtagning 2",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementTimer2": {
-        "message": "Viser værdien af tidstagning 2"
+        "message": "Viser værdien af tidtagning 2"
     },
     "osdTextElementCoreTemperature": {
         "message": "CPU temperatur",
@@ -5245,7 +5504,7 @@
         "description": "One of the elements of the OSD"
     },
     "osdDescElementFlipArrow": {
-        "message": "Pil, der viser, hvilke motorer der er oppe i skildpadde tilstand"
+        "message": "Retning med pil som viser de motorer som kan vende havereret drone (accelerometer skal være aktiveret)"
     },
     "osdTextElementLinkQuality": {
         "message": "Link kvalitet",
@@ -5297,11 +5556,11 @@
         "message": "RPM frekvens rapporteret af ESC telemetri"
     },
     "osdTextElementRateProfileName": {
-        "message": "Profil: Rate profilnavn",
+        "message": "Profil: Hastighed profilnavn",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementRateProfileName": {
-        "message": "Viser det aktuelle rate profilnavn"
+        "message": "Viser det aktuelle hastigheds profilnavn"
     },
     "osdTextElementPidProfileName": {
         "message": "Profil: PID profilnavn",
@@ -5409,7 +5668,7 @@
         "message": "Mindste registrerede RSSI"
     },
     "osdTextStatMaxCurrent": {
-        "message": "Batteri nuværende forbrug",
+        "message": "Batteri maksimalt målt forbrug",
         "description": "One of the statistics that can be shown at the end of the flight in the OSD"
     },
     "osdDescStatMaxCurrent": {
@@ -5423,11 +5682,11 @@
         "message": "Anvendt batteri kapacitet"
     },
     "osdTextStatUsedWh": {
-        "message": "Batteri anvendt kapacitet i Wh",
+        "message": "Batteri anvendt forbrug i Wh",
         "description": "One of the statistics that can be shown at the end of the flight in the OSD"
     },
     "osdDescStatUsedWh": {
-        "message": "Batteri kapacitet anvendt (Wh)"
+        "message": "Batteri kapacitet anvendt i Wh"
     },
     "osdTextStatMaxAltitude": {
         "message": "Højeste højde",
@@ -5479,18 +5738,18 @@
         "message": "Lognummer for denne flyrejse Blackbox-log"
     },
     "osdTextStatTimer1": {
-        "message": "Tidstagning 1",
+        "message": "Tidtagning 1",
         "description": "One of the statistics that can be shown at the end of the flight in the OSD"
     },
     "osdDescStatTimer1": {
-        "message": "Værdi af tidstagning 1 på afkoblingstidspunkt"
+        "message": "Værdi af tidtagning 1 på afkoblingstidspunkt"
     },
     "osdTextStatTimer2": {
-        "message": "Tidstagning 2",
+        "message": "Tidtagning 2",
         "description": "One of the statistics that can be shown at the end of the flight in the OSD"
     },
     "osdDescStatTimer2": {
-        "message": "Værdi af tidstagning 2 på afkoblingstidspunkt"
+        "message": "Værdi af tidtagning 2 på afkoblingstidspunkt"
     },
     "osdTextStatRtcDateTime": {
         "message": "RTC dato og tidspunkt",
@@ -5583,6 +5842,20 @@
     "osdDescStatMinRSNR": {
         "message": "Minimum RSNR værdi"
     },
+    "osdTextStatBest3ConsecLaps": {
+        "message": "Bedst af 3 efterfølgende omgange",
+        "description": "One of the statistics that can be shown at the end of the flight in the OSD"
+    },
+    "osdDescStatBest3ConsecLaps": {
+        "message": "Bedst af 3 efterfølgende omgange"
+    },
+    "osdTextStatBestLap": {
+        "message": "Bedste omgang",
+        "description": "One of the statistics that can be shown at the end of the flight in the OSD"
+    },
+    "osdDescStatBestLap": {
+        "message": "Bedste omgang"
+    },
     "osdTextStatUnknown": {
         "message": "Ukendt $1",
         "description": "One of the statistics that can be shown at the end of the flight in the OSD"
@@ -5603,14 +5876,14 @@
         "message": "Kilde:"
     },
     "osdTimerSourceTooltip": {
-        "message": "Vælg den faktor, som styrer tidstagningens varighed/hændelse"
+        "message": "Vælg den faktor, som styrer tidtagningens varighed/hændelse"
     },
     "osdTimerSourceOptionOnTime": {
-        "message": "Fra fartøj blev tændt",
+        "message": "Start ved støm til fartøj",
         "description": "One of the options for the source timer. This options shows the amount of time has passed since the battery was plugged"
     },
     "osdTimerSourceOptionTotalArmedTime": {
-        "message": "Aktiveringer fra fartøj blev tændt",
+        "message": "Start ved fartøj aktivering",
         "description": "One of the options for the source timer. This options shows the amount of time the craft was armed since the battery was plugged"
     },
     "osdTimerSourceOptionLastArmedTime": {
@@ -5625,7 +5898,7 @@
         "message": "Præcision:"
     },
     "osdTimerPrecisionTooltip": {
-        "message": "Vælg præcision til præsentation af tidstagning"
+        "message": "Vælg præcision til præsentation af tidtagning"
     },
     "osdTimerPrecisionOptionSecond": {
         "message": "Sekunder",
@@ -5693,11 +5966,11 @@
         "message": "Viser en visualisering af biperen (viser som 4 stjerner)"
     },
     "osdWarningTextCrashFlipMode": {
-        "message": "Crash flip tilstand",
+        "message": "Vend styrtet drone advarsel",
         "description": "One of the warnings that can be selected to be shown in the OSD"
     },
     "osdWarningCrashFlipMode": {
-        "message": "Advarer når flip over efter nedbrudstilstand er aktiveret"
+        "message": "Advarer når \"vend styrtet drone\" er aktiveret"
     },
     "osdWarningTextEscFail": {
         "message": "ESC fejl",
@@ -5799,7 +6072,7 @@
         "message": "Sætter enhed, som bruges til numeriske udlæsninger."
     },
     "osdSectionHelpTimers": {
-        "message": "Konfigurer visninger styret med tidstagning"
+        "message": "Konfigurer visninger styret med tidtagning"
     },
     "osdSectionHelpAlarms": {
         "message": "Indstil grænser for alarmtilstande til OSD elementer."
@@ -5820,7 +6093,7 @@
         "message": "Gemt"
     },
     "vtxHelp": {
-        "message": "Her kan du konfigurere værdierne for din videosender (VTX). Du kan se og ændre transmissionsværdierne, herunder VTX-tabellerne, hvis FC og VTX sender understøtter det.<br>For at opsætte din VTX skal du bruge følgende trin:<br>1. Gå til <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight/wiki/VTX-tables\">denne</a> side;<br>2. Find den passende VTX-konfigurationsfil til dit land og din VTX-model og hent den;<br>3. Klik på '$t(vtxButtonLoadFile.message)' nedenfor, vælg VTX konfigurationsfilen, indlæs den;<br>4. Kontroller, at indstillingerne er korrekte;<br>5. Klik på '$t(vtxButtonSave.message)' for at gemme VTX-indstillingerne på FC.<br>6. Klik eventuelt på '$t(vtxButtonSaveLua.message)' for at gemme en lua konfigurationsfil, som du kan bruge med betaflight lua scripts (Se mere <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight-tx-lua-scripts/\">her</a>.)",
+        "message": "Her kan du konfigurere værdierne for din videosender (VTX). Du kan se og ændre transmissionsværdierne, herunder VTX-tabellerne, hvis FC og VTX sender understøtter det.<br>For at opsætte din VTX skal du bruge følgende trin:<br>1. Gå til <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://betaflight.com/docs/wiki/archive/VTX-tables\">denne</a> side;<br>2. Find den passende VTX-konfigurationsfil til dit land og din VTX-model og hent den;<br>3. Klik på '$t(vtxButtonLoadFile.message)' nedenfor, vælg VTX konfigurationsfilen, indlæs den;<br>4. Kontroller, at indstillingerne er korrekte;<br>5. Klik på '$t(vtxButtonSave.message)' for at gemme VTX-indstillingerne på FC.<br>6. Klik eventuelt på '$t(vtxButtonSaveLua.message)' for at gemme en lua konfigurationsfil, som du kan bruge med betaflight lua scripts (Se mere <a target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\" href=\\\"https://github.com/betaflight/betaflight-tx-lua-scripts/\\\">her</a>.)",
         "description": "Introduction message in the VTX tab"
     },
     "vtxMessageNotSupported": {
@@ -5836,7 +6109,7 @@
         "description": "Message to show when the configured VTX type does not support factory bands, but one or more of the configured bands are of this type"
     },
     "vtxMessageVerifyTable": {
-        "message": "<span class=\"message-negative\">Opmærksomhed:</span> Værdierne i VTX-tabellen er blevet indlæst, men endnu ikke gemt i FC. Du skal bekræfte og ændre værdierne for at sikre, at de er gyldige og lovlige i dit land, og tryk derefter på $t(vtxButtonSave.message) knappen for at gemme dem i FC.",
+        "message": "<span class=\"message-negative\">Opmærksomhed:</span> Værdierne i VTX tabellen er blevet indlæst, men endnu ikke gemt i FC. Du skal bekræfte og ændre værdierne for at sikre, at de er lovlige i dit land, og tryk derefter på $t(vtxButtonSave.message) knappen for at gemme dem i FC.",
         "description": "Message to show when the VTX Table has been loaded from a external source"
     },
     "vtxFrequencyChannel": {
@@ -5931,6 +6204,14 @@
         "message": "Her kan du vælge frekvensen for din VTX, hvis den er understøttet",
         "description": "Help text for the frequency field of the VTX tab"
     },
+    "vtxReadyTrue": {
+        "message": "Ja",
+        "description": "vtx device are ready"
+    },
+    "vtxReadyFalse": {
+        "message": "Nej",
+        "description": "vtx device are not ready"
+    },
     "vtxDeviceReady": {
         "message": "Enheden er klar",
         "description": "Text of one of the fields of the VTX tab"
@@ -5948,15 +6229,15 @@
         "description": "Text of one of the fields of the VTX tab"
     },
     "vtxPitModeHelp": {
-        "message": "Når aktiveret, begynder VTX med en meget lav effekt for at lade fartøjet være på startbanen uden at forstyrre andre piloter. Normalt er rækkevidden af denne tilstand mindre end 5m.<br /><br />BEMÆRK: Nogle protokoller, som fx. SmartAudio, kan ikke aktivere Pit Mode via software efter power-up.",
+        "message": "Når aktiveret, begynder VTX med en meget lav effekt for at lade fartøjet være på startbanen uden at forstyrre andre piloter. Normalt er rækkevidden af denne tilstand mindre end 5m.<br /><br />BEMÆRK: Nogle protokoller, som fx. SmartAudio, kan ikke aktivere Pit tilstand via software efter power-up.",
         "description": "Help text for the pit mode field of the VTX tab"
     },
     "vtxPitModeFrequency": {
-        "message": "Pit tilstand frekvens",
+        "message": "Kanal i Pit",
         "description": "Text of one of the fields of the VTX tab"
     },
     "vtxPitModeFrequencyHelp": {
-        "message": "Frekvens, som sættes ved Pit tilstand",
+        "message": "Kanal, som anvendes i Pit tilstand",
         "description": "Help text for the pit mode field of the VTX tab"
     },
     "vtxLowPowerDisarm": {
@@ -5992,7 +6273,7 @@
         "description": "Help for the number of power levels field of the VTX Table element in the VTX tab"
     },
     "vtxTablePowerLevelsTableHelp": {
-        "message": "Denne tabel repræsenterer de forskellige værdier af effekt, der kan bruges til VTX. De er opdelt i to: <br><b>- $t(vtxTablePowerLevelsValue.message):</b> hvert effektniveau kræver en værdi, der er defineret af hardwareproducenten. Spørg din producent om den korrekte værdi eller konsulter Betaflight wiki of VTX Tabeller for at få fat i nogle prøver. <br><b>- $t(vtxTablePowerLevelsLabel.message):</b> kan du her sætte den etiket, du ønsker for hver effektniveauværdi. Det kan være tal (25, 200, 600, 1. ), bogstaver (OFF, MIN, MAX) eller en blanding af dem. <br /><br />Du skal kun konfigurere <b></b> de strømniveauer, der er lovlige på dit land.",
+        "message": "Denne tabel repræsenterer de forskellige værdier af effekt, der kan bruges til VTX. De er opdelt i to: <br><b>- $t(vtxTablePowerLevelsValue.message):</b> hvert effektniveau kræver en værdi, der er defineret af hardwareproducenten. Spørg din producent om den korrekte værdi eller konsulter Betaflight wiki for VTX tabeller for at se nogle eksempler. <br><b>- $t(vtxTablePowerLevelsLabel.message):</b> kan du her sætte den etiket, du ønsker for hver effektniveauværdi. Det kan være tal (25, 200, 600, 1. ), bogstaver (OFF, MIN, MAX) eller en blanding af dem. <br /><br />Du skal kun konfigurere <b></b> de strømniveauer, som er lovlige i dit land.",
         "description": "Help for the table of power levels (value-label) that appears in the VTX tab"
     },
     "vtxTablePowerLevelsValue": {
@@ -6028,7 +6309,7 @@
         "description": "Text of one of the titles of the VTX Table element in the VTX tab"
     },
     "vtxTableBandsChannelsTableHelp": {
-        "message": "Denne tabel repræsenterer alle de frekvenser, der kan bruges til din VTX. Du kan have flere bånd og for hvert bånd skal du konfigurere:<br><b>- $t(vtxTableBandTitleName.message):</b> Navn, som du ønsker at tildele til dette bånd, ligesom BOSCAM_A, FATSHARK eller RACEBAND.<br><b>- $t(vtxTableBandTitleLetter.message):</b> Alias som refererer til båndet.<br><b>- $t(vtxTableBandTitleFactory.message):</b> Dette angiver, om det er et fabrik defineret bånd. Hvis aktiveret sender Betaflight til VTX et bånd og kanalnummer. VTX vil derefter bruge sin indbyggede frekvenstabel og de frekvenser, der er konfigureret her, og kun vise værdien i fx. OSD. Hvis den ikke er aktiveret, sender Betaflight den konfigurede frekvens til VTX.<br><b>- Frekvenser:</b> Frekvenser for dette band.<br />Husk at ikke alle frekvenser er lovlige i dit land. Du skal sætte en værdi på <b>nul</b> til hvert frekvensindeks, som du ikke har tilladelse til at anvende i dit land, for at deaktivere.",
+        "message": "Denne tabel repræsenterer alle de frekvenser, der kan bruges til din VTX. Du kan have flere bånd og for hvert bånd skal du konfigurere:<br><b>- $t(vtxTableBandTitleName.message):</b> Navn, som du ønsker at tildele til dette bånd, ligesom BOSCAM_A, FATSHARK eller RACEBAND.<br><b>- $t(vtxTableBandTitleLetter.message):</b> Alias som refererer til båndet.<br><b>- $t(vtxTableBandTitleFactory.message):</b> Dette angiver, om det er et fabrik defineret bånd. Hvis aktiveret sender Betaflight til VTX et bånd og kanalnummer. VTX vil derefter bruge sin indbyggede frekvenstabel og de frekvenser, der er konfigureret her, og kun vise værdien i fx. OSD. Hvis den ikke er aktiveret, sender Betaflight den konfigurede frekvens til VTX.<br><b>- Frekvenser:</b> Frekvenser for dette band.<br />Husk at ikke alle frekvenser er lovlige i dit land. Du skal deaktivere dem ved at sætte værdi til <b>nul</b> for hver frekvensindeks, som ikke er lovlige i dit land.",
         "description": "Help for the table of bands-channels that appears in the VTX tab"
     },
     "vtxSavedFileOk": {
@@ -6201,19 +6482,19 @@
         "message": "PID profil"
     },
     "pidTuningProfileTip": {
-        "message": "Op til 3 forskellige PID profiler kan gemmes på FC. PID profilerne omfatter PID, D forstærkning og vinkel-/horisont indstillinger. \nDu kan skifte PID profil under flyvning, ved fx at oprette en 3 positionskontakt for 'Profilvalg Rate' på fanen 'Kanal justeringer'."
+        "message": "Op til 3 forskellige PID profiler kan gemmes på FC. PID profilerne omfatter PID, D forstærkning og vinkel-/horisont indstillinger. \nDu kan skifte PID profil under flyvning, ved fx at oprette en 3 positionskontakt for 'Profilvalg PID' på fanen 'Kanal justeringer'."
     },
     "pidTuningRateProfile": {
-        "message": "Rate profil"
+        "message": "Hastighed profil"
     },
     "pidTuningRateProfileTip": {
-        "message": "Op til 3 forskellige Rate profiler kan gemmes i FC. Rateprofilerne inkluderer indstillingerne for 'RC Rate', 'Rate', 'Expo', 'Gas' og 'TPA'. \nDu kan skifte Rate profil under flyvning, ved fx at oprette en 3 positionskontakt for 'Profilvalg Rate' på fanen 'Kanal justeringer'."
+        "message": "Op til 3 forskellige hastighed profiler kan gemmes i FC. Hastighed profilerne inkluderer indstillingerne for 'RC Rate', 'Rate', 'Expo', 'Gas' og 'TPA'. \nDu kan skifte hastighed profil under flyvning, ved fx at oprette en 3 positionskontakt for 'Profilvalg hastighed' på fanen 'Kanal justeringer'."
     },
     "pidTuningRateSetup": {
         "message": "Begynder/Acro"
     },
     "pidTuningRateSetupHelp": {
-        "message": "Juster disse værdier for at indstille din Rate. Brug RC Rate til at øge den maksimale hastighed generelt, brug Super Rate til at have højere satser i slutningen af pind bevægelse, brug Expo til at få den pind midter position til at føles glat.",
+        "message": "Juster disse værdier for at indstille din hastighed. Brug RC Rate til at øge den maksimale hastighed generelt, brug Super Rate til at have højere værdier i slutningen af pind bevægelse, brug Expo til at få pind midter position til at føles glat.",
         "description": "Rate table helpicon message"
     },
     "pidTuningDelta": {
@@ -6262,7 +6543,10 @@
         "message": "Blackbox logger til ..."
     },
     "onboardLoggingRateOfLogging": {
-        "message": "Blackbox loggnings hastighed"
+        "message": "Blackbox lognings hastighed"
+    },
+    "onboardLoggingDebugFields": {
+        "message": "Data som logges"
     },
     "onboardLoggingDebugMode": {
         "message": "Blackbox logger med debug for ..."
@@ -6280,7 +6564,7 @@
         "message": "Sletning i gang, vent venligst..."
     },
     "onboardLoggingOnboardSDCard": {
-        "message": "Indbygget SD kort eller FC flash"
+        "message": "SD kort eller FC flash"
     },
     "onboardLoggingMsc": {
         "message": "Masselager tilstand"
@@ -6307,13 +6591,13 @@
         "message": "Fortryd"
     },
     "modeCameraWifi": {
-        "message": "KAMERA WI-FI KNAP"
+        "message": "KAMERA WI-FI"
     },
     "modeCameraPower": {
         "message": "KAMERA TÆND/SLUK"
     },
     "modeCameraChangeMode": {
-        "message": "KAMERA KONFIGURATION TILSTAND"
+        "message": "KAMERA KONFIGURATION"
     },
     "flashTab": {
         "message": "Brænd firmware"
@@ -6325,10 +6609,10 @@
         "message": "Brug mørkt tema for Configuration"
     },
     "pidTuningRatesType": {
-        "message": "Rate type"
+        "message": "Hastighed type"
     },
     "pidTuningRatesTypeTip": {
-        "message": "Ændring af Rate type vil ændre kurven og den måde, du kan indstille den"
+        "message": "Ændring af hastighed type vil ændre kurven og den måde, du kan indstille den"
     },
     "pidTuningRcRateRaceflight": {
         "message": "Hastighed"
@@ -6343,13 +6627,13 @@
         "message": "RC kurve"
     },
     "pidTuningRateQuickRates": {
-        "message": "Maksimal sats"
+        "message": "Maksimal hastighed"
     },
     "pidTuningRcRateActual": {
         "message": "Centrer følsomhed"
     },
     "dialogRatesTypeTitle": {
-        "message": "Ændring af Rate type"
+        "message": "Ændring af hastigheds type"
     },
     "dialogRatesTypeNote": {
         "message": "<span class=\"message-negative\"><b>ADVARSEL: Du ændrer Rate typen.</b></span> Hvis du ændrer Rate, vil værder blive sat til en standardkurve."
@@ -6477,6 +6761,10 @@
     "presetsKeywords": {
         "message": "Søgeord:",
         "description": "Hint text in the presets detailed dialog"
+    },
+    "presetsSourceRepository": {
+        "message": "Kilde:",
+        "description": "Text prefixing user defined name of the preset repository containing a preset"
     },
     "presetsVersions": {
         "message": "Firmware version:",
@@ -6626,6 +6914,10 @@
         "message": "Gør Aktiv",
         "description": "Presets tab, sources dialog, button to make selected source active"
     },
+    "presetsSourcesDialogMakeSourceDisable": {
+        "message": "Deaktiver !",
+        "description": "Presets tab, sources dialog, button to make selected source disabled"
+    },
     "presetsSourcesDialogDeleteSource": {
         "message": "Slet",
         "description": "Presets tab, sources dialog, button to delete selected source"
@@ -6633,6 +6925,10 @@
     "presetsWarningNotOfficialSource": {
         "message": "<span class=\"message-negative\">ADVARSEL!</span> En tredjeparts kilde for predefineret opsætning er valgt.",
         "description": "Warning message that shows up when a third party preset source is selected"
+    },
+    "presetsFailedToLoadRepositories": {
+        "message": "<span class=\"message-negative\">ADVARSEL!</span> Kunne ikke indlæse disse bibiloteker: <b>{{repos}}</b>",
+        "description": "Warning message that shows up when we fail to load some repositories"
     },
     "presetsWarningBackup": {
         "message": "Kontroller, at du sikkerhedskopierer din nuværende konfiguration ('$t(presetsBackupSave.message)' knap eller via CLI, hvis knappen er deaktiveret) <strong>før</strong> du vælger og anvender predefineret opsætning. Uden sikkerhedskopi er der ingen måde til at vende tilbage til din tidligere konfiguration efter indlæsning af predefineret opsætning.",
@@ -6709,6 +7005,10 @@
         "message": "Kun grund komponenter"
     },
     "coreBuildModeDescription": {
-        "message": "Dette tilvalg danner en relase som indeholder hardware drivere (og nogle begrænsede funktioner). Den kan anvendes til at detektere hardware på FC og er til rådighed for bekvemmelighed. Ikke alle funktioner vil være tilgængelige (kun hardware) hvis du vælger denne indstilling."
+        "message": "Sætter du dette valg, dannes en relase som indeholder hardware drivere (og nogle begrænsede funktioner). Den kan anvendes til at detektere hardware på FC og er til rådighed for bekvemmelighed. Ikke alle funktioner vil være tilgængelige (kun hardware) hvis du vælger denne indstilling."
+    },
+    "showDevToolsOnStartup": {
+        "message": "Åbn automatisk DevTools i udviklingstilstand",
+        "description": "Text for the option to enable automatic opening of DevTools in debug mode"
     }
 }

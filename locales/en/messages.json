@@ -109,6 +109,10 @@
         "message": "Show all serial devices (for manufacturers or development)",
         "description": "Do not filter serial devices using VID/PID values (for manufacturers or development)"
     },
+    "useMdnsBrowser": {
+        "message": "Use mDNS Browser Device discovery on network (experimental)",
+        "description": "Enable mDNS Browser Device discovery in PortHandler (experimental)"
+    },
     "showVirtualMode": {
         "message": "Enable virtual connection mode",
         "description": "Text for the option to enable or disable the virtual FC"
@@ -190,7 +194,11 @@
         "description": "Don't translate!!!"
     },
     "language_ru": {
-        "message": "\u0420\u0443\u0441\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A",
+        "message": "\u0420\u0443\u0441\u0441\u043A\u0438\u0439",
+        "description": "Don't translate!!!"
+    },
+    "language_uk": {
+        "message": "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430",
         "description": "Don't translate!!!"
     },
     "language_zh_CN": {
@@ -545,11 +553,17 @@
     "buildServerSupportRequestSubmission": {
         "message": "<br>*** Support data submitted *** <br>Id: $1<br><br><br># copy ID and provide to the betaflight team."
     },
+    "buildKey": {
+        "message": "Build Key: <strong>$1</strong>"
+    },
     "supportWarningDialogTitle": {
         "message": "Confirm Data Submission"
     },
     "supportWarningDialogText": {
         "message": "Please confirm data submission to the Betaflight team.<br><br>This process will run some commands and submit the output to the build server.<br><br>You will then be provided a unique identifier for your data submission.<br><br>Please ensure you provide this unique identifier to the Betaflight team when using Discord or opening an issues on Github."
+    },
+    "supportWarningDialogInputPlaceHolder": {
+        "message": "Describe the problem"
     },
     "releaseCheckLoaded": {
         "message" : "Loaded release information for $1 from GitHub."
@@ -686,7 +700,7 @@
         "message": "Contributing"
     },
     "defaultContributingText": {
-        "message": "If you would like to help make Betaflight even better you can help in many ways, including:<br /><ul><li>using your knowledge of Betaflight to create or update content on <a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">our Wiki</a>, or answering other users' questions in online forums;</li><li><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/development/Development.md\" target=\"_blank\" rel=\"noopener noreferrer\">contributing code</a> to the firmware and Configurator - new features, fixes, improvements;</li><li>testing <a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">new features and fixes</a> and providing feedback;</li><li>helping other users solve the problems they report in <a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\">our issue tracker</a>, and participating in discussions on feature requests;</li><li><a href=\"https://github.com/betaflight/betaflight/tree/master/README.md#Translators\" target=\"_blank\" rel=\"noopener noreferrer\">translating</a> Betaflight Configurator into a new language, or helping to maintain the existing translations.</li></ul>"
+        "message": "If you would like to help make Betaflight even better you can help in many ways, including:<br /><ul><li>using your knowledge of Betaflight to create or update content on <a href=\"https://betaflight.com/docs/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">our Wiki</a>, or answering other users' questions in online forums;</li><li><a href=\"https://betaflight.com/docs/development\" target=\"_blank\" rel=\"noopener noreferrer\">contributing code</a> to the firmware and Configurator - new features, fixes, improvements;</li><li>testing <a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">new features and fixes</a> and providing feedback;</li><li>helping other users solve the problems they report in <a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\">our issue tracker</a>, and participating in discussions on feature requests;</li><li><a href=\"https://github.com/betaflight/betaflight/tree/master/README.md#Translators\" target=\"_blank\" rel=\"noopener noreferrer\">translating</a> Betaflight Configurator into a new language, or helping to maintain the existing translations.</li></ul>"
     },
     "defaultFacebookText": {
         "message": "We also have a <a href=\"https://www.facebook.com/groups/betaflightgroup/\" target=\"_blank\" rel=\"noopener noreferrer\">Facebook Group</a>.<br />Join us to get a place to talk about Betaflight, ask configuration questions, or just hang out with fellow pilots."
@@ -812,6 +826,18 @@
     "initialSetupButtonResetZaxisValue": {
         "message": "Reset Z axis, offset: $1 deg"
     },
+    "initialSetupHeading": {
+        "message": "Heading:",
+        "description": "Heading shown on Setup tab"
+    },
+    "initialSetupPitch": {
+        "message": "Pitch:",
+        "description": "Pitch shown on Setup tab"
+    },
+    "initialSetupRoll": {
+        "message": "Roll:",
+        "description": "Roll shown on Setup tab"
+    },
     "initialSetupMixerHead": {
         "message": "Mixer Type"
     },
@@ -855,7 +881,11 @@
         "message": "Magnetometer"
     },
     "initialSetupInfoHead": {
-        "message": "Info"
+        "message": "System info"
+    },
+    "initialSetupInfoHeadHelp": {
+        "message": "Shows FC flags for disarming, Battery information, RSSI level and Sensors hardware",
+        "description": "Message that pops up to describe the System info section"
     },
     "initialSetupBattery": {
         "message": "Battery voltage:"
@@ -875,8 +905,14 @@
     "initialSetupBatteryAValue": {
         "message": "$1 A"
     },
+    "initialSetupCpuTemp": {
+        "message": "CPU Temperature:"
+    },
     "initialSetupRSSI": {
         "message": "RSSI:"
+    },
+    "initialSetupSensorHardware": {
+        "message": "Sensors:"
     },
     "initialSetupRSSIValue": {
         "message": "$1 %"
@@ -914,9 +950,13 @@
         "message": "Runway Takeoff Prevention has been triggered",
         "description": "Message that pops up to describe the RUNAWAY_TAKEOFF arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCRASH": {
-        "message": "Disarmed via crash detection",
-        "description": "Message that pops up to describe the CRASH arming disable flag"
+    "initialSetupArmingDisableFlagsTooltipCRASH_DETECTED": {
+        "message": "Crash detection is active",
+        "description": "Message that pops up to describe the CRASH_DETECTED arming disable flag"
+    },
+    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
+        "message": "The craft is currently calibrating",
+        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipTHROTTLE": {
         "message": "Throttle channel is too high",
@@ -938,9 +978,9 @@
         "message": "System load is too high for safe flight",
         "description": "Message that pops up to describe the LOAD arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
-        "message": "Sensor calibration is still ongoing",
-        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
+    "initialSetupArmingDisableFlagsTooltipACC_CALIBRATION": {
+        "message": "Accelerometer calibration is still ongoing",
+        "description": "Message that pops up to describe the ACC_CALIBRATION arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipCLI": {
         "message": "CLI is active",
@@ -978,19 +1018,19 @@
         "message": "RPM-based filtering is enabled but one or more ESC's are not supplying valid DSHOT telemetry. Check that the ESC's are capable of and have the required firmware installed to support bidirectional DSHOT telemetry.",
         "description": "Message that pops up to describe the RPMFILTER arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipREBOOT_REQD": {
+    "initialSetupArmingDisableFlagsTooltipREBOOT_REQUIRED": {
         "message": "A configuration change requires a reboot",
         "description": "Message that pops up to describe the REBOOT_REQD arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipDSHOT_BBANG": {
+    "initialSetupArmingDisableFlagsTooltipDSHOT_BITBANG": {
         "message": "Bitbanged DSHOT is not working properly and the motors can't be controlled. Likely caused by a timer conflict with other features enabled on the flight controller.",
         "description": "Message that pops up to describe the DSHOT_BBANG arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipNO_ACC_CAL": {
+    "initialSetupArmingDisableFlagsTooltipNO_ACC_CALIBRATION": {
         "message": "The accelerometer has not been calibrated and features are enabled that rely on it. Calibrate the accelerometer.",
         "description": "Message that pops up to describe the NO_ACC_CAL arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTO": {
+    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTOCOL": {
         "message": "There is no motor output protocol selected",
         "description": "Message that pops up to describe the MOTOR_PROTO arming disable flag"
     },
@@ -1001,8 +1041,63 @@
     "initialSetupGPSHead": {
         "message": "GPS"
     },
+    "initialSetupGPSHeadHelp": {
+        "message": "Shows GPS info, if proper activated in Ports tab, Configuration Tab and GPS tab",
+        "description": "Message that pops up to describe the GPS section"
+    },
+    "initialSetupSonarHead": {
+        "message": "Sonar"
+    },
+    "initialSetupSonarHeadHelp": {
+        "message": "Shows Sonar info, if proper activated in Configuration Tab",
+        "description": "Message that pops up to describe the Sonar section"
+    },
+    "initialSetupAltitudeSonar": {
+        "message": "Altitude"
+    },
     "initialSetupInstrumentsHead": {
         "message": "Instruments"
+    },
+    "initialSetupInstrumentsHeadHelp": {
+        "message": "Shows Heading, Pitch and Roll in instruments",
+        "description": "Message that pops up to describe the Instruments section"
+    },
+    "initialSetupInfoAPIversion": {
+        "message": "MSP API:"
+    },
+    "initialSetupInfoBuild": {
+        "message": "Firmware info"
+    },
+    "initialSetupInfoBuildHelp": {
+        "message": "Shows information regarding the build of firmware. The Build Config and Bulid Log links to the cloud information found by the Build key",
+        "description": "Message that pops up to describe the Build / Firmware section"
+    },
+    "initialSetupInfoBuildDate": {
+        "message": "Build date:"
+    },
+    "initialSetupInfoBuildInfo": {
+        "message": "Build info:"
+    },
+    "initialSetupInfoBuildInfoKey": {
+        "message": "Build key"
+    },
+    "initialSetupInfoBuildInfoConfig": {
+        "message": "Config"
+    },
+    "initialSetupInfoBuildInfoLog": {
+        "message": "Log"
+    },
+    "initialSetupInfoBuildOptions": {
+        "message": "Build Options:"
+    },
+    "initialSetupInfoBuildOptionsList": {
+        "message": "Defines used"
+    },
+    "initialSetupInfoBuildOptionsEmpty": {
+        "message": "Local Build - no Defines used"
+    },
+    "initialSetupNotOnline": {
+        "message": "Server unavailable"
     },
     "initialSetupButtonSave": {
         "message": "Save"
@@ -1067,11 +1162,20 @@
     "featureSONAR": {
         "message": "Sonar"
     },
+    "featureSONARTip": {
+        "message": "Enable Sonar rangefinder to measure distance to ground in cm"
+    },
     "featureTELEMETRY": {
         "message": "Telemetry output"
     },
+    "featureTELEMETRYTip": {
+        "message": "Enable telemetry output to send to transmitter"
+    },
     "feature3D": {
         "message": "3D mode (for use with reversible ESCs)"
+    },
+    "feature3DTip": {
+        "message": "Enable 3D mode for use with reversible ESCs, configure at Motors tab"
     },
     "featureRX_PARALLEL_PWM": {
         "message": "PWM (one wire per channel)"
@@ -1085,6 +1189,9 @@
     "featureLED_STRIP": {
         "message": "Multi-color RGB LED strip support"
     },
+    "featureLED_STRIPTip": {
+        "message": "Enable Multi-color RGB LED strip support, configure at LED Strip tab"
+    },
     "featureDISPLAY": {
         "message": "OLED Screen Display"
     },
@@ -1093,6 +1200,9 @@
     },
     "featureOSD": {
         "message": "On Screen Display"
+    },
+    "featureOSDTip": {
+        "message": "Enable OSD, configure at OSD tab"
     },
     "featureCHANNEL_FORWARDING": {
         "message": "Forward aux channels to servo outputs"
@@ -1410,7 +1520,11 @@
         "message": "<strong>Note:</strong> Make sure your FC is able to operate at these speeds! Check CPU and cycletime stability. Changing this may require PID re-tuning. TIP: Disable Accelerometer and other sensors to gain more performance."
     },
     "configurationGPS": {
-        "message": "GPS"
+        "message": "GPS Configuration"
+    },
+    "configurationGPSHelp": {
+        "message": "Setup protocol for GPS device (remember to setup port in Port tab), use Auto baud (or setup speed at Port tab) and other configuration",
+        "description": "Help text GPS configuration"
     },
     "configurationGPSProtocol": {
         "message": "Protocol"
@@ -1442,9 +1556,6 @@
     "configurationGPSHomeOnceHelp": {
         "message": "When enabled, only the first arm after the battery is connected will be used as home point. If not enabled, every time the quad is armed, the home point will be updated.",
         "description": "Help text for the option to set the Home Point with the first arm only, not with each arm in the GPS Configuration"
-    },
-    "configurationGPSHelp": {
-        "message": "<strong>Note:</strong> Remember to configure a Serial Port (via Ports tab) when using GPS feature."
     },
     "configurationSerialRX": {
         "message": "Serial Receiver Provider"
@@ -2052,7 +2163,7 @@
         "message": "<strong>Pid Tuning Slider Mode</strong><br><br>Pidtuning slider mode can be:<br><br>&bull; OFF - no sliders, enter values manually<br>&bull; RP - sliders control Roll and Pitch only, enter Yaw values manually<br>&bull; RPY - sliders control all PID values<br><br><span class=\"message-negative\"><b>Warning:</b></span>Going from RP to RPY mode will overwrite Yaw settings with firmware settings."
     },
     "receiverHelp": {
-        "message": "&#8226;  <b><strong><a href=\"https://betaflight.com/docs/development/Failsafe#testing-failsafe\" target=\"_blank\" rel=\"noopener noreferrer\">Always check that your Failsafe is working properly!</a></strong></b> The settings are in the Failsafe tab, which requires Expert Mode.<br> &#8226; <b>Use the latest Tx firmware!</b><br> &#8226; <strong><a href=\"https://betaflight.com/docs/development/Rx#disabling-the-opentxedgetx-adc-filter\" target=\"_blank\" rel=\"noopener noreferrer\">Disable the hardware ADC filter</a></strong> in the Transmitter if using OpenTx or EdgeTx.<br>Basic Setup: Configure the 'Receiver' settings correctly. Choose the correct ‘Channel Map’ for your radio. Check that the Roll, Pitch and other bar graphs move correctly. Adjust the channel endpoint or range values in the transmitter to ~1000 to ~2000, and set the midpoint to 1500. For more information, read the <strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Rx.md\" target=\"_blank\" rel=\"noopener noreferrer\">documentation</a></strong>."
+        "message": "&#8226;  <b><strong><a href=\"https://betaflight.com/docs/development/Failsafe#testing-failsafe\" target=\"_blank\" rel=\"noopener noreferrer\">Always check that your Failsafe is working properly!</a></strong></b> The settings are in the Failsafe tab, which requires Expert Mode.<br> &#8226; <b>Use the latest Tx firmware!</b><br> &#8226; <strong><a href=\"https://betaflight.com/docs/development/Rx#disabling-the-opentxedgetx-adc-filter\" target=\"_blank\" rel=\"noopener noreferrer\">Disable the hardware ADC filter</a></strong> in the Transmitter if using OpenTx or EdgeTx.<br>Basic Setup: Configure the 'Receiver' settings correctly. Choose the correct ‘Channel Map’ for your radio. Check that the Roll, Pitch and other bar graphs move correctly. Adjust the channel endpoint or range values in the transmitter to ~1000 to ~2000, and set the midpoint to 1500. For more information, read the <strong><a href=\"https://betaflight.com/docs/development/Rx\" target=\"_blank\" rel=\"noopener noreferrer\">documentation</a></strong>."
     },
     "receiverThrottleMid": {
         "message": "Throttle MID"
@@ -2136,7 +2247,8 @@
         "message": "Binding phrase"
     },
     "receiverButtonSticks": {
-        "message": "Control sticks"
+        "message": "Radio Emulator",
+        "description": "Button that opens a window with a radio emulator on the receiver tab. Actually only enabled for MSP protocol"
     },
     "receiverDataRefreshed": {
         "message": "RC Tuning data <strong>refreshed</strong>"
@@ -2178,9 +2290,6 @@
     "auxiliaryButtonSave": {
         "message": "Save"
     },
-    "auxiliaryEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">saved</span>"
-    },
     "auxiliaryAutoChannelSelect": {
       "message": "AUTO"
     },
@@ -2189,6 +2298,194 @@
     },
     "auxiliaryModeLogicAND": {
       "message": "AND"
+    },
+    "auxiliaryHelpMode_3D": {
+        "message": "Enables reversible motor direction to provide negative thrust and allow inverted flight. Throttle becomes -100 to +100 instead of 0 to 100",
+        "description": "Help text to 3D mode"
+    },
+    "auxiliaryHelpMode_ACROTRAINER": {
+        "message": "Flight mode which limits craft angle when flying in acro mode",
+        "description": "Help text to ACRO TRAINER mode"
+    },
+    "auxiliaryHelpMode_ARM": {
+        "message": "Enables motor output and allows the craft to fly",
+        "description": "Help text to ARM mode"
+    },
+    "auxiliaryHelpMode_ANGLE": {
+        "message": "In this auto-leveled mode the roll and pitch channels control the angle between the relevant axis and the vertical, achieving leveled flight just by leaving the sticks centered",
+        "description": "Help text to ANGLE mode"
+    },
+    "auxiliaryHelpMode_ANTIGRAVITY": {
+        "message": "Flight mode increases P and I term during fast throttle movements to improve stick tracking and avoid nose drift on fast throttle changes",
+        "description": "Help text to ANTIGRAVITY mode"
+    },
+    "auxiliaryHelpMode_AIRMODE": {
+        "message": "In the standard mixer / mode, when the roll, pitch and yaw gets calculated and saturates a motor, all motors will be reduced equally. When a motor goes below minimum it gets clipped off. Say you had your throttle just above minimum and tried to pull a quick roll - since two motors can't go any lower, you essentially get half the power (half of your PID gain). If your inputs would have asked for more than a 100% difference between the high and low motors, the low motors would get clipped, breaking the symmetry of the motor balance by unevenly reducing the gain",
+        "description": "Help text to AIRMODE mode"
+    },
+    "auxiliaryHelpMode_BEEPER": {
+        "message": "Enable beeping - useful for locating a crashed aircraft",
+        "description": "Help text to BEEPER mode"
+    },
+    "auxiliaryHelpMode_BEEPERMUTE": {
+        "message": "Disable/enable beeper including warning, status and BEEPER mode",
+        "description": "Help text to BEEPERMUTE mode"
+    },
+    "auxiliaryHelpMode_BEEPERON": {
+        "message": "Enable BEEPER ON mode",
+        "description": "Help text to BEEPER ON mode"
+    },
+    "auxiliaryHelpMode_BEEPGPSSATELLITECOUNT": {
+        "message": "Enable BEEP GPS SATELLITE COUNT modee",
+        "description": "Help text to BEEP GPS SATELLITE COUNT mode"
+    },
+    "auxiliaryHelpMode_BLACKBOX": {
+        "message": "Enable BlackBox logging",
+        "description": "Help text to BLACKBOX mode"
+    },
+    "auxiliaryHelpMode_BLACKBOXERASE": {
+        "message": "Erase BlackBox log",
+        "description": "Help text to BLACKBOX ERASE mode"
+    },
+    "auxiliaryHelpMode_BOXPREARM": {
+        "message": "Enables BOXPREARM mode",
+        "description": "Help text to BOXPREARM mode"
+    },
+    "auxiliaryHelpMode_CALIB": {
+        "message": "Start in-flight calibration",
+        "description": "Help text to CALIB mode"
+    },
+    "auxiliaryHelpMode_CAMERACONTROL1": {
+        "message": "Use to toggle customized CAMERA CONTROL 1. Check in vendor manual",
+        "description": "Help text to customized CAMERA CONTROL 1 mode"
+    },
+    "auxiliaryHelpMode_CAMERACONTROL2": {
+        "message": "Use to toggle customized CAMERA CONTROL 2. Check in vendor manual",
+        "description": "Help text to customized CAMERA CONTROL 2 mode"
+    },
+    "auxiliaryHelpMode_CAMERACONTROL3": {
+        "message": "Use to toggle customized CAMERA CONTROL 3. Check in vendor manual",
+        "description": "Help text to customized CAMERA CONTROL 3 mode"
+    },
+    "auxiliaryHelpMode_CAMSTAB": {
+        "message": "Enables Camera Stabilisation mode",
+        "description": "Help text to CAMSTAB mode"
+    },
+    "auxiliaryHelpMode_FAILSAFE": {
+        "message": "Enter failsafe stage 2 manually",
+        "description": "Help text to FAILSAFE mode"
+    },
+    "auxiliaryHelpMode_FLIPOVERAFTERCRASH": {
+        "message": "Reverse the motors to flip over an upside down craft after a crash (DShot required)",
+        "description": "Help text to FLIP OVER AFTER CRASH mode"
+    },
+    "auxiliaryHelpMode_FPVANGLEMIX": {
+        "message": "Apply yaw rotation relative to a FPV camera mounted at a preset angle",
+        "description": "Help text to FPV ANGLE MIX mode"
+    },
+    "auxiliaryHelpMode_GPSBEEPSATELLITECOUNT": {
+        "message": "Use to indicate the number of GPS satellites found by beeping this number of times",
+        "description": "Help text to GPS BEEP SATELLITE COUNT mode"
+    },
+    "auxiliaryHelpMode_GPSRESCUE": {
+        "message": "Enable 'GPS Rescue' to return the craft to the location where it was last armed",
+        "description": "Help text to GPS RESCUE mode"
+    },
+    "auxiliaryHelpMode_HEADADJ": {
+        "message": "Heading Adjust - Sets a new yaw origin for HEADFREE mode",
+        "description": "Help text to HEAD ADJ mode"
+    },
+    "auxiliaryHelpMode_HEADFREE": {
+        "message": "Flight mode where yaw is aligned with an external frame of reference (often where the pilot is facing) instead of the craft's. Designed for beginners but rarely used, advise ANGLE mode",
+        "description": "Help text to HEADFREE mode"
+    },
+    "auxiliaryHelpMode_HORIZON": {
+        "message": "This hybrid mode works exactly like the ANGLE mode with centered roll and pitch sticks (thus enabling auto-leveled flight), then gradually behaves more and more like the default RATE mode as the sticks are moved away from the center position",
+        "description": "Help text to HORIZON mode"
+    },
+    "auxiliaryHelpMode_LAUNCHCONTROL": {
+        "message": "Race start assistance system",
+        "description": "Help text to LAUNCH CONTROL mode"
+    },
+    "auxiliaryHelpMode_LEDLOW": {
+        "message": "Switch off LED STRIP output",
+        "description": "Help text to LEDLOW mode"
+    },
+    "auxiliaryHelpMode_MAG": {
+        "message": "Heading lock to Magnetometer direction (compass control)",
+        "description": "Help text to MAG mode"
+    },
+    "auxiliaryHelpMode_MSPOVERRIDE": {
+        "message": "Enable MSP Override mode",
+        "description": "Help text to MSP OVERRIDE mode"
+    },
+    "auxiliaryHelpMode_OSDDISABLE": {
+        "message": "Enable/Disable On-Screen-Display",
+        "description": "Help text to OSD mode"
+    },
+    "auxiliaryHelpMode_PASSTHRU": {
+        "message": "Pass roll, yaw, and pitch directly from rx to servos in airplane mix",
+        "description": "Help text to PASSTHRU mode"
+    },
+    "auxiliaryHelpMode_PARALYZE": {
+        "message": "Permanently disable a crashed craft until it is power cycled",
+        "description": "Help text to PARALYZE mode"
+    },
+    "auxiliaryHelpMode_PIDAUDIO": {
+        "message": "Use to toggle PIDAUDIO",
+        "description": "Help text to PIDAUDIO mode"
+    },
+    "auxiliaryHelpMode_PREARM": {
+        "message": "When arming, wait for this switch to be activated before actually arming",
+        "description": "Help text to PREARM mode"
+    },
+    "auxiliaryHelpMode_READY": {
+        "message": "Added in BF4.4, you can now show 'READY' in the OSD using a switch. This is a niche improvement for racing situations where all pilot video feeds are on one central screen. The pilot can flick a switch to indicate that they are ready to fly, and the word READY appears on their OSD. The race director can then tell if all pilots are ready by looking at the central screen. On arming, the READY text disappears",
+        "description": "Help text to READY mode"
+    },
+    "auxiliaryHelpMode_STICKCOMMANDSDISABLE": {
+        "message": "Disable/enable stick command",
+        "description": "Help text to STICK COMMANDS DISABLE mode"
+    },
+    "auxiliaryHelpMode_SERVO1": {
+        "message": "Use to toggle SERVO1",
+        "description": "Help text to SERVO1 mode"
+    },
+    "auxiliaryHelpMode_SERVO2": {
+        "message": "Use to toggle SERVO2",
+        "description": "Help text to SERVO2 mode"
+    },
+    "auxiliaryHelpMode_SERVO3": {
+        "message": "Use to toggle SERVO3",
+        "description": "Help text to SERVO3 mode"
+    },
+    "auxiliaryHelpMode_TELEMETRY": {
+        "message": "Enable telemetry via switch",
+        "description": "Help text to TELEMETRY mode"
+    },
+    "auxiliaryHelpMode_USER1": {
+        "message": "Use to toggle customized USER1. Controls arbitrary output via PINIO",
+        "description": "Help text to customized USER1 mode"
+    },
+    "auxiliaryHelpMode_USER2": {
+        "message": "Use to toggle customized USER2. Controls arbitrary output via PINIO",
+        "description": "Help text to customized USER2 mode"
+    },
+    "auxiliaryHelpMode_USER3": {
+        "message": "Use to toggle customized USER3. Controls arbitrary output via PINIO",
+        "description": "Help text to customized USER3 mode"
+    },
+    "auxiliaryHelpMode_USER4": {
+        "message": "Use to toggle customized USER4. Controls arbitrary output via PINIO",
+        "description": "Help text to customized USER4 mode"
+    },
+    "auxiliaryHelpMode_VTXCONTROLDISABLE": {
+        "message": "Disable the control of VTX settings through the OSD",
+        "description": "Help text to VTX CONTROL DISABLE mode"
+    },
+    "auxiliaryHelpMode_VTXPITMODE": {
+        "message": "Switch the VTX into pit mode (low output power, if supported)",
+        "description": "Help text to VTX PIT MODE mode"
     },
     "adjustmentsHelp": {
         "message": "Configure adjustment switches. See the 'in-flight adjustments' section of the manual for details. The changes that adjustment functions make are not saved automatically."
@@ -2403,9 +2700,6 @@
     "transponderDataInvalid": {
         "message": "Transponder data is <span class=\"message-negative\">invalid</span>"
     },
-    "transponderEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">saved</span>"
-    },
     "servosFirmwareUpgradeRequired": {
         "message": "Servos requires firmware &gt;= 1.10.0. and target support."
     },
@@ -2451,8 +2745,16 @@
     "gpsHead": {
         "message": "GPS"
     },
+    "gpsHeadHelp": {
+        "message": "Show various information releated to GPS. Heading are only shown when Magnetometer are in use",
+        "description": "Help text for gpsHead"
+    },
     "gpsMapHead": {
         "message": "Current GPS location"
+    },
+    "gpsMapHeadHelp": {
+        "message": "Show GPS location on the map. Use mouse scroll button to zoom in and out.<br>The location icon shows the north direction when the magnetometer is in use",
+        "description": "Help text for gpsHeadMap"
     },
     "gpsMapMessage1": {
         "message": "Please check your internet connection"
@@ -2464,31 +2766,41 @@
         "message": "3D Fix:"
     },
     "gpsFixTrue": {
-        "message": "<span class=\"fixtrue\">True</span>"
+        "message": "True"
     },
     "gpsFixFalse": {
-        "message": "<span class=\"fixfalse\">False</span>"
+        "message": "False"
+    },
+    "gpsPositionUnit": {
+        "message": "deg",
+        "description": "Unit for GPS position."
     },
     "gpsAltitude": {
         "message": "Altitude:"
     },
-    "gpsLat": {
-        "message": "Latitude:"
+    "gpsLatLon": {
+        "message": "Current Latitude / Longitude:",
+        "description": "Show GPS position - Latitude / Longitude"
     },
-    "gpsLon": {
-        "message": "Longitude:"
+    "gpsHeading": {
+        "message": "Heading:"
     },
     "gpsSpeed": {
         "message": "Speed:"
     },
     "gpsSats": {
-        "message": "Sats:"
+        "message": "Number of Satellites:",
+        "description": "Show number of fixed GPS Satellites"
     },
     "gpsDistToHome": {
         "message": "Dist to Home:"
     },
     "gpsSignalStrHead": {
         "message": "GPS Signal Strength"
+    },
+    "gpsSignalStrHeadHelp": {
+        "message": "Show signal strength, quality and status for each discovered GPS source",
+        "description": "Help text for gpsSignalStrHead"
     },
     "gpsSignalStr": {
         "message": "Signal Strength"
@@ -2865,6 +3177,9 @@
     },
     "loggingLogSize": {
         "message": "Log Size:"
+    },
+    "loggingLogName": {
+        "message": "Log Name:"
     },
     "loggingButtonLogFile": {
         "message": "Select Log File"
@@ -3302,6 +3617,22 @@
     "firmwareFlasherPreviousDevice": {
         "message": "Detected: <strong>$1</strong> - previous device still flashing, please replug to try again"
     },
+    "firmwareFlasherRemindBackupTitle": {
+        "message": "Wipe out settings",
+        "description": "Warning message title before actual flashing takes place"
+    },
+    "firmwareFlasherRemindBackup": {
+        "message": "Flashing new firmware will wipe out all settings. We strongly recommend to save a backup before continuing.",
+        "description": "Warning message before actual flashing takes place"
+    },
+    "firmwareFlasherBackup": {
+        "message": "Create Backup",
+        "description": "Create a backup before actual flashing takes place"
+    },
+    "firmwareFlasherBackupIgnore": {
+        "message": "Ignore the risk",
+        "description": "Ignore creating a backup before actual flashing takes place"
+    },
     "ledStripHelp": {
         "message": "The flight controller can control colors and effects of individual LEDs on a strip.<br />Configure LEDs on the grid, configure wiring order then attach LEDs on your aircraft according to grid positions. LEDs without wire ordering number will not be saved.<br />Double-click on a color to edit the HSV values."
     },
@@ -3335,9 +3666,6 @@
     "ledStripClearAllButton": {
         "message": "Clear ALL",
         "description": "In the LED STRIP, clear all leds"
-    },
-    "ledStripEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">saved</span>"
     },
     "ledStripVtxOverlay": {
         "message": "VTX (uses vtx frequency to assign color)"
@@ -3490,17 +3818,16 @@
         "message": "LEDs without wire ordering number will not be saved.",
         "description": "Message in the wiring modes in Led Strip"
     },
-    "ledStripVtxFunction": {
-        "message": "Larson scanner"
-    },
-    "ledStripBlinkTitle": {
-        "message": "Blink"
+    "ledStripLarsonOverlay": {
+        "message": "Larson scanner",
+        "description": "Larson effect switch label on LED Strip tab"
     },
     "ledStripBlinkAlwaysOverlay": {
         "message": "Blink always"
     },
-    "ledStripBlinkLandingOverlay": {
-        "message": "Blink on landing"
+    "ledStripRainbowOverlay": {
+        "message": "Rainbow",
+        "description": "Rainbow effect switch label on LED Strip tab"
     },
     "ledStripOverlayTitle": {
         "message": "Overlay"
@@ -4874,7 +5201,7 @@
     },
     "osdTextElementVTXchannelVariantPower": {
         "message": "VTX power",
-        "description": "One of the variants of the VTX channel element of the OSD"        
+        "description": "One of the variants of the VTX channel element of the OSD"
     },
     "osdTextElementVTXchannelVariantFull": {
         "message": "Band:Channel:Pwr:Pit",
@@ -5027,6 +5354,27 @@
     },
     "osdDescElementSysFanSpeed": {
         "message": "Goggle fan speed rendered by the goggles"
+    },
+    "osdTextElementLapTimeCurrent": {
+        "message": "GPS lap time current",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementLapTimeCurrent": {
+        "message": "Current GPS lap time"
+    },
+    "osdTextElementLapTimePrevious": {
+        "message": "GPS lap time previous",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementLapTimePrevious": {
+        "message": "Previous GPS lap time"
+    },
+    "osdTextElementLapTimeBest3": {
+        "message": "GPS lap time best 3",
+        "description": "One of the elements of the OSD"
+    },
+    "osdDescElementLapTimeBest": {
+        "message": "Best GPS lap time"
     },
     "osdTextElementCraftName": {
         "message": "Craft name",
@@ -5346,7 +5694,7 @@
         "description": "One of the elements of the OSD"
     },
     "osdDescElementFlipArrow": {
-        "message": "Arrow showing which side motors are up in turtle mode"
+        "message": "Arrow showing which side motors are up in turtle mode (accelerometer must be enabled)"
     },
     "osdTextElementLinkQuality": {
         "message": "Link quality",
@@ -5684,6 +6032,20 @@
     },
     "osdDescStatMinRSNR": {
         "message": "Minimum RSNR value"
+    },
+    "osdTextStatBest3ConsecLaps": {
+        "message": "Best 3 consecutive laps",
+        "description": "One of the statistics that can be shown at the end of the flight in the OSD"
+    },
+    "osdDescStatBest3ConsecLaps": {
+        "message": "Best 3 consecutive laps"
+    },
+    "osdTextStatBestLap": {
+        "message": "Best lap",
+        "description": "One of the statistics that can be shown at the end of the flight in the OSD"
+    },
+    "osdDescStatBestLap": {
+        "message": "Best lap"
     },
     "osdTextStatUnknown": {
         "message": "Unknown $1",
@@ -6038,6 +6400,14 @@
         "message": "You can select here the frequency for your VTX if it is supported",
         "description": "Help text for the frequency field of the VTX tab"
     },
+    "vtxReadyTrue": {
+        "message": "True",
+        "description": "vtx device are ready"
+    },
+    "vtxReadyFalse": {
+        "message": "False",
+        "description": "vtx device are not ready"
+    },
     "vtxDeviceReady": {
         "message": "Device ready",
         "description": "Text of one of the fields of the VTX tab"
@@ -6372,6 +6742,9 @@
     "onboardLoggingRateOfLogging": {
         "message": "Blackbox logging rate"
     },
+    "onboardLoggingDebugFields": {
+        "message": "Data included"
+    },
     "onboardLoggingDebugMode": {
         "message": "Blackbox debug mode"
     },
@@ -6586,6 +6959,10 @@
         "message": "Keywords:",
         "description": "Hint text in the presets detailed dialog"
     },
+    "presetsSourceRepository": {
+        "message": "Source:",
+        "description": "Text prefixing user defined name of the preset repository containing a preset"
+    },
     "presetsVersions": {
         "message": "Firmware:",
         "description": "Hint text in the presets detailed dialog"
@@ -6734,6 +7111,10 @@
         "message": "Make Active",
         "description": "Presets tab, sources dialog, button to make selected source active"
     },
+    "presetsSourcesDialogMakeSourceDisable": {
+        "message": "Make disabled",
+        "description": "Presets tab, sources dialog, button to make selected source disabled"
+    },
     "presetsSourcesDialogDeleteSource": {
         "message": "Delete",
         "description": "Presets tab, sources dialog, button to delete selected source"
@@ -6741,6 +7122,10 @@
     "presetsWarningNotOfficialSource": {
         "message": "<span class=\"message-negative\">WARNING!</span> A third party preset source is selected.",
         "description": "Warning message that shows up when a third party preset source is selected"
+    },
+    "presetsFailedToLoadRepositories": {
+        "message": "<span class=\"message-negative\">WARNING!</span> Failed to load following repositories: <b>{{repos}}</b>",
+        "description": "Warning message that shows up when we fail to load some repositories"
     },
     "presetsWarningBackup": {
         "message": "Please make sure you backup your current configuration ('$t(presetsBackupSave.message)' button or via CLI if the button is disabled) <strong>before</strong> picking and applying presets. Otherwise there is no way to return to previous configuration after applying presets.",
@@ -6818,5 +7203,9 @@
     },
     "coreBuildModeDescription": {
         "message": "This option builds a firmware that contains the hardware drivers (and some limited features). It is available to assist in the detection of the hardware on a flight controller, and is provided for that convenience only. Not all features will be available (only hardware) using this option."
+    },
+    "showDevToolsOnStartup": {
+        "message": "Automatically open DevTools in development mode",
+        "description": "Text for the option to enable automatic opening of DevTools in debug mode"
     }
 }

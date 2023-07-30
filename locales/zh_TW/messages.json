@@ -70,9 +70,6 @@
     "expertMode": {
         "message": "啟用專家模式"
     },
-    "permanentExpertMode": {
-        "message": "默認啟用專家模式"
-    },
     "rememberLastTab": {
         "message": "連接後重新打開最後使用的選項頁"
     },
@@ -518,9 +515,6 @@
     "defaultContributingHead": {
         "message": "參與開發"
     },
-    "defaultContributingText": {
-        "message": "如果你想幫助 Betaflight 變得更好，你可以：<br /><ul><li>用您的 Betaflight 知識來為 <a href=\"https://github.com/betaflight/betaflight/wiki\" target =\"_blank\" rel=\"noopener noreferrer\">我們的wiki</a> 創建或更新內容，或者是在論壇裡回答其他用戶的問題；</li><li>為固件和配置程序 <a href= \"https://github.com/betaflight/betaflight/blob/master/docs/development/Development.md\" target=\"_blank\" rel=\"noopener noreferrer\">貢獻代碼</a> - 增加新功能，解決漏洞，改善代碼；</li><li>測試 <a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">新功能和修改</a > 並提供測試反饋；</li><li>幫助在 <a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\">問題追踪器</a> 上報告問題的用戶解決問題，並參與功能請求的討論；</li><li><a href=\"https://github.com/betaflight/betaflight/tree/master/README.md# Translators\" target=\"_blank\" rel=\"noopener noreferrer\">為 Betaflight 配置程序添加新語言的翻譯</a>，或者幫助維護既有的翻譯。 </li></ul>"
-    },
     "defaultFacebookText": {
         "message": "我們還有一個<a href=\"https://www.facebook.com/groups/betaflightgroup/\" target=\"_blank\" rel=\"noopener noreferrer\"> Facebook 小組</a>。<br />加入我們來一起討論 Betaflight，咨詢配置問題，或者只是和小夥伴們閒聊。"
     },
@@ -555,9 +549,6 @@
     "defaultDocumentation": {
         "message": "Betaflight 的文檔和發佈說明可以在 wiki 裡面找到。<br /><br />"
     },
-    "defaultDocumentation1": {
-        "message": "學習 Betaflight 最好的資源是使用 Betaflight wiki，而不是聽信各種“老師”，它在<a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">這裡</a>。"
-    },
     "defaultDocumentation2": {
         "message": "最新的固件發佈訊息可以在<a href=\"https://github.com/Betaflight/Betaflight/releases\" target=\"_blank\" rel=\"noopener noreferrer\">這裡</a>找到。"
     },
@@ -576,14 +567,8 @@
     "defaultSupport1": {
         "message": "<a href=\"http://www.rcgroups.com/forums/showthread.php?t=2464844&page=1\" target=\"_blank\" rel=\"noopener noreferrer\">RC Groups thread</a>"
     },
-    "defaultSupport2": {
-        "message": "<a href=\"http://betaflight.info\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Wiki</a>"
-    },
     "defaultSupport4": {
         "message": "<a href=\"https://github.com/Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>"
-    },
-    "defaultSupport5": {
-        "message": "<a href=\"https://slack.betaflight.com\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight 開發者 Slack</a>"
     },
     "initialSetupButtonCalibrateAccel": {
         "message": "校準加速度計"
@@ -618,6 +603,12 @@
     "initialSetupButtonResetZaxisValue": {
         "message": "重置 Z 軸，補償: $1 度"
     },
+    "initialSetupPitch": {
+        "message": "俯仰:"
+    },
+    "initialSetupRoll": {
+        "message": "橫滾:"
+    },
     "initialSetupMixerHead": {
         "message": "混控類型"
     },
@@ -651,17 +642,8 @@
     "initialSetupAccelTrimsHead": {
         "message": "加速度計微調"
     },
-    "initialSetupPitch": {
-        "message": "俯仰:"
-    },
-    "initialSetupRoll": {
-        "message": "橫滾:"
-    },
     "initialSetupMagHead": {
         "message": "磁力計"
-    },
-    "initialSetupInfoHead": {
-        "message": "訊息"
     },
     "initialSetupBattery": {
         "message": "電池電壓："
@@ -720,10 +702,6 @@
         "message": "已觸發預防起飛失控",
         "description": "Message that pops up to describe the RUNAWAY_TAKEOFF arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCRASH": {
-        "message": "檢測到墜機事故",
-        "description": "Message that pops up to describe the CRASH arming disable flag"
-    },
     "initialSetupArmingDisableFlagsTooltipTHROTTLE": {
         "message": "油門通道值過高",
         "description": "Message that pops up to describe the THROTTLE arming disable flag"
@@ -743,10 +721,6 @@
     "initialSetupArmingDisableFlagsTooltipLOAD": {
         "message": "系統負載過高, 無法安全飛行",
         "description": "Message that pops up to describe the LOAD arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
-        "message": "傳感器校準仍在進行中",
-        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipCLI": {
         "message": "CLI (命令列) 已激活",
@@ -783,22 +757,6 @@
     "initialSetupArmingDisableFlagsTooltipRPMFILTER": {
         "message": "基於轉速的濾波器已開啟，但一個或多個電調未發送有效的 DSHOT 回傳數據。請確認電調支援 DSHOT 回傳功能並且已刷入支援雙向 DSHOT 回傳的固件。",
         "description": "Message that pops up to describe the RPMFILTER arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipREBOOT_REQD": {
-        "message": "配置更改需要重啟",
-        "description": "Message that pops up to describe the REBOOT_REQD arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipDSHOT_BBANG": {
-        "message": "Bitbanged Dshot 無法正常工作，無法正常控制電機。可能是由於在飛控上啟用了其他功能造成了定時器衝突。",
-        "description": "Message that pops up to describe the DSHOT_BBANG arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipNO_ACC_CAL": {
-        "message": "已啟用了使用加速度計的功能，但加速度計未校準。請校準加速度計。",
-        "description": "Message that pops up to describe the NO_ACC_CAL arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTO": {
-        "message": "尚未選擇電機輸出協議",
-        "description": "Message that pops up to describe the MOTOR_PROTO arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipARM_SWITCH": {
         "message": "解鎖時有一個阻止解鎖的標誌處於活躍狀態",
@@ -1176,9 +1134,6 @@
     "configurationLoopTimeHelp": {
         "message": "<strong>注意：</strong>確保你的飛控有能力運行在這些頻率上！檢查CPU循環時間是否穩定。改變頻率可能需要重新調校PID。提示：關閉加速度計和其他傳感器可以節省運算資源以或許更高性能。"
     },
-    "configurationGPS": {
-        "message": "GPS"
-    },
     "configurationGPSProtocol": {
         "message": "協議"
     },
@@ -1205,9 +1160,6 @@
     "configurationGPSHomeOnceHelp": {
         "message": "啟用後，當接通電池後第一次解鎖時間的地點將被視為返航點。如果未開啟，返航點將隨每次解鎖而更新。",
         "description": "Help text for the option to set the Home Point with the first arm only, not with each arm in the GPS Configuration"
-    },
-    "configurationGPSHelp": {
-        "message": "<strong>注意:</strong>使用 GPS 之前需要先在埠口頁面設置一個串口。"
     },
     "configurationSerialRX": {
         "message": "串行數字接收機協議"
@@ -1636,9 +1588,6 @@
     "receiverButtonBindMessage": {
         "message": "對頻請求已發送到飛行控制器。"
     },
-    "receiverButtonSticks": {
-        "message": "控制搖桿"
-    },
     "receiverDataRefreshed": {
         "message": "RC 調整數據<strong>已刷新</strong>"
     },
@@ -1675,9 +1624,6 @@
     },
     "auxiliaryButtonSave": {
         "message": "保存"
-    },
-    "auxiliaryEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">已保存</span>"
     },
     "auxiliaryAutoChannelSelect": {
         "message": "自動"
@@ -1895,9 +1841,6 @@
     "transponderDataInvalid": {
         "message": "收發器數據 <span class=\"message-negative\">無效</span>"
     },
-    "transponderEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">已保存</span>"
-    },
     "servosFirmwareUpgradeRequired": {
         "message": "舵機功能要求固件版本大於1.10.0 且飛控支援"
     },
@@ -1955,20 +1898,8 @@
     "gps3dFix": {
         "message": "3D 定位…"
     },
-    "gpsFixTrue": {
-        "message": "<span class=\"fixtrue\">定位成功</span>"
-    },
-    "gpsFixFalse": {
-        "message": "<span class=\"fixfalse\">定位失敗</span>"
-    },
     "gpsAltitude": {
         "message": "高度："
-    },
-    "gpsLat": {
-        "message": "緯度："
-    },
-    "gpsLon": {
-        "message": "經度："
     },
     "gpsSpeed": {
         "message": "速度："
@@ -2551,9 +2482,6 @@
         "message": "全部清除",
         "description": "In the LED STRIP, clear all leds"
     },
-    "ledStripEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">已保存</span>"
-    },
     "ledStripVtxOverlay": {
         "message": "圖傳(顏色根據圖傳頻率而變化)"
     },
@@ -2705,17 +2633,8 @@
         "message": "沒有佈線序號的 LED 不會被保存。",
         "description": "Message in the wiring modes in Led Strip"
     },
-    "ledStripVtxFunction": {
-        "message": "左右掃描"
-    },
-    "ledStripBlinkTitle": {
-        "message": "閃爍"
-    },
     "ledStripBlinkAlwaysOverlay": {
         "message": "持續閃爍"
-    },
-    "ledStripBlinkLandingOverlay": {
-        "message": "著陸時閃爍"
     },
     "ledStripOverlayTitle": {
         "message": "疊加"
@@ -3072,9 +2991,6 @@
     },
     "pidTuningIntegratedYaw": {
         "message": "整合式偏航"
-    },
-    "pidTuningIntegratedYawCaution": {
-        "message": "<span class=\"message-negative\">注意</span>: 如果你啟用此功能，則必須相應地調整偏航PID。更多訊息在<a href=\"https://github.com/betaflight/betaflight/wiki/Integrated-Yaw\" target=\"_blank\" rel=\"noopener noreferrer\">此處</a>"
     },
     "configHelp2": {
         "message": "任意角度（直立，反轉，旋轉等）安裝飛控板。當使用外部傳感器時，請使用傳感器校正設置(陀螺，加速度計，磁場計)來決定獨立於飛控板的傳感器位置。"
@@ -4029,9 +3945,6 @@
         "message": "反烏龜箭頭",
         "description": "One of the elements of the OSD"
     },
-    "osdDescElementFlipArrow": {
-        "message": "在反烏龜模式中，箭頭指示哪邊的電機朝上"
-    },
     "osdTextElementLinkQuality": {
         "message": "連接質量",
         "description": "One of the elements of the OSD"
@@ -4534,10 +4447,6 @@
     },
     "osdButtonSaved": {
         "message": "已儲存"
-    },
-    "vtxHelp": {
-        "message": "這裡可以定義圖傳用到的值。如果你的圖傳支援，你可以查看和修改發送功率和圖傳表。 <br>按以下步驟設置你的圖傳：<br>1. 打開<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight/wiki/VTX- tables\">這個</a>頁面；<br>2. 找到並下載適合你的圖傳型號和所在地區的圖傳配置文件；<br>3. 點擊下方'$t(vtxButtonLoadFile.message)'，選擇並加載圖傳配置文件；<br>4. 確認設置正確；<br>5. 點擊'$t(vtxButtonSave.message)'保存圖傳設置到飛控。 <br>6. （可選）點擊'$t(vtxButtonSaveLua.message)'保存 Lua 配置文件供 Betaflight Lua 腳本使用。 （在<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight-tx-lua-scripts/\">這裡</a>查看更多。）",
-        "description": "Introduction message in the VTX tab"
     },
     "vtxMessageNotSupported": {
         "message": "<span class=\"message-negative\">注意:</span>您的圖傳未配置或不支援。所以您不能在此修改圖傳值。只有當圖傳使用Tramp或SmartAudio等協議，連接到飛行控制器，並在$t(tabPorts.message)頁面中正確配置後，才可以使用。",

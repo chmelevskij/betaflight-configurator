@@ -1,23 +1,31 @@
 import { i18n } from "../localization";
+import semver from 'semver';
+import { API_VERSION_1_43 } from '../data_storage';
 import GUI, { TABS } from '../gui';
-import { have_sensor } from "../sensor_helpers";
 import FC from '../fc';
 import MSP from "../msp";
 import MSPCodes from "../msp/MSPCodes";
 import $ from 'jquery';
+import { have_sensor } from "../sensor_helpers";
+import { mspHelper } from '../msp/MSPHelper';
+import { updateTabList } from '../utils/updateTabList';
 
 const gps = {};
-gps.initialize = function (callback) {
 
-    if (GUI.active_tab !== 'gps') {
-        GUI.active_tab = 'gps';
-    }
+gps.initialize = async function (callback) {
+
+    GUI.active_tab = 'gps';
+
+    await MSP.promise(MSPCodes.MSP_FEATURE_CONFIG);
+    await MSP.promise(MSPCodes.MSP_GPS_CONFIG);
+
+    const hasMag = have_sensor(FC.CONFIG.activeSensors, 'mag');
+
+    load_html();
 
     function load_html() {
         $('#content').load("./src/tabs/gps.html", process_html);
     }
-
-    MSP.send_message(MSPCodes.MSP_STATUS, false, false, load_html);
 
     function set_online(){
         $('#connect').hide();
@@ -44,16 +52,138 @@ gps.initialize = function (callback) {
         }
 
         function get_gpsvinfo_data() {
-            MSP.send_message(MSPCodes.MSP_GPS_SV_INFO, false, false, update_ui);
+            MSP.send_message(MSPCodes.MSP_GPS_SV_INFO, false, false, hasMag ? get_imu_data : update_ui);
+        }
+
+        function get_imu_data() {
+            MSP.send_message(MSPCodes.MSP_RAW_IMU, false, false, update_ui);
         }
 
         // To not flicker the divs while the fix is unstable
         let gpsWasFixed = false;
 
+        // GPS Configuration
+        const features_e = $('.tab-gps .features');
+
+        FC.FEATURE_CONFIG.features.generateElements(features_e);
+
+        const checkUpdateGpsControls = () => $('.gpsSettings').toggle(FC.FEATURE_CONFIG.features.isEnabled('GPS'));
+
+        $('input.feature', features_e).on('change', function () {
+            const element = $(this);
+
+            FC.FEATURE_CONFIG.features.updateData(element);
+            updateTabList(FC.FEATURE_CONFIG.features);
+
+            if (element.attr('name') === 'GPS') {
+                checkUpdateGpsControls();
+            }
+        });
+
+        checkUpdateGpsControls();
+
+        // generate GPS
+        const gpsProtocols = [
+            'NMEA',
+            'UBLOX',
+            'MSP',
+        ];
+
+        const gpsBaudRates = [
+            '115200',
+            '57600',
+            '38400',
+            '19200',
+            '9600',
+        ];
+
+        const gpsSbas = [
+            i18n.getMessage('gpsSbasAutoDetect'),
+            i18n.getMessage('gpsSbasEuropeanEGNOS'),
+            i18n.getMessage('gpsSbasNorthAmericanWAAS'),
+            i18n.getMessage('gpsSbasJapaneseMSAS'),
+            i18n.getMessage('gpsSbasIndianGAGAN'),
+        ];
+
+        if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_43)) {
+            gpsSbas.push(i18n.getMessage('gpsSbasNone'));
+        }
+
+        const gpsProtocolElement = $('select.gps_protocol');
+        const gpsAutoBaudElement = $('input[name="gps_auto_baud"]');
+        const gpsAutoBaudGroup = $('.gps_auto_baud');
+        const gpsAutoConfigElement = $('input[name="gps_auto_config"]');
+        const gpsAutoConfigGroup = $('.gps_auto_config');
+        const gpsUbloxGalileoElement = $('input[name="gps_ublox_galileo"]');
+        const gpsUbloxGalileoGroup = $('.gps_ublox_galileo');
+        const gpsUbloxSbasElement = $('select.gps_ubx_sbas');
+        const gpsUbloxSbasGroup = $('.gps_ubx_sbas');
+        const gpsHomeOnceElement = $('input[name="gps_home_once"]');
+        const gpsBaudrateElement = $('select.gps_baudrate');
+
+        for (let protocolIndex = 0; protocolIndex < gpsProtocols.length; protocolIndex++) {
+            gpsProtocolElement.append(`<option value="${protocolIndex}">${gpsProtocols[protocolIndex]}</option>`);
+        }
+
+        gpsProtocolElement.change(function () {
+            FC.GPS_CONFIG.provider = parseInt($(this).val());
+
+            // Call this to enable or disable auto config elements depending on the protocol
+            gpsAutoConfigElement.change();
+
+        }).val(FC.GPS_CONFIG.provider).change();
+
+        gpsAutoBaudElement.prop('checked', FC.GPS_CONFIG.auto_baud === 1);
+
+        gpsAutoConfigElement.on('change', function () {
+            const checked = $(this).is(":checked");
+
+            const ubloxSelected = FC.GPS_CONFIG.provider === gpsProtocols.indexOf('UBLOX');
+            const mspSelected = FC.GPS_CONFIG.provider === gpsProtocols.indexOf('MSP');
+
+            const enableGalileoVisible = checked && ubloxSelected && semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_43);
+            gpsUbloxGalileoGroup.toggle(enableGalileoVisible);
+
+            const enableSbasVisible = checked && ubloxSelected;
+            gpsUbloxSbasGroup.toggle(enableSbasVisible);
+
+            gpsAutoBaudGroup.toggle(ubloxSelected || mspSelected);
+            gpsAutoConfigGroup.toggle(ubloxSelected || mspSelected);
+
+        }).prop('checked', FC.GPS_CONFIG.auto_config === 1).trigger('change');
+
+        gpsUbloxGalileoElement.change(function() {
+            FC.GPS_CONFIG.ublox_use_galileo = $(this).is(':checked') ? 1 : 0;
+        }).prop('checked', FC.GPS_CONFIG.ublox_use_galileo > 0).change();
+
+        for (let sbasIndex = 0; sbasIndex < gpsSbas.length; sbasIndex++) {
+            gpsUbloxSbasElement.append(`<option value="${sbasIndex}">${gpsSbas[sbasIndex]}</option>`);
+        }
+
+        gpsUbloxSbasElement.change(function () {
+            FC.GPS_CONFIG.ublox_sbas = parseInt($(this).val());
+        }).val(FC.GPS_CONFIG.ublox_sbas);
+
+        $('.gps_home_once').toggle(semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_43));
+        gpsHomeOnceElement.change(function() {
+            FC.GPS_CONFIG.home_point_once = $(this).is(':checked') ? 1 : 0;
+        }).prop('checked', FC.GPS_CONFIG.home_point_once > 0).change();
+
+        for (const baudRate of gpsBaudRates) {
+            gpsBaudrateElement.append(`<option value="${baudRate}">${baudRate}</option>`);
+        }
+
+        gpsBaudrateElement.prop("disabled", true);
+        gpsBaudrateElement.parent().hide();
+
+        // End GPS Configuration
+
         function update_ui() {
             const lat = FC.GPS_DATA.lat / 10000000;
             const lon = FC.GPS_DATA.lon / 10000000;
             const url = `https://maps.google.com/?q=${lat},${lon}`;
+            const heading = hasMag ? Math.atan2(FC.SENSOR_DATA.magnetometer[1], FC.SENSOR_DATA.magnetometer[0]) : undefined;
+            const headingDeg = heading === undefined ? 0 : heading * 180 / Math.PI;
             const gnssArray = ['GPS', 'SBAS', 'Galileo', 'BeiDou', 'IMES', 'QZSS', 'Glonass'];
             const qualityArray = ['gnssQualityNoSignal', 'gnssQualitySearching', 'gnssQualityAcquired', 'gnssQualityUnusable', 'gnssQualityLocked',
                 'gnssQualityFullyLocked', 'gnssQualityFullyLocked', 'gnssQualityFullyLocked'];
@@ -61,10 +191,13 @@ gps.initialize = function (callback) {
             const healthyArray = ['gnssHealthyUnknown', 'gnssHealthyHealthy', 'gnssHealthyUnhealthy', 'gnssHealthyUnknown'];
             let alt = FC.GPS_DATA.alt;
 
-            $('.GPS_info td.fix').html((FC.GPS_DATA.fix) ? i18n.getMessage('gpsFixTrue') : i18n.getMessage('gpsFixFalse'));
+            $('.GPS_info span.colorToggle').text(FC.GPS_DATA.fix ? i18n.getMessage('gpsFixTrue') : i18n.getMessage('gpsFixFalse'));
+            $('.GPS_info span.colorToggle').toggleClass('ready', FC.GPS_DATA.fix != 0);
+
+            const gspUnitText = i18n.getMessage('gpsPositionUnit');
             $('.GPS_info td.alt').text(`${alt} m`);
-            $('.GPS_info td.lat a').prop('href', url).text(`${lat.toFixed(4)} deg`);
-            $('.GPS_info td.lon a').prop('href', url).text(`${lon.toFixed(4)} deg`);
+            $('.GPS_info td.latLon a').prop('href', url).text(`${lat.toFixed(4)} deg / ${lon.toFixed(4)} deg`);
+            $('.GPS_info td.heading').text(`${headingDeg.toFixed(4)} ${gspUnitText}`);
             $('.GPS_info td.speed').text(`${FC.GPS_DATA.speed} cm/s`);
             $('.GPS_info td.sats').text(FC.GPS_DATA.numSat);
             $('.GPS_info td.distToHome').text(`${FC.GPS_DATA.distanceToHome} m`);
@@ -81,6 +214,7 @@ gps.initialize = function (callback) {
                     <td style="width: 53%;" i18n="gpsSignalStatusQly">${i18n.getMessage('gpsSignalStatusQly')}</td>
                 </tr>
             `);
+
             if (FC.GPS_DATA.chn.length <= 16) {
                 // Legacy code path: old BF firmware or old ublox module
                 for (let i = 0; i < FC.GPS_DATA.chn.length; i++) {
@@ -125,9 +259,30 @@ gps.initialize = function (callback) {
                     } else {
                         rowContent += `<td>${FC.GPS_DATA.svid[i]}</td>`;
                         rowContent += `<td><progress value="${FC.GPS_DATA.cno[i]}" max="99"></progress></td>`;
-                        const quality = i18n.getMessage(qualityArray[FC.GPS_DATA.quality[i] & 0x7]);
-                        const used = i18n.getMessage(usedArray[(FC.GPS_DATA.quality[i] & 0x8) >> 3]);
-                        const healthy = i18n.getMessage(healthyArray[(FC.GPS_DATA.quality[i] & 0x30) >> 4]);
+
+                        let quality = i18n.getMessage(qualityArray[FC.GPS_DATA.quality[i] & 0x7]);
+                        let used = i18n.getMessage(usedArray[(FC.GPS_DATA.quality[i] & 0x8) >> 3]);
+                        let healthy = i18n.getMessage(healthyArray[(FC.GPS_DATA.quality[i] & 0x30) >> 4]);
+
+                        // Add color to the text
+                        if (quality.startsWith('fully locked')) {
+                            quality = `<span class="colorToggle ready">${quality}</span>`;
+                        } else {
+                            quality = `<span class="colorToggle">${quality}</span>`;
+                        }
+
+                        if (used.startsWith('used')) {
+                            used = `<span class="colorToggle ready">${used}</span>`;
+                        } else {
+                            used = `<span class="colorToggle">${used}</span>`;
+                        }
+
+                        if (healthy.startsWith('healthy')) {
+                            healthy = `<span class="colorToggle ready">${healthy}</span>`;
+                        } else {
+                            healthy = `<span class="colorToggle">${healthy}</span>`;
+                        }
+
                         rowContent += `<td>${quality} | ${used} | ${healthy}</td>`;
                     }
                     eSsTable.append(`<tr>${rowContent}</tr>`);
@@ -138,6 +293,7 @@ gps.initialize = function (callback) {
                 action: 'center',
                 lat: lat,
                 lon: lon,
+                heading: heading,
             };
 
             frame = document.getElementById('map');
@@ -145,22 +301,25 @@ gps.initialize = function (callback) {
                 $('#connect').hide();
 
                 if (FC.GPS_DATA.fix) {
-                   gpsWasFixed = true;
-                   frame.contentWindow.postMessage(message, '*');
-                   $('#loadmap').show();
-                   $('#waiting').hide();
+                    gpsWasFixed = true;
+                    message.action = hasMag ? 'centerMag' : 'center';
+                    if (!!frame.contentWindow) {
+                      frame.contentWindow.postMessage(message, '*');
+                    }
+                    $('#loadmap').show();
+                    $('#waiting').hide();
                 } else if (!gpsWasFixed) {
-                   $('#loadmap').hide();
-                   $('#waiting').show();
+                    $('#loadmap').hide();
+                    $('#waiting').show();
                 } else {
                     message.action = 'nofix';
-                    frame.contentWindow.postMessage(message, '*');
+                    if (!!frame.contentWindow) {
+                        frame.contentWindow.postMessage(message, '*');
+                    }
                 }
-            }else{
+            } else {
                 gpsWasFixed = false;
-                $('#connect').show();
-                $('#waiting').hide();
-                $('#loadmap').hide();
+                set_offline();
             }
         }
 
@@ -168,19 +327,8 @@ gps.initialize = function (callback) {
 
         // enable data pulling
         GUI.interval_add('gps_pull', function gps_update() {
-            // avoid usage of the GPS commands until a GPS sensor is detected for targets that are compiled without GPS support.
-            if (!have_sensor(FC.CONFIG.activeSensors, 'gps')) {
-                //return;
-            }
-
             get_raw_gps_data();
         }, 75, true);
-
-        // status data pulled via separate timer with static speed
-        GUI.interval_add('status_pull', function status_pull() {
-            MSP.send_message(MSPCodes.MSP_STATUS);
-        }, 250, true);
-
 
         //check for internet connection on load
         if (navigator.onLine) {
@@ -217,9 +365,18 @@ gps.initialize = function (callback) {
             frame.contentWindow.postMessage(message, '*');
         });
 
+        $('a.save').on('click', async function() {
+            // fill some data
+            FC.GPS_CONFIG.auto_baud = $('input[name="gps_auto_baud"]').is(':checked') ? 1 : 0;
+            FC.GPS_CONFIG.auto_config = $('input[name="gps_auto_config"]').is(':checked') ? 1 : 0;
+
+            await MSP.promise(MSPCodes.MSP_SET_FEATURE_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_FEATURE_CONFIG));
+            await MSP.promise(MSPCodes.MSP_SET_GPS_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_GPS_CONFIG));
+            mspHelper.writeConfiguration(true);
+        });
+
         GUI.content_ready(callback);
     }
-
 };
 
 gps.cleanup = function (callback) {

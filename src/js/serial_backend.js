@@ -10,11 +10,11 @@ import MSP from "./msp";
 import MSPCodes from "./msp/MSPCodes";
 import PortUsage from "./port_usage";
 import PortHandler from "./port_handler";
-import CONFIGURATOR, { API_VERSION_1_45 } from "./data_storage";
 // import serial from "./serial";
 // import { serial } from "./webSerialLegacy";
 import serial from "./webSerial.js";
 // import MdnsDiscovery from "./mdns_discovery";
+import CONFIGURATOR, { API_VERSION_1_45, API_VERSION_1_46 } from "./data_storage";
 import UI_PHONES from "./phones_ui";
 import { bit_check } from './bit.js';
 import { sensor_status, have_sensor } from "./sensor_helpers";
@@ -26,10 +26,12 @@ import { tracking } from "./Analytics";
 import semver from 'semver';
 import CryptoES from "crypto-es";
 import $ from 'jquery';
+import BuildApi from "./BuildApi";
 
 let mspHelper;
 let connectionTimestamp;
 let clicks = false;
+let liveDataRefreshTimerId = false;
 
 export function initializeSerialBackend() {
     GUI.updateManualPortVisibility = function() {
@@ -186,8 +188,11 @@ function finishClose(finishedCallback) {
         const connectedTime = Date.now() - connectionTimestamp;
         tracking.sendTiming(tracking.EVENT_CATEGORIES.FLIGHT_CONTROLLER, 'Connected', connectedTime);
     }
-    // close reset to custom defaults dialog
-    $('#dialogResetToCustomDefaults')[0].close();
+
+    if (semver.lt(FC.CONFIG.apiVersion, API_VERSION_1_46)) {
+        // close reset to custom defaults dialog
+        $('#dialogResetToCustomDefaults')[0].close();
+    }
 
     tracking.resetFlightControllerData();
 
@@ -200,6 +205,7 @@ function finishClose(finishedCallback) {
 
     GUI.connected_to = false;
     GUI.allowedTabs = GUI.defaultAllowedTabsWhenDisconnected.slice();
+
     // close problems dialog
     $('#dialogReportProblems-closebtn').click();
 
@@ -212,7 +218,7 @@ function finishClose(finishedCallback) {
     $('div.connect_controls div.connect_state').text(i18n.getMessage('connect'));
 
     // reset active sensor indicators
-    sensor_status(0);
+    sensor_status();
 
     if (wasConnected) {
         // detach listeners and remove element data
@@ -233,6 +239,26 @@ function setConnectionTimeout() {
             $('div.connect_controls a.connect').click(); // disconnect
         }
     }, 10000);
+}
+
+function abortConnection() {
+    GUI.timeout_remove('connecting'); // kill connecting timer
+
+    GUI.connected_to = false;
+    GUI.connecting_to = false;
+
+    tracking.sendEvent(tracking.EVENT_CATEGORIES.FLIGHT_CONTROLLER, 'SerialPortFailed');
+
+    gui_log(i18n.getMessage('serialPortOpenFail'));
+
+    $('div#connectbutton div.connect_state').text(i18n.getMessage('connect'));
+    $('div#connectbutton a.connect').removeClass('active');
+
+    // unlock port select & baud
+    $('div#port-picker #port, div#port-picker #baud, div#port-picker #delay').prop('disabled', false);
+
+    // reset data
+    clicks = false;
 }
 
 function onOpen(openInfo) {
@@ -271,12 +297,16 @@ function onOpen(openInfo) {
         console.log(`Requesting configuration data`);
 
         MSP.send_message(MSPCodes.MSP_API_VERSION, false, false, function () {
+            gui_log(i18n.getMessage('apiVersionReceived', FC.CONFIG.apiVersion));
+
+            if (FC.CONFIG.apiVersion.includes('null')) {
+                abortConnection();
+                return;
+            }
+
             tracking.setFlightControllerData(tracking.DATA.API_VERSION, FC.CONFIG.apiVersion);
 
-            gui_log(i18n.getMessage('apiVersionReceived', [FC.CONFIG.apiVersion]));
-
             if (semver.gte(FC.CONFIG.apiVersion, CONFIGURATOR.API_VERSION_ACCEPTED)) {
-
                 MSP.send_message(MSPCodes.MSP_FC_VARIANT, false, false, function () {
                     tracking.setFlightControllerData(tracking.DATA.FIRMWARE_TYPE, FC.CONFIG.flightControllerIdentifier);
                     if (FC.CONFIG.flightControllerIdentifier === 'BTFL') {
@@ -325,12 +355,7 @@ function onOpen(openInfo) {
             }
         });
     } else {
-        tracking.sendEvent(tracking.EVENT_CATEGORIES.FLIGHT_CONTROLLER, 'SerialPortFailed');
-
-        console.log('Failed to open serial port');
-        gui_log(i18n.getMessage('serialPortOpenFail'));
-
-        abortConnect();
+        abortConnection();
     }
 }
 
@@ -351,26 +376,7 @@ function onOpenVirtual() {
     updateTabList(FC.FEATURE_CONFIG.features);
 }
 
-function abortConnect() {
-    $('div#connectbutton div.connect_state').text(i18n.getMessage('connect'));
-    $('div#connectbutton a.connect').removeClass('active');
-
-    // unlock port select & baud
-    $('div#port-picker #port, div#port-picker #baud, div#port-picker #delay').prop('disabled', false);
-
-    // reset data
-    clicks = false;
-}
-
-function processBoardInfo() {
-    tracking.setFlightControllerData(tracking.DATA.BOARD_TYPE, FC.CONFIG.boardIdentifier);
-    tracking.setFlightControllerData(tracking.DATA.TARGET_NAME, FC.CONFIG.targetName);
-    tracking.setFlightControllerData(tracking.DATA.BOARD_NAME, FC.CONFIG.boardName);
-    tracking.setFlightControllerData(tracking.DATA.MANUFACTURER_ID, FC.CONFIG.manufacturerId);
-    tracking.setFlightControllerData(tracking.DATA.MCU_TYPE, FC.getMcuType());
-
-    gui_log(i18n.getMessage('boardInfoReceived', [FC.getHardwareName(), FC.CONFIG.boardVersion]));
-
+function processCustomDefaults() {
     if (bit_check(FC.CONFIG.targetCapabilities, FC.TARGET_CAPABILITIES_FLAGS.SUPPORTS_CUSTOM_DEFAULTS) && bit_check(FC.CONFIG.targetCapabilities, FC.TARGET_CAPABILITIES_FLAGS.HAS_CUSTOM_DEFAULTS) && FC.CONFIG.configurationState === FC.CONFIGURATION_STATES.DEFAULTS_BARE) {
         const dialog = $('#dialogResetToCustomDefaults')[0];
 
@@ -403,6 +409,22 @@ function processBoardInfo() {
         GUI.timeout_remove('connecting'); // kill connecting timer
     } else {
         checkReportProblems();
+    }
+}
+
+function processBoardInfo() {
+    tracking.setFlightControllerData(tracking.DATA.BOARD_TYPE, FC.CONFIG.boardIdentifier);
+    tracking.setFlightControllerData(tracking.DATA.TARGET_NAME, FC.CONFIG.targetName);
+    tracking.setFlightControllerData(tracking.DATA.BOARD_NAME, FC.CONFIG.boardName);
+    tracking.setFlightControllerData(tracking.DATA.MANUFACTURER_ID, FC.CONFIG.manufacturerId);
+    tracking.setFlightControllerData(tracking.DATA.MCU_TYPE, FC.getMcuType());
+
+    gui_log(i18n.getMessage('boardInfoReceived', [FC.getHardwareName(), FC.CONFIG.boardVersion]));
+
+    if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_46)) {
+        checkReportProblems();
+    } else {
+        processCustomDefaults();
     }
 }
 
@@ -458,17 +480,39 @@ function checkReportProblems() {
     });
 }
 
-function processUid() {
-    MSP.send_message(MSPCodes.MSP_UID, false, false, function () {
-        const deviceIdentifier = FC.CONFIG.deviceIdentifier;
+async function processBuildConfiguration() {
+    const buildApi = new BuildApi();
 
-        tracking.setFlightControllerData(tracking.DATA.MCU_ID, CryptoES.SHA1(deviceIdentifier));
-        tracking.sendEvent(tracking.EVENT_CATEGORIES.FLIGHT_CONTROLLER, 'Connected');
-        connectionTimestamp = Date.now();
-        gui_log(i18n.getMessage('uniqueDeviceIdReceived', [deviceIdentifier]));
-
+    function onLoadCloudBuild(options) {
+        FC.CONFIG.buildOptions = options.Request.Options;
         processCraftName();
-    });
+    }
+
+    await MSP.promise(MSPCodes.MSP2_GET_TEXT, mspHelper.crunch(MSPCodes.MSP2_GET_TEXT, MSPCodes.BUILD_KEY));
+
+    if (FC.CONFIG.buildKey.length === 32 && navigator.onLine) {
+        gui_log(i18n.getMessage('buildKey', FC.CONFIG.buildKey));
+        buildApi.requestBuildOptions(FC.CONFIG.buildKey, onLoadCloudBuild, processCraftName);
+    } else {
+        processCraftName();
+    }
+}
+
+async function processUid() {
+    await MSP.promise(MSPCodes.MSP_UID);
+
+    tracking.setFlightControllerData(tracking.DATA.MCU_ID, CryptoES.SHA1(FC.CONFIG.deviceIdentifier));
+    tracking.sendEvent(tracking.EVENT_CATEGORIES.FLIGHT_CONTROLLER, 'Connected');
+
+    connectionTimestamp = Date.now();
+
+    gui_log(i18n.getMessage('uniqueDeviceIdReceived', FC.CONFIG.deviceIdentifier));
+
+    if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_45)) {
+        processBuildConfiguration();
+    } else {
+        processCraftName();
+    }
 }
 
 async function processCraftName() {
@@ -494,7 +538,20 @@ function setRtc() {
 
 function finishOpen() {
     CONFIGURATOR.connectionValid = true;
-    GUI.allowedTabs = GUI.defaultAllowedFCTabsWhenConnected.slice();
+
+    if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_45) && FC.CONFIG.buildOptions.length) {
+
+        GUI.allowedTabs = Array.from(GUI.defaultAllowedTabs);
+
+        for (const tab of GUI.defaultCloudBuildTabOptions) {
+            if (FC.CONFIG.buildOptions.some(opt => opt.toLowerCase().includes(tab))) {
+                GUI.allowedTabs.push(tab);
+            }
+        }
+
+    } else {
+        GUI.allowedTabs = Array.from(GUI.defaultAllowedFCTabsWhenConnected);
+    }
 
     if (GUI.isCordova()) {
         UI_PHONES.reset();
@@ -557,9 +614,6 @@ function onConnect() {
 
         MSP.send_message(MSPCodes.MSP_FEATURE_CONFIG, false, false);
         MSP.send_message(MSPCodes.MSP_BATTERY_CONFIG, false, false);
-
-        getStatus();
-
         MSP.send_message(MSPCodes.MSP_DATAFLASH_SUMMARY, false, false);
 
         if (FC.CONFIG.boardType === 0 || FC.CONFIG.boardType === 2) {
@@ -600,6 +654,8 @@ function onClosed(result) {
     const battery = $('#quad-status_wrapper');
     battery.hide();
 
+    clearLiveDataRefreshTimer();
+
     MSP.clearListeners();
 
     CONFIGURATOR.connectionValid = false;
@@ -621,24 +677,36 @@ export function read_serial(info) {
     }
 }
 
-function startLiveDataRefreshTimer() {
-    // live data refresh
-    GUI.timeout_add('data_refresh', update_live_status, 100);
-}
-
-async function getStatus() {
-    return MSP.promise(MSPCodes.MSP_STATUS_EX);
-}
-
 async function update_live_status() {
     const statuswrapper = $('#quad-status_wrapper');
 
     if (GUI.active_tab !== 'cli' && GUI.active_tab !== 'presets') {
-        await MSP.promise(MSPCodes.MSP_BOXNAMES);
-        await getStatus();
         await MSP.promise(MSPCodes.MSP_ANALOG);
 
-        const active = ((Date.now() - FC.ANALOG.last_received_timestamp) < 300);
+        const nbCells = FC.ANALOG.voltage === 0 ? 1 : Math.floor(FC.ANALOG.voltage / FC.BATTERY_CONFIG.vbatmaxcellvoltage) + 1;
+        const min = FC.BATTERY_CONFIG.vbatmincellvoltage * nbCells;
+        const max = FC.BATTERY_CONFIG.vbatmaxcellvoltage * nbCells;
+        const warn = FC.BATTERY_CONFIG.vbatwarningcellvoltage * nbCells;
+        const NO_BATTERY_VOLTAGE_MAXIMUM = 1.8; // Maybe is better to add a call to MSP_BATTERY_STATE but is not available for all versions
+
+        if (FC.ANALOG.voltage < min && FC.ANALOG.voltage > NO_BATTERY_VOLTAGE_MAXIMUM) {
+            $(".battery-status").addClass('state-empty').removeClass('state-ok').removeClass('state-warning');
+            $(".battery-status").css({ width: "100%" });
+        } else {
+            $(".battery-status").css({ width: `${((FC.ANALOG.voltage - min) / (max - min) * 100)}%` });
+
+            if (FC.ANALOG.voltage < warn) {
+                $(".battery-status").addClass('state-warning').removeClass('state-empty').removeClass('state-ok');
+            } else  {
+                $(".battery-status").addClass('state-ok').removeClass('state-warning').removeClass('state-empty');
+            }
+        }
+
+        await MSP.promise(MSPCodes.MSP_BOXNAMES);
+        await MSP.promise(MSPCodes.MSP_STATUS_EX);
+
+        const active = (performance.now() - FC.ANALOG.last_received_timestamp) < 300;
+        $(".linkicon").toggleClass('active', active);
 
         for (let i = 0; i < FC.AUX_CONFIG.length; i++) {
             if (FC.AUX_CONFIG[i] === 'ARM') {
@@ -649,39 +717,26 @@ async function update_live_status() {
             }
         }
 
-        if (FC.ANALOG != undefined) {
-            let nbCells = Math.floor(FC.ANALOG.voltage / FC.BATTERY_CONFIG.vbatmaxcellvoltage) + 1;
-
-            if (FC.ANALOG.voltage == 0) {
-                    nbCells = 1;
-            }
-
-            const min = FC.BATTERY_CONFIG.vbatmincellvoltage * nbCells;
-            const max = FC.BATTERY_CONFIG.vbatmaxcellvoltage * nbCells;
-            const warn = FC.BATTERY_CONFIG.vbatwarningcellvoltage * nbCells;
-
-            const NO_BATTERY_VOLTAGE_MAXIMUM = 1.8; // Maybe is better to add a call to MSP_BATTERY_STATE but is not available for all versions
-
-            if (FC.ANALOG.voltage < min && FC.ANALOG.voltage > NO_BATTERY_VOLTAGE_MAXIMUM) {
-                $(".battery-status").addClass('state-empty').removeClass('state-ok').removeClass('state-warning');
-                $(".battery-status").css({ width: "100%" });
-            } else {
-                $(".battery-status").css({ width: `${((FC.ANALOG.voltage - min) / (max - min) * 100)}%` });
-
-                if (FC.ANALOG.voltage < warn) {
-                    $(".battery-status").addClass('state-warning').removeClass('state-empty').removeClass('state-ok');
-                } else  {
-                    $(".battery-status").addClass('state-ok').removeClass('state-warning').removeClass('state-empty');
-                }
-            }
+        if (have_sensor(FC.CONFIG.activeSensors, 'gps')) {
+            await MSP.promise(MSPCodes.MSP_RAW_GPS);
+            sensor_status(FC.CONFIG.activeSensors, FC.GPS_DATA.fix);
         }
 
-        $(".linkicon").toggleClass('active', active);
-
         statuswrapper.show();
-        GUI.timeout_remove('data_refresh');
-        startLiveDataRefreshTimer();
     }
+}
+
+function clearLiveDataRefreshTimer() {
+    if (liveDataRefreshTimerId) {
+        clearInterval(liveDataRefreshTimerId);
+        liveDataRefreshTimerId = false;
+    }
+}
+
+function startLiveDataRefreshTimer() {
+    // live data refresh
+    clearLiveDataRefreshTimer();
+    liveDataRefreshTimerId = setInterval(update_live_status, 250);
 }
 
 export function reinitializeConnection(callback) {
@@ -706,9 +761,9 @@ export function reinitializeConnection(callback) {
         if (connectionTimestamp !== previousTimeStamp && CONFIGURATOR.connectionValid) {
             console.log(`Serial connection available after ${attempts / 10} seconds`);
             clearInterval(reconnect);
-            getStatus();
             gui_log(i18n.getMessage('deviceReady'));
-            if (callback === typeof('function')) {
+
+            if (typeof callback === 'function') {
                 callback();
             }
         } else {

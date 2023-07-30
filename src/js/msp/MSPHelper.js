@@ -9,19 +9,20 @@ import semver from 'semver';
 import vtxDeviceStatusFactory from "../utils/VtxDeviceStatus/VtxDeviceStatusFactory";
 import MSP from "../msp";
 import MSPCodes from "./MSPCodes";
-import { API_VERSION_1_42, API_VERSION_1_43, API_VERSION_1_44, API_VERSION_1_45 } from '../data_storage';
+import { API_VERSION_1_42, API_VERSION_1_43, API_VERSION_1_44, API_VERSION_1_45, API_VERSION_1_46 } from '../data_storage';
 import EscProtocols from "../utils/EscProtocols";
 import huffmanDecodeBuf from "../huffman";
 import { defaultHuffmanTree, defaultHuffmanLenIndex } from "../default_huffman_tree";
 import { updateTabList } from "../utils/updateTabList";
 import { showErrorDialog } from "../utils/showErrorDialog";
-import { TABS } from "../gui";
+import GUI, { TABS } from "../gui";
 import { OSD } from "../tabs/osd";
+import { reinitializeConnection } from "../serial_backend";
 
 // Used for LED_STRIP
 const ledDirectionLetters    = ['n', 'e', 's', 'w', 'u', 'd'];      // in LSB bit order
 const ledBaseFunctionLetters = ['c', 'f', 'a', 'l', 's', 'g', 'r']; // in LSB bit
-let ledOverlayLetters        = ['t', 'o', 'b', 'v', 'i', 'w']; // in LSB bit
+let ledOverlayLetters        = ['t', 'y', 'o', 'b', 'v', 'i', 'w']; // in LSB bit
 
 function MspHelper() {
     const self = this;
@@ -192,7 +193,7 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 FC.CONFIG.mode = data.readU32();
                 FC.CONFIG.profile = data.readU8();
 
-                sensor_status(FC.CONFIG.activeSensors);
+                sensor_status(FC.CONFIG.activeSensors, FC.GPS_DATA.fix);
                 break;
             case MSPCodes.MSP_STATUS_EX:
                 FC.CONFIG.cycleTime = data.readU16();
@@ -214,7 +215,15 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 FC.CONFIG.armingDisableCount = data.readU8(); // Flag count
                 FC.CONFIG.armingDisableFlags = data.readU32();
 
-                sensor_status(FC.CONFIG.activeSensors);
+                // Read config state flags - bits to indicate the state of the configuration, reboot required, etc.
+                FC.CONFIG.configStateFlag = data.readU8();
+
+                // Read CPU temp, from API version 1.46
+                if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_46)) {
+                    FC.CONFIG.cpuTemp = data.readU16();
+                }
+
+                sensor_status(FC.CONFIG.activeSensors, FC.GPS_DATA.fix);
                 break;
 
             case MSPCodes.MSP_RAW_IMU:
@@ -312,7 +321,7 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 FC.ANALOG.rssi = data.readU16(); // 0-1023
                 FC.ANALOG.amperage = data.read16() / 100; // A
                 FC.ANALOG.voltage = data.readU16() / 100;
-                FC.ANALOG.last_received_timestamp = Date.now();
+                FC.ANALOG.last_received_timestamp = performance.now();
                 break;
             case MSPCodes.MSP_VOLTAGE_METERS:
                 FC.VOLTAGE_METERS = [];
@@ -660,7 +669,7 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 console.log('Voltage config saved');
                 break;
             case MSPCodes.MSP_DEBUG:
-                for (let i = 0; i < 4; i++) {
+                for (let i = 0; i < 8; i++) {
                     FC.SENSOR_DATA.debug[i] = data.read16();
                 }
                 break;
@@ -780,34 +789,14 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 }
 
                 FC.CONFIG.boardVersion = data.readU16();
-                FC.CONFIG.boardType = 0;
-
                 FC.CONFIG.boardType = data.readU8();
 
-                FC.CONFIG.targetCapabilities = 0;
-                FC.CONFIG.targetName = '';
-
                 FC.CONFIG.targetCapabilities = data.readU8();
-                let length = data.readU8();
-                for (let i = 0; i < length; i++) {
-                    FC.CONFIG.targetName += String.fromCharCode(data.readU8());
-                }
+                FC.CONFIG.targetName = this.getText(data);
 
-                FC.CONFIG.boardName = '';
-                FC.CONFIG.manufacturerId = '';
+                FC.CONFIG.boardName = this.getText(data);
+                FC.CONFIG.manufacturerId = this.getText(data);
                 FC.CONFIG.signature = [];
-
-                length = data.readU8();
-
-                for (let i = 0; i < length; i++) {
-                    FC.CONFIG.boardName += String.fromCharCode(data.readU8());
-                }
-
-                length = data.readU8();
-
-                for (let i = 0; i < length; i++) {
-                    FC.CONFIG.manufacturerId += String.fromCharCode(data.readU8());
-                }
 
                 for (let i = 0; i < self.SIGNATURE_LENGTH; i++) {
                     FC.CONFIG.signature.push(data.readU8());
@@ -851,6 +840,9 @@ MspHelper.prototype.process_data = function(dataHandler) {
                         break;
                     case MSPCodes.RATE_PROFILE_NAME:
                         FC.CONFIG.rateProfileNames[FC.CONFIG.rateProfile] = self.getText(data);
+                        break;
+                    case MSPCodes.BUILD_KEY:
+                        FC.CONFIG.buildKey = self.getText(data);
                         break;
                     default:
                         console.log('Unsupport text type');
@@ -1160,55 +1152,109 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 FC.SENSOR_CONFIG.acc_hardware = data.readU8();
                 FC.SENSOR_CONFIG.baro_hardware = data.readU8();
                 FC.SENSOR_CONFIG.mag_hardware = data.readU8();
+                if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_46)) {
+                    FC.SENSOR_CONFIG.sonar_hardware = data.readU8();
+                }
                 break;
 
             case MSPCodes.MSP_LED_STRIP_CONFIG:
                 FC.LED_STRIP = [];
 
+                let ledCount = (data.byteLength - 2) / 4;
+
+                // The 32 bit config of each LED contains these in LSB:
+                // +----------------------------------------------------------------------------------------------------------+
+                // | Directions - 6 bit | Color ID - 4 bit | Overlays - 10 bit | Function ID - 4 bit  | X - 4 bit | Y - 4 bit |
+                // +----------------------------------------------------------------------------------------------------------+
                 // According to betaflight/src/main/msp/msp.c
                 // API 1.41 - add indicator for advanced profile support and the current profile selection
                 // 0 = basic ledstrip available
                 // 1 = advanced ledstrip available
                 // Following byte is the current LED profile
-                let ledCount = (data.byteLength - 2) / 4;
 
-                for (let i = 0; i < ledCount; i++) {
+                //Before API_VERSION_1_46 Parameters were 4 bit and Overlays 6 bit
 
-                    const mask = data.readU32();
+                if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_46)) {
 
-                    const functionId = (mask >> 8) & 0xF;
-                    const functions = [];
-                    for (let baseFunctionLetterIndex = 0; baseFunctionLetterIndex < ledBaseFunctionLetters.length; baseFunctionLetterIndex++) {
-                        if (functionId == baseFunctionLetterIndex) {
-                            functions.push(ledBaseFunctionLetters[baseFunctionLetterIndex]);
-                            break;
+                    for (let i = 0; i < ledCount; i++) {
+
+                        const mask = data.readU32();
+
+                        const functionId = (mask >> 8) & 0xF;
+                        const functions = [];
+                        for (let baseFunctionLetterIndex = 0; baseFunctionLetterIndex < ledBaseFunctionLetters.length; baseFunctionLetterIndex++) {
+                            if (functionId == baseFunctionLetterIndex) {
+                                functions.push(ledBaseFunctionLetters[baseFunctionLetterIndex]);
+                                break;
+                            }
                         }
-                    }
 
-                    const overlayMask = (mask >> 12) & 0x3F;
-                    for (let overlayLetterIndex = 0; overlayLetterIndex < ledOverlayLetters.length; overlayLetterIndex++) {
-                        if (bit_check(overlayMask, overlayLetterIndex)) {
-                            functions.push(ledOverlayLetters[overlayLetterIndex]);
+                        const overlayMask = (mask >> 12) & 0x3FF;
+                        for (let overlayLetterIndex = 0; overlayLetterIndex < ledOverlayLetters.length; overlayLetterIndex++) {
+                            if (bit_check(overlayMask, overlayLetterIndex)) {
+                                functions.push(ledOverlayLetters[overlayLetterIndex]);
+                            }
                         }
-                    }
 
-                    const directionMask = (mask >> 22) & 0x3F;
-                    const directions = [];
-                    for (let directionLetterIndex = 0; directionLetterIndex < ledDirectionLetters.length; directionLetterIndex++) {
-                        if (bit_check(directionMask, directionLetterIndex)) {
-                            directions.push(ledDirectionLetters[directionLetterIndex]);
+                        const directionMask = (mask >> 26) & 0x3F;
+                        const directions = [];
+                        for (let directionLetterIndex = 0; directionLetterIndex < ledDirectionLetters.length; directionLetterIndex++) {
+                            if (bit_check(directionMask, directionLetterIndex)) {
+                                directions.push(ledDirectionLetters[directionLetterIndex]);
+                            }
                         }
-                    }
-                    const led = {
-                        y: (mask) & 0xF,
-                        x: (mask >> 4) & 0xF,
-                        functions: functions,
-                        color: (mask >> 18) & 0xF,
-                        directions: directions,
-                        parameters: (mask >> 28) & 0xF,
-                    };
+                        const led = {
+                            y: (mask) & 0xF,
+                            x: (mask >> 4) & 0xF,
+                            functions: functions,
+                            color: (mask >> 22) & 0xF,
+                            directions: directions,
+                        };
 
-                    FC.LED_STRIP.push(led);
+                        FC.LED_STRIP.push(led);
+                    }
+                }
+                else {
+                    ledOverlayLetters = ledOverlayLetters.filter(x => x !== 'y');
+
+                    for (let i = 0; i < ledCount; i++) {
+
+                        const mask = data.readU32();
+
+                        const functionId = (mask >> 8) & 0xF;
+                        const functions = [];
+                        for (let baseFunctionLetterIndex = 0; baseFunctionLetterIndex < ledBaseFunctionLetters.length; baseFunctionLetterIndex++) {
+                            if (functionId == baseFunctionLetterIndex) {
+                                functions.push(ledBaseFunctionLetters[baseFunctionLetterIndex]);
+                                break;
+                            }
+                        }
+
+                        const overlayMask = (mask >> 12) & 0x3F;
+                        for (let overlayLetterIndex = 0; overlayLetterIndex < ledOverlayLetters.length; overlayLetterIndex++) {
+                            if (bit_check(overlayMask, overlayLetterIndex)) {
+                                functions.push(ledOverlayLetters[overlayLetterIndex]);
+                            }
+                        }
+
+                        const directionMask = (mask >> 22) & 0x3F;
+                        const directions = [];
+                        for (let directionLetterIndex = 0; directionLetterIndex < ledDirectionLetters.length; directionLetterIndex++) {
+                            if (bit_check(directionMask, directionLetterIndex)) {
+                                directions.push(ledDirectionLetters[directionLetterIndex]);
+                            }
+                        }
+                        const led = {
+                            y: (mask) & 0xF,
+                            x: (mask >> 4) & 0xF,
+                            functions: functions,
+                            color: (mask >> 18) & 0xF,
+                            directions: directions,
+                            parameters: (mask >> 28) & 0xF,
+                        };
+
+                        FC.LED_STRIP.push(led);
+                    }
                 }
                 break;
             case MSPCodes.MSP_SET_LED_STRIP_CONFIG:
@@ -1294,6 +1340,9 @@ MspHelper.prototype.process_data = function(dataHandler) {
                 FC.BLACKBOX.blackboxPDenom = data.readU16();
                 if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_44)) {
                     FC.BLACKBOX.blackboxSampleRate = data.readU8();
+                }
+                if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_45)) {
+                    FC.BLACKBOX.blackboxDisabledMask = data.readU32();
                 }
                 break;
             case MSPCodes.MSP_SET_BLACKBOX_CONFIG:
@@ -1931,7 +1980,7 @@ MspHelper.prototype.crunch = function(code, modifierCode = undefined) {
                 .push16(FC.FILTER_CONFIG.gyro_notch2_hz)
                 .push16(FC.FILTER_CONFIG.gyro_notch2_cutoff)
                 .push8(FC.FILTER_CONFIG.dterm_lowpass_type)
-                .push8(0) // FC.FILTER_CONFIG.gyro_hardware_lpf not used
+                .push8(FC.FILTER_CONFIG.gyro_hardware_lpf)
                 .push8(0) // gyro_32khz_hardware_lpf not used
                 .push16(FC.FILTER_CONFIG.gyro_lowpass_hz)
                 .push16(FC.FILTER_CONFIG.gyro_lowpass2_hz)
@@ -2070,6 +2119,10 @@ MspHelper.prototype.crunch = function(code, modifierCode = undefined) {
             if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_44)) {
                 buffer.push8(FC.BLACKBOX.blackboxSampleRate);
             }
+            if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_45)) {
+                buffer.push32(FC.BLACKBOX.blackboxDisabledMask);
+            }
+
             break;
 
         case MSPCodes.MSP_COPY_PROFILE:
@@ -2482,25 +2535,47 @@ MspHelper.prototype.sendLedStripConfig = function(onCompleteCallback) {
             }
         }
 
-        for (let overlayLetterIndex = 0; overlayLetterIndex < led.functions.length; overlayLetterIndex++) {
-            const bitIndex = ledOverlayLetters.indexOf(led.functions[overlayLetterIndex]);
-            if (bitIndex >= 0) {
-                mask |= bit_set(mask, bitIndex + 12);
+        if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_46)) {
+
+            for (let overlayLetterIndex = 0; overlayLetterIndex < led.functions.length; overlayLetterIndex++) {
+                const bitIndex = ledOverlayLetters.indexOf(led.functions[overlayLetterIndex]);
+                if (bitIndex >= 0) {
+                    mask |= bit_set(mask, bitIndex + 12);
+                }
             }
-        }
 
-        mask |= (led.color << 18);
+            mask |= (led.color << 22);
 
-        for (let directionLetterIndex = 0; directionLetterIndex < led.directions.length; directionLetterIndex++) {
-            const bitIndex = ledDirectionLetters.indexOf(led.directions[directionLetterIndex]);
-            if (bitIndex >= 0) {
-                mask |= bit_set(mask, bitIndex + 22);
+            for (let directionLetterIndex = 0; directionLetterIndex < led.directions.length; directionLetterIndex++) {
+                const bitIndex = ledDirectionLetters.indexOf(led.directions[directionLetterIndex]);
+                if (bitIndex >= 0) {
+                    mask |= bit_set(mask, bitIndex + 26);
+                }
             }
+
+            buffer.push32(mask);
         }
+        else {
+            for (let overlayLetterIndex = 0; overlayLetterIndex < led.functions.length; overlayLetterIndex++) {
+                const bitIndex = ledOverlayLetters.indexOf(led.functions[overlayLetterIndex]);
+                if (bitIndex >= 0) {
+                    mask |= bit_set(mask, bitIndex + 12);
+                }
+            }
 
-        mask |= (0 << 28); // parameters
+            mask |= (led.color << 18);
 
-        buffer.push32(mask);
+            for (let directionLetterIndex = 0; directionLetterIndex < led.directions.length; directionLetterIndex++) {
+                const bitIndex = ledDirectionLetters.indexOf(led.directions[directionLetterIndex]);
+                if (bitIndex >= 0) {
+                    mask |= bit_set(mask, bitIndex + 22);
+                }
+            }
+
+            mask |= (0 << 28); // parameters
+
+            buffer.push32(mask);
+        }
 
         // prepare for next iteration
         ledIndex++;
@@ -2656,6 +2731,22 @@ MspHelper.prototype.sendSerialConfig = function(callback) {
     MSP.send_message(mspCode, mspHelper.crunch(mspCode), false, callback);
 };
 
+MspHelper.prototype.writeConfiguration = function(reboot, callback) {
+    setTimeout(function() {
+        MSP.send_message(MSPCodes.MSP_EEPROM_WRITE, false, false, function() {
+            gui_log(i18n.getMessage('configurationEepromSaved'));
+            console.log('Configuration saved to EEPROM');
+            if (reboot) {
+                GUI.tab_switch_cleanup(function() {
+                    MSP.send_message(MSPCodes.MSP_SET_REBOOT, false, false, reinitializeConnection);
+                });
+            }
+            if (callback) {
+                callback();
+            }
+        });
+    }, 100); // 100ms delay before sending MSP_EEPROM_WRITE to ensure that all settings have been received
+};
 
 let mspHelper;
 // This is temporary, till things are moved

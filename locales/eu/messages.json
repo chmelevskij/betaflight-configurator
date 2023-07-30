@@ -73,9 +73,6 @@
     "expertMode": {
         "message": "Adituen modua"
     },
-    "permanentExpertMode": {
-        "message": "Aditu modua etengabe gaitu"
-    },
     "rememberLastTab": {
         "message": "Gogoratu azken fitxa konektatuan"
     },
@@ -536,9 +533,6 @@
     "defaultContributingHead": {
         "message": "Hartu parte"
     },
-    "defaultContributingText": {
-        "message": "Betaflight hobetzen lagundu nahi baduzu, modu askotan lagundu dezakezu, besteak beste:<br /><ul><li> Betaflight buruzko zure ezagutza erabiliz github-en edukia sortzeko edo eguneratzeko <a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">gure wiki-an</a>, edo beste erabiltzaile batzuen galderei web foroetan erantzuten;</li><li>Firmware eta konfiguratzaile <a href=\"https://github.com/betaflight/betaflight/blob/master/docs/development/Development.md\" target=\"_blank\" rel=\"noopener noreferrer\">kodearekin laguntzen</a> -ezaugarri berriekin, konponketak, hobekuntzak;</li><li><a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">Funtzio eta konponbide berriak</a> probatzen eta berrikuspena eskainiz;</li><li>Beste erabiltzaileei <a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\"> arazoak konpontzen laguntzen.</a> eta funtzio eskaerei buruzko eztabaidetan parte hartu;</li><li>Betaflight Konfiguratzailearen hizkuntza berri batera <a href=\"https://github.com/betaflight/betaflight/tree/master/README.md#Translators\" target=\"_blank\" rel=\"noopener noreferrer\">itzultzen</a> edo dagoeneko itzulpenak mantentzen laguntzen.</li></ul>"
-    },
     "defaultFacebookText": {
         "message": "<a href=\"https://www.facebook.com/groups/betaflightgroup/\" target=\"_blank\" rel=\"noopener noreferrer\">Facebook Talde</a> bat badaukagu.<br />Egin zaitez jarraitzaile Betafligth-i buruz hitz egiteko leku bat eukitzeko, konfigurazio galderak egiteko edota beste pilotuekin hitz egiteko."
     },
@@ -573,9 +567,6 @@
     "defaultDocumentation": {
         "message": "Betafligth-eko dokumentazioa, bertsio oharretan eta Wiki-an eskuragarri dago.<br /><br />"
     },
-    "defaultDocumentation1": {
-        "message": "Betafligth Wika-a ikaragarrizko informazio iturria da. <a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\"> Hemen </a>aurkitu dezakezu."
-    },
     "defaultDocumentation2": {
         "message": "Firmwarearentzako oharrak GitHub-en bertsioen orrian irakur daitezke <a href=\"https://github.com/Betaflight/Betaflight/releases\" target=\"_blank\" rel=\"noopener noreferrer\">hemen</a>."
     },
@@ -594,14 +585,8 @@
     "defaultSupport1": {
         "message": "<a href=\"http://www.rcgroups.com/forums/showthread.php?t=2464844&page=1\" target=\"_blank\" rel=\"noopener noreferrer\">RC Groups haria</a>"
     },
-    "defaultSupport2": {
-        "message": "<a href=\"http://betaflight.info\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Wiki-a</a>"
-    },
     "defaultSupport4": {
         "message": "<a href=\"https://github.com/Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">Github</a>"
-    },
-    "defaultSupport5": {
-        "message": "<a href=\"https://slack.betaflight.com\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight garatzaileak Slack-en</a>"
     },
     "initialSetupButtonCalibrateAccel": {
         "message": "Azelerometroa kalibratu"
@@ -636,6 +621,12 @@
     "initialSetupButtonResetZaxisValue": {
         "message": "Berrezarri Z ardatza, desplazatua: $1 gradu"
     },
+    "initialSetupPitch": {
+        "message": "Pitch:"
+    },
+    "initialSetupRoll": {
+        "message": "Roll:"
+    },
     "initialSetupMixerHead": {
         "message": "Nahaste-mota"
     },
@@ -669,17 +660,8 @@
     "initialSetupAccelTrimsHead": {
         "message": "Azelerometroaren trimak"
     },
-    "initialSetupPitch": {
-        "message": "Pitch:"
-    },
-    "initialSetupRoll": {
-        "message": "Roll:"
-    },
     "initialSetupMagHead": {
         "message": "Magnetometroa"
-    },
-    "initialSetupInfoHead": {
-        "message": "Informazioa"
     },
     "initialSetupBattery": {
         "message": "Bateriaren tentsioa:"
@@ -738,10 +720,6 @@
         "message": "Runway Takeoff prevention piztu da",
         "description": "Message that pops up to describe the RUNAWAY_TAKEOFF arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCRASH": {
-        "message": "Desarmatu egin da istripuen detekzioaren bidez",
-        "description": "Message that pops up to describe the CRASH arming disable flag"
-    },
     "initialSetupArmingDisableFlagsTooltipTHROTTLE": {
         "message": "Throttle kanala oso altua dago",
         "description": "Message that pops up to describe the THROTTLE arming disable flag"
@@ -761,10 +739,6 @@
     "initialSetupArmingDisableFlagsTooltipLOAD": {
         "message": "Sistemaren karga handiegia da hegaldi seguruetarako",
         "description": "Message that pops up to describe the LOAD arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
-        "message": "Sentsoreen kalibrazioa martxan dago",
-        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipCLI": {
         "message": "CLI aktiboa",
@@ -801,22 +775,6 @@
     "initialSetupArmingDisableFlagsTooltipRPMFILTER": {
         "message": "RPM iragazkia gaituta dago, baina ESC bat edo gehiago ez dira DSHOT telemetria baliozkoak hornitzen. Egiaztatu ESC- ak gai direla eta beharrezko firmware instalatua DSHOT telemetria bidirekzionala laguntzeko.",
         "description": "Message that pops up to describe the RPMFILTER arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipREBOOT_REQD": {
-        "message": "Konfigurazio aldaketeen ondoren berrabiarazi behar da",
-        "description": "Message that pops up to describe the REBOOT_REQD arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipDSHOT_BBANG": {
-        "message": "DSHOT bitbanged ez da behar bezala funtzionatzen eta motorrak ezin dira kontrolatu. Litekeena da hegaldiaren kontroladorean gaitutako beste funtzio batzuekin tenporizadore baten gatazka.",
-        "description": "Message that pops up to describe the DSHOT_BBANG arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipNO_ACC_CAL": {
-        "message": "Azelerometroa ez da kalibratu eta hori behar duten ezaugarriak dituzu. Azelerometroa kalibratu.",
-        "description": "Message that pops up to describe the NO_ACC_CAL arming disable flag"
-    },
-    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTO": {
-        "message": "Ez da motorra irteeraren protokoloa hautatu",
-        "description": "Message that pops up to describe the MOTOR_PROTO arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipARM_SWITCH": {
         "message": "Desarmatzeko beste banderietako bat gaituta zegoen armatzerakoan",
@@ -1194,9 +1152,6 @@
     "configurationLoopTimeHelp": {
         "message": "<strong>Oharra:</strong> Ziurtatu zure FC abiadura horietan funtzionatzeko gai dela! Egiaztatu CPU eta Ziklo denboraren egonkortasuna. Aldatzean, beharrezkoa izango da PID berrezartzea. OHARRA: Errendimendu gehiago lortzeko, desgaitu azelerometroa eta bestelako sentsoreak."
     },
-    "configurationGPS": {
-        "message": "GPSa"
-    },
     "configurationGPSProtocol": {
         "message": "Protokoloa"
     },
@@ -1223,9 +1178,6 @@
     "configurationGPSHomeOnceHelp": {
         "message": "Gaituta dagoenean, bateria konektatu ondorengo lehenengo besoa bakarrik erabiliko da etxeko puntu gisarako. Gaituta ez bada, aireontxia armatuta dagoen bakoitzean, etxeko puntua eguneratuko da.",
         "description": "Help text for the option to set the Home Point with the first arm only, not with each arm in the GPS Configuration"
-    },
-    "configurationGPSHelp": {
-        "message": "<strong>Oharra:</strong> Gogoratu Serial ataka bat konfiguratu (ataka fitxen bidez) GPS funtzioaerabiltzen duzunean."
     },
     "configurationSerialRX": {
         "message": "Serie hartzailea hornitzailea"
@@ -1657,9 +1609,6 @@
     "receiverButtonBindMessage": {
         "message": "Lotu eskaera hegaldi-kontroladoreari bidalita."
     },
-    "receiverButtonSticks": {
-        "message": "Kontrol palankak"
-    },
     "receiverDataRefreshed": {
         "message": "RC sintonizatzeko datuak <strong>berritu</strong>"
     },
@@ -1696,9 +1645,6 @@
     },
     "auxiliaryButtonSave": {
         "message": "Gorde"
-    },
-    "auxiliaryEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">gorde</span>"
     },
     "auxiliaryAutoChannelSelect": {
         "message": "AUTO"
@@ -1916,9 +1862,6 @@
     "transponderDataInvalid": {
         "message": "Transpondedore datuak <span class=\"message-negative\">baliogabeak dira</span>"
     },
-    "transponderEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">gorde</span>"
-    },
     "servosFirmwareUpgradeRequired": {
         "message": "Serboek &gt;=1.10.0. firmwarea eta kontroladoreak onartzea behar du."
     },
@@ -1976,20 +1919,8 @@
     "gps3dFix": {
         "message": "3D zuzenketa:"
     },
-    "gpsFixTrue": {
-        "message": "<span class=\"fixtrue\">Egia</span>"
-    },
-    "gpsFixFalse": {
-        "message": "<span class=\"fixfalse\">Gezurra</span>"
-    },
     "gpsAltitude": {
         "message": "Altuera:"
-    },
-    "gpsLat": {
-        "message": "Latitudea:"
-    },
-    "gpsLon": {
-        "message": "Luzera:"
     },
     "gpsSpeed": {
         "message": "Abiadura:"
@@ -2614,9 +2545,6 @@
         "message": "GUZTIA Garbitu",
         "description": "In the LED STRIP, clear all leds"
     },
-    "ledStripEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">gorde</span>"
-    },
     "ledStripVtxOverlay": {
         "message": "VTX (vtx maiztasuna erabiltzen du kolorea esleitzeko)"
     },
@@ -2768,17 +2696,8 @@
         "message": "Ez dira kablean zenbakirik gabeko LEDak gordeko.",
         "description": "Message in the wiring modes in Led Strip"
     },
-    "ledStripVtxFunction": {
-        "message": "Larson eskanerra"
-    },
-    "ledStripBlinkTitle": {
-        "message": "Kliskatu"
-    },
     "ledStripBlinkAlwaysOverlay": {
         "message": "Beti kliskatu"
-    },
-    "ledStripBlinkLandingOverlay": {
-        "message": "Lurreratzean kliskatu"
     },
     "ledStripOverlayTitle": {
         "message": "Gainjarri"
@@ -3141,9 +3060,6 @@
     },
     "pidTuningIntegratedYaw": {
         "message": "Yaw Integratua"
-    },
-    "pidTuningIntegratedYawCaution": {
-        "message": "<span class=\"message-negative\">ABISUA</span>: Ezaugarri hau gaitzen baduzu, YAW PID horren arabera egokitu behar duzu. Informazio gehiago <a href=\"https://github.com/betaflight/betaflight/wiki/Integrated-Yaw\" target=\"_blank\" rel=\"noopener noreferrer\">hemen</a>"
     },
     "configHelp2": {
         "message": "Hegaldi kontroladorea edozein angeluan biratu(zutik, atzeraka, biraketa...). Kanpoko sentsoreak erabiltzen dituzunean, sentsoreen lerrokatzea erabili sentsoreen posizioak definitzeko, hegaldi kontroladorearen orientazioa edozein dela ere. "
@@ -4102,9 +4018,6 @@
         "message": "Aurrez aurre behera erori ondoren: gezia",
         "description": "One of the elements of the OSD"
     },
-    "osdDescElementFlipArrow": {
-        "message": "Gezia, alboko motorrak zein diren dortoka moduan"
-    },
     "osdTextElementLinkQuality": {
         "message": "Loturaren kalitatea",
         "description": "One of the elements of the OSD"
@@ -4614,10 +4527,6 @@
     },
     "osdButtonSaved": {
         "message": "Gordeta"
-    },
-    "vtxHelp": {
-        "message": "Hemen zure Bideo Argailuaren (VTX) balioak konfigura ditzakezu. Transmisioaren balioak ikusi eta alda ditzakezu, VTX taulak barne, hegaldi-kontroladoreak eta VTX onartzen badituzte.<br>Urrats hauek egin zure VTX konfiguratzeko:<br>1. Ireki <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight/wiki/VTX-tables\"> </a>orria;<br>2. Bilatu zure herrialderako VTX konfigurazio fitxategi egokia eta deskargatu;<br>3. Egin klik '$t(vtxButtonLoadFile.message)' botoian, hautatu VTX konfigurazio fitxategia, kargatu,<br>4. Egiaztatu ezarpenak zuzenak direla;<br>5. Sakatu '$t(vtxButtonSave.message)' VTX balioak hegaldi kontroladorean gordetzeko.<br>6. Aukeran klik '$t(vtxButtonSaveLua.message)' lua konfigurazio-fitxategia betaflight lua gidoiak batera erabili ahal izango dituzu (Ikusi gehiago <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight-tx-lua-scripts/\">hemen</a>.)",
-        "description": "Introduction message in the VTX tab"
     },
     "vtxMessageNotSupported": {
         "message": "<span class=\"message-negative\">Abisua:</span> Zure VTX ez dago konfiguratuta edo ez da onartzen. Horretaz, ezin dituzu VTX balioak hemendik aldatu. Hau bakarrik izango litzateke hegaldi-kontroladorea VTX-rekin konektatuta badago, hala nola Tramp edo SmartAudio bezalako protokolo motaren bat erabiliz eta $t(tabPorts.message) fitxan behar bezala konfiguratuta badago.",

@@ -6,7 +6,6 @@ import MotorOutputReorderComponent from "../../components/MotorOutputReordering/
 import EscDshotDirectionComponent from "../../components/EscDshotDirection/EscDshotDirectionComponent";
 import DshotCommand from "../../js/utils/DshotCommand.js";
 import { tracking } from "../Analytics";
-import { reinitializeConnection } from "../serial_backend";
 import { bit_check } from "../bit";
 import { mspHelper } from "../msp/MSPHelper";
 import FC from "../fc";
@@ -15,7 +14,6 @@ import { mixerList } from "../model";
 import MSPCodes from "../msp/MSPCodes";
 import { API_VERSION_1_42, API_VERSION_1_44 } from "../data_storage";
 import EscProtocols from "../utils/EscProtocols";
-import { gui_log } from "../gui_log";
 import { updateTabList } from "../utils/updateTabList";
 import { isInt, getMixerImageSrc } from "../utils/common";
 import semver from 'semver';
@@ -84,7 +82,6 @@ motors.initialize = async function (callback) {
 
     GUI.active_tab = 'motors';
 
-    await MSP.promise(MSPCodes.MSP_STATUS);
     await MSP.promise(MSPCodes.MSP_PID_ADVANCED);
     await MSP.promise(MSPCodes.MSP_FEATURE_CONFIG);
     await MSP.promise(MSPCodes.MSP_MIXER_CONFIG);
@@ -254,15 +251,10 @@ motors.initialize = async function (callback) {
         const motorsEnableTestModeElement = $('#motorsEnableTestMode');
         self.analyticsChanges = {};
 
-        motorsEnableTestModeElement.prop('checked', false).trigger('change');
+        motorsEnableTestModeElement.prop('checked', self.armed);
 
         if (semver.lt(FC.CONFIG.apiVersion, API_VERSION_1_42) || !(FC.MOTOR_CONFIG.use_dshot_telemetry || FC.MOTOR_CONFIG.use_esc_sensor)) {
             $(".motor_testing .telemetry").hide();
-        } else {
-            // Hide telemetry from unused motors (to hide the tooltip in an empty blank space)
-            for (let i = FC.MOTOR_CONFIG.motor_count; i < FC.MOTOR_DATA.length; i++) {
-                $(`.motor_testing .telemetry .motor-${i}`).hide();
-            }
         }
 
         function setContentButtons(motorsTesting=false) {
@@ -275,9 +267,9 @@ motors.initialize = async function (callback) {
             mixer:              FC.MIXER_CONFIG.mixer,
             reverseMotorSwitch: FC.MIXER_CONFIG.reverseMotorDir,
             escprotocol:        FC.PID_ADVANCED_CONFIG.fast_pwm_protocol + 1,
-            feature3:           FC.FEATURE_CONFIG.features.isEnabled('MOTOR_STOP'),
-            feature9:           FC.FEATURE_CONFIG.features.isEnabled('3D'),
-            feature20:          FC.FEATURE_CONFIG.features.isEnabled('ESC_SENSOR'),
+            feature4:           FC.FEATURE_CONFIG.features.isEnabled('MOTOR_STOP'),
+            feature12:          FC.FEATURE_CONFIG.features.isEnabled('3D'),
+            feature27:          FC.FEATURE_CONFIG.features.isEnabled('ESC_SENSOR'),
             dshotBidir:         FC.MOTOR_CONFIG.use_dshot_telemetry,
             motorPoles:         FC.MOTOR_CONFIG.motor_poles,
             digitalIdlePercent: FC.PID_ADVANCED_CONFIG.digitalIdlePercent,
@@ -1029,11 +1021,6 @@ motors.initialize = async function (callback) {
 
         // data pulling functions used inside interval timer
 
-        function getStatus() {
-            // status needed for arming flag
-            MSP.send_message(MSPCodes.MSP_STATUS, false, false, get_motor_data);
-        }
-
         function get_motor_data() {
             MSP.send_message(MSPCodes.MSP_MOTOR, false, false, get_motor_telemetry_data);
         }
@@ -1063,6 +1050,11 @@ motors.initialize = async function (callback) {
             const previousArmState = self.armed;
             const blockHeight = $('div.m-block:first').height();
             const motorValues = getMotorOutputs();
+            const MAX_VALUE_SIZE = 6,
+                AVG_RPM_ROUNDING = 100;
+            let sumRpm = 0,
+                isAllMotorValueEqual = motorValues.every((value, _index, arr) => value === arr[0]),
+                hasTelemetryError = false;
 
             for (let i = 0; i < motorValues.length; i++) {
                 const motorValue = motorValues[i];
@@ -1080,8 +1072,7 @@ motors.initialize = async function (callback) {
 
                 if (i < FC.MOTOR_CONFIG.motor_count && (FC.MOTOR_CONFIG.use_dshot_telemetry || FC.MOTOR_CONFIG.use_esc_sensor)) {
 
-                    const MAX_INVALID_PERCENT = 100,
-                          MAX_VALUE_SIZE = 6;
+                    const MAX_INVALID_PERCENT = 100;
 
                     let rpmMotorValue = FC.MOTOR_TELEMETRY_DATA.rpm[i];
 
@@ -1089,14 +1080,17 @@ motors.initialize = async function (callback) {
                     if (rpmMotorValue > 999999) {
                         rpmMotorValue = `${(rpmMotorValue / 1000000).toFixed(5 - (rpmMotorValue / 1000000).toFixed(0).toString().length)}M`;
                     }
-
+                    if (isAllMotorValueEqual) {
+                        sumRpm += Math.round(rpmMotorValue * AVG_RPM_ROUNDING) / AVG_RPM_ROUNDING;
+                    }
                     rpmMotorValue = rpmMotorValue.toString().padStart(MAX_VALUE_SIZE);
                     let telemetryText = i18n.getMessage('motorsRPM', {motorsRpmValue: rpmMotorValue});
 
                     if (FC.MOTOR_CONFIG.use_dshot_telemetry) {
 
                         let invalidPercent = FC.MOTOR_TELEMETRY_DATA.invalidPercent[i];
-                        let classError = (invalidPercent > MAX_INVALID_PERCENT) ? "warning" : "";
+                        hasTelemetryError = invalidPercent > MAX_INVALID_PERCENT;
+                        let classError = hasTelemetryError ? "warning" : "";
                         invalidPercent = (invalidPercent / 100).toFixed(2).toString().padStart(MAX_VALUE_SIZE);
 
                         telemetryText += `<br><span class="${classError}">`;
@@ -1117,6 +1111,15 @@ motors.initialize = async function (callback) {
                 }
             }
 
+            if (FC.MOTOR_CONFIG.use_dshot_telemetry && !hasTelemetryError && isAllMotorValueEqual) {
+                const avgRpm = (Math.round(sumRpm / motorValues.length * AVG_RPM_ROUNDING) / AVG_RPM_ROUNDING).toFixed(0),
+                    avgRpmMotorValue = avgRpm.toString().padStart(MAX_VALUE_SIZE),
+                    message = i18n.getMessage('motorsRPM', { motorsRpmValue: avgRpmMotorValue });
+                $(`.motor_testing .telemetry .motor-master`).html(message);
+            } else {
+                $(`.motor_testing .telemetry .motor-master`).html("");
+            }
+
             //keep the following here so at least we get a visual cue of our motor setup
             update_arm_status();
 
@@ -1128,6 +1131,8 @@ motors.initialize = async function (callback) {
         }
 
         $('a.save').on('click', async function() {
+            GUI.interval_kill_all(['motor_and_status_pull','motors_power_data_pull_slow']);
+
             // gather data that doesn't have automatic change event bound
             FC.MOTOR_CONFIG.minthrottle = parseInt($('input[name="minthrottle"]').val());
             FC.MOTOR_CONFIG.maxthrottle = parseInt($('input[name="maxthrottle"]').val());
@@ -1152,22 +1157,22 @@ motors.initialize = async function (callback) {
             await MSP.promise(MSPCodes.MSP_SET_MOTOR_3D_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_MOTOR_3D_CONFIG));
             await MSP.promise(MSPCodes.MSP_SET_ADVANCED_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_ADVANCED_CONFIG));
             await MSP.promise(MSPCodes.MSP_SET_ARMING_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_ARMING_CONFIG));
+
             if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_42)) {
                 await MSP.promise(MSPCodes.MSP_SET_FILTER_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_FILTER_CONFIG));
             }
-            await MSP.promise(MSPCodes.MSP_EEPROM_WRITE);
 
             tracking.sendSaveAndChangeEvents(tracking.EVENT_CATEGORIES.FLIGHT_CONTROLLER, self.analyticsChanges, 'motors');
             self.analyticsChanges = {};
             self.configHasChanged = false;
 
-            reboot();
+            mspHelper.writeConfiguration(true);
         });
 
         $('a.stop').on('click', () => motorsEnableTestModeElement.prop('checked', false).trigger('change'));
 
         // enable Status and Motor data pulling
-        GUI.interval_add('motor_and_status_pull', getStatus, 50, true);
+        GUI.interval_add('motor_and_status_pull', get_motor_data, 50, true);
 
         setup_motor_output_reordering_dialog(SetupEscDshotDirectionDialogCallback, zeroThrottleValue);
 
@@ -1180,11 +1185,6 @@ motors.initialize = async function (callback) {
         }
 
         content_ready();
-    }
-
-    function reboot() {
-        gui_log(i18n.getMessage('configurationEepromSaved'));
-        MSP.send_message(MSPCodes.MSP_SET_REBOOT, false, false, reinitializeConnection);
     }
 
     function showDialogMixerReset(message) {

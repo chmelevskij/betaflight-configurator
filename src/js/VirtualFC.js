@@ -156,6 +156,8 @@ const VirtualFC = {
             mag_hardware: 1,
         };
 
+        virtualFC.SENSOR_DATA = { ...FC.SENSOR_DATA };
+
         virtualFC.RC = {
             channels: Array.from({length: 16}),
             active_channels: 16,
@@ -164,12 +166,13 @@ const VirtualFC = {
             virtualFC.RC.channels[i] = 1500;
         }
 
-        // from https://betaflight.com/docs/development/Modes
+        // from https://betaflight.com/docs/development/Modes or msp/msp_box.c
         virtualFC.AUX_CONFIG = ["ARM","ANGLE","HORIZON","ANTI GRAVITY","MAG","HEADFREE","HEADADJ","CAMSTAB","PASSTHRU","BEEPERON","LEDLOW","CALIB",
-        "OSD","TELEMETRY","SERVO1","SERVO2","SERVO3","BLACKBOX","FAILSAFE","AIRMODE","3D","FPV ANGLE MIX","BLACKBOX ERASE","CAMERA CONTROL 1",
+        "OSD","TELEMETRY","SERVO1","SERVO2","SERVO3","BLACKBOX","FAILSAFE","AIR MODE","3D","FPV ANGLE MIX","BLACKBOX ERASE","CAMERA CONTROL 1",
         "CAMERA CONTROL 2","CAMERA CONTROL 3","FLIP OVER AFTER CRASH","BOXPREARM","BEEP GPS SATELLITE COUNT","VTX PIT MODE","USER1","USER2",
-        "USER3","USER4","PID AUDIO","PARALYZE","GPS RESCUE","ACRO TRAINER","DISABLE VTX CONTROL","LAUNCH CONTROL"];
-        FC.AUX_CONFIG_IDS = [0,1,2,4,5,6,7,8,12,13,15,17,19,20,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,45,46,47,48,49];
+        "USER3","USER4","PID AUDIO","PARALYZE","GPS RESCUE","ACRO TRAINER","DISABLE VTX CONTROL","LAUNCH CONTROL", "MSP OVERRIDE", "STICK COMMANDS DISABLE",
+        "BEEPER MUTE", "READY"];
+        FC.AUX_CONFIG_IDS = [0,1,2,4,5,6,7,8,12,13,15,17,19,20,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53];
 
         for (let i = 0; i < 16; i++) {
             virtualFC.RXFAIL_CONFIG[i] = {
@@ -180,8 +183,20 @@ const VirtualFC = {
 
         // 11 1111 (pass bitchecks)
         virtualFC.CONFIG.activeSensors = 63;
+
+        virtualFC.GPS_CONFIG = {
+            provider: 1,
+            ublox_sbas: 1,
+            auto_config: 1,
+            auto_baud: 0,
+            home_point_once: 1,
+            ublox_use_galileo: 1,
+        };
+
+        virtualFC.GPS_DATA = sampleGpsData;
     },
-    setupVirtualOSD(){
+
+    setupVirtualOSD() {
         const virtualOSD = OSD;
 
         virtualOSD.data.video_system = 1;
@@ -219,6 +234,23 @@ const VirtualFC = {
             time: { display_name: 'Minutes', value: 0 },
         };
     },
+};
+
+const sampleGpsData = {
+    "fix": 2,
+    "numSat": 10,
+    "lat": 474919409,
+    "lon": 190539766,
+    "alt": 0,
+    "speed": 0,
+    "ground_course": 1337,
+    "distanceToHome": 0,
+    "directionToHome": 0,
+    "update": 0,
+    "chn": [0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 6, 6, 6, 6, 6, 6, 6, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255],
+    "svid": [1, 2, 10, 15, 18, 23, 26, 123, 136, 1, 15, 2, 3, 4, 9, 10, 16, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "quality": [3, 95, 95, 95, 95, 95, 95, 23, 23, 1, 31, 20, 31, 23, 20, 17, 31, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "cno": [27, 37, 43, 37, 34, 47, 44, 42, 39, 0, 40, 24, 40, 35, 26, 0, 35, 41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 };
 
 export default VirtualFC;

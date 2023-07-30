@@ -1,7 +1,6 @@
 import { i18n } from "../localization";
 import GUI, { TABS } from '../gui';
 import { tracking } from "../Analytics";
-import { reinitializeConnection } from "../serial_backend";
 import { mspHelper } from "../msp/MSPHelper";
 import FC from "../fc";
 import MSP from "../msp";
@@ -59,18 +58,6 @@ onboard_logging.initialize = function (callback) {
         return gcd(b, a % b);
     }
 
-    function save_to_eeprom() {
-        MSP.send_message(MSPCodes.MSP_EEPROM_WRITE, false, false, reboot);
-    }
-
-    function reboot() {
-        gui_log(i18n.getMessage('configurationEepromSaved'));
-
-        GUI.tab_switch_cleanup(function() {
-            MSP.send_message(MSPCodes.MSP_SET_REBOOT, false, false, reinitializeConnection);
-        });
-    }
-
     function load_html() {
         $('#content').load("./src/tabs/onboard_logging.html", function() {
             // translate to user-selected language
@@ -116,25 +103,41 @@ onboard_logging.initialize = function (callback) {
             const deviceSelect = $(".blackboxDevice select");
             const loggingRatesSelect = $(".blackboxRate select");
             const debugModeSelect = $(".blackboxDebugMode select");
+            const debugFieldsSelect = $(".blackboxDebugFields select");
 
             if (FC.BLACKBOX.supported) {
-                $(".tab-onboard_logging a.save-settings").click(function() {
+                $(".tab-onboard_logging a.save-settings").on('click', async function() {
+                    if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_45)) {
+                        let fieldsMask = 0;
+
+                        $(".blackboxDebugFields select option:not(:selected)").each(function() {
+                            fieldsMask |= (1 << $(this).val());
+                        });
+
+                        FC.BLACKBOX.blackboxDisabledMask = fieldsMask;
+                    }
                     if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_44)) {
                         FC.BLACKBOX.blackboxSampleRate = parseInt(loggingRatesSelect.val(), 10);
                         FC.BLACKBOX.blackboxPDenom = parseInt(loggingRatesSelect.val(), 10);
                     }
                     FC.BLACKBOX.blackboxDevice = parseInt(deviceSelect.val(), 10);
+
+                    await MSP.promise(MSPCodes.MSP_SET_BLACKBOX_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_BLACKBOX_CONFIG));
+
                     if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_42)) {
                         FC.PID_ADVANCED_CONFIG.debugMode = parseInt(debugModeSelect.val());
-                        MSP.send_message(MSPCodes.MSP_SET_ADVANCED_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_ADVANCED_CONFIG), false, save_to_eeprom);
+
+                        await MSP.promise(MSPCodes.MSP_SET_ADVANCED_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_ADVANCED_CONFIG));
                     }
-                    MSP.send_message(MSPCodes.MSP_SET_BLACKBOX_CONFIG, mspHelper.crunch(MSPCodes.MSP_SET_BLACKBOX_CONFIG), false, save_to_eeprom);
+
+                    mspHelper.writeConfiguration(true);
                 });
             }
 
             populateLoggingRates(loggingRatesSelect);
             populateDevices(deviceSelect);
             populateDebugModes(debugModeSelect);
+            populateDebugFields(debugFieldsSelect);
 
             deviceSelect.change(function() {
                 if ($(this).val() === "0") {
@@ -318,9 +321,17 @@ onboard_logging.initialize = function (callback) {
                 {text: "GPS_RESCUE_VELOCITY"},
                 {text: "GPS_RESCUE_HEADING"},
                 {text: "GPS_RESCUE_TRACKING"},
+                {text: "GPS_UNIT_CONNECTION"},
                 {text: "ATTITUDE"},
                 {text: "VTX_MSP"},
                 {text: "GPS_DOP"},
+                {text: "FAILSAFE"},
+                {text: "GYRO_CALIBRATION"},
+                {text: "ANGLE_MODE"},
+                {text: "ANGLE_TARGET"},
+                {text: "CURRENT_ANGLE"},
+                {text: "DSHOT_TELEMETRY_COUNTS"},
+                {text: "RPM_LIMIT"},
             ];
 
             for (let i = 0; i < FC.PID_ADVANCED_CONFIG.debugModeCount; i++) {
@@ -331,25 +342,47 @@ onboard_logging.initialize = function (callback) {
                 }
             }
 
-            debugModeSelect.val(FC.PID_ADVANCED_CONFIG.debugMode);
-
-            // Convert to select2 and order alphabetic
-            debugModeSelect.select2({
-                sorter(data) {
-                    return data.sort(function(a, b) {
-                        if (a.text === "NONE" || b.text === i18n.getMessage('onboardLoggingDebugModeUnknown')) {
-                            return -1;
-                        } else if (b.text ==="NONE" || a.text === i18n.getMessage('onboardLoggingDebugModeUnknown')) {
-                            return 1;
-                        } else {
-                            return a.text.localeCompare(b.text);
-                        }
-                    });
-                },
-            });
-
+            debugModeSelect
+                .val(FC.PID_ADVANCED_CONFIG.debugMode)
+                .select2()
+                .sortSelect("NONE");
         } else {
             $('.blackboxDebugMode').hide();
+        }
+    }
+
+    function populateDebugFields(debugFieldsSelect) {
+        if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_45)) {
+            $('.blackboxDebugFields').show();
+
+            const debugFields = [
+                { text: "PID" },
+                { text: "RC Commands" },
+                { text: "Setpoint" },
+                { text: "Battery" },
+                { text: "Magnetometer" },
+                { text: "Altitude" },
+                { text: "RSSI" },
+                { text: "Gyro" },
+                { text: "Accelerometer" },
+                { text: "Debug Log" },
+                { text: "Motor" },
+                { text: "GPS" },
+                { text: "RPM" },
+                { text: "Unfiltered Gyro"},
+            ];
+
+            let fieldsMask = FC.BLACKBOX.blackboxDisabledMask;
+
+            for (let i = 0; i < debugFields.length; i++) {
+                const enabled = (fieldsMask & (1 << i)) === 0;
+                debugFieldsSelect.append(new Option(debugFields[i].text, i, false, enabled));
+            }
+
+            debugFieldsSelect.sortSelect().multipleSelect();
+
+        } else {
+            $('.blackboxDebugFields').hide();
         }
     }
 

@@ -11,13 +11,14 @@ import FC from '../fc';
 import MSP from '../msp';
 import MSPCodes from '../msp/MSPCodes';
 import PortHandler, { usbDevices } from '../port_handler';
-import CONFIGURATOR, { API_VERSION_1_39 } from '../data_storage';
+import { API_VERSION_1_39, API_VERSION_1_45 } from '../data_storage';
 import serial from '../serial';
 import STM32DFU from '../protocols/stm32usbdfu';
 import { gui_log } from '../gui_log';
 import semver from 'semver';
 import { checkChromeRuntimeError } from '../utils/common';
 import $ from 'jquery';
+import { generateFilename } from '../utils/generate_filename';
 
 const firmware_flasher = {
     targets: null,
@@ -25,6 +26,7 @@ const firmware_flasher = {
     localFirmwareLoaded: false,
     selectedBoard: undefined,
     boardNeedsVerification: false,
+    allowBoardDetection: true,
     intel_hex: undefined, // standard intel hex in string format
     parsed_hex: undefined, // parsed raw hex in array format
     isConfigLocal: false, // Set to true if the user loads one locally
@@ -47,6 +49,27 @@ firmware_flasher.initialize = function (callback) {
     self.parsed_hex = undefined;
 
     function onDocumentLoad() {
+
+        function loadSponsor() {
+            if (!navigator.onLine) {
+                return;
+            }
+
+            self.releaseLoader.loadSponsorTile(
+                (content) => {
+                    if (content) {
+                        $('div.tab_sponsor').html(content);
+                        $('div.tab_sponsor').show();
+                    } else {
+                        $('div.tab_sponsor').hide();
+                    }
+                },
+            );
+        }
+
+        function buildKeyExists() {
+            return FC.CONFIG.buildKey.length === 32;
+        }
 
         function parseHex(str, callback) {
             // parsing hex in different thread
@@ -166,11 +189,9 @@ firmware_flasher.initialize = function (callback) {
 
             TABS.firmware_flasher.targets = targets;
 
-            result = getStorage('selected_board');
-            if (result.selected_board) {
-                const selected = targets.find(t => t.target === result.selected_board);
-                $('select[name="board"]').val(selected ? result.selected_board : 0).trigger('change');
-            }
+
+            // For discussion. Rather remove build configuration and let user use auto-detect. Often I think already had pressed the button.
+            $('div.build_configuration').slideUp();
         }
 
         function buildOptionsList(select_e, options) {
@@ -192,9 +213,20 @@ firmware_flasher.initialize = function (callback) {
             buildOptionsList($('select[name="telemetryProtocols"]'), data.telemetryProtocols);
             buildOptionsList($('select[name="options"]'), data.generalOptions);
             buildOptionsList($('select[name="motorProtocols"]'), data.motorProtocols);
+            if (!buildKeyExists()) {
+                preselectRadioProtocolFromStorage();
+            }
         }
 
-        self.releaseLoader.loadOptions(buildOptions);
+        function preselectRadioProtocolFromStorage() {
+            const storedRadioProtocol = getConfig("ffRadioProtocol").ffRadioProtocol;
+            if (storedRadioProtocol) {
+                const valueExistsInSelect = $('select[name="radioProtocols"] option').filter(function (i, o) {return o.value === storedRadioProtocol;}).length !== 0;
+                if (valueExistsInSelect) {
+                    $('select[name="radioProtocols"]').val(storedRadioProtocol);
+                }
+            }
+        }
 
         let buildTypesToShow;
         const buildType_e = $('select[name="build_type"]');
@@ -259,6 +291,8 @@ firmware_flasher.initialize = function (callback) {
         // translate to user-selected language
         i18n.localizePage();
 
+        loadSponsor();
+
         buildType_e.change(function() {
             tracking.setFirmwareData(tracking.DATA.FIRMWARE_CHANNEL, $('option:selected', this).text());
 
@@ -305,7 +339,7 @@ firmware_flasher.initialize = function (callback) {
                 if (response.cloudBuild === true) {
                     $('div.build_configuration').slideDown();
 
-                    const expertMode = $('.tab-firmware_flasher input.expert_mode').is(':checked');
+                    const expertMode = expertMode_e.is(':checked');
                     if (expertMode) {
                         if (response.releaseType === 'Unstable') {
                             self.releaseLoader.loadCommits(response.release, (commits) => {
@@ -333,6 +367,12 @@ firmware_flasher.initialize = function (callback) {
             }
 
             self.releaseLoader.loadTarget(target, release, onTargetDetail);
+
+            if (buildKeyExists() && navigator.onLine) {
+                self.releaseLoader.loadOptionsByBuildKey(release, FC.CONFIG.buildKey, buildOptions);
+            } else {
+                self.releaseLoader.loadOptions(release, buildOptions);
+            }
         }
 
         function populateReleases(versions_element, target) {
@@ -389,6 +429,13 @@ firmware_flasher.initialize = function (callback) {
         $('select[name="options"]').select2({ closeOnSelect: false });
         $('select[name="commits"]').select2({ tags: true });
 
+        $('select[name="radioProtocols"]').on("select2:select", function() {
+            const selectedProtocol = $('select[name="radioProtocols"] option:selected').first().val();
+            if (selectedProtocol) {
+                setConfig({"ffRadioProtocol" : selectedProtocol});
+            }
+        });
+
         $('select[name="board"]').change(function() {
             $("a.load_remote_file").addClass('disabled');
             let target = $(this).val();
@@ -400,17 +447,12 @@ firmware_flasher.initialize = function (callback) {
             }
 
             if (!GUI.connect_lock) {
-                if (target !== '0') {
-                    setStorage({'selected_board': target});
-                }
-
                 self.selectedBoard = target;
                 console.log('board changed to', target);
 
                 self.flashingMessage(i18n.getMessage('firmwareFlasherLoadFirmwareFile'), self.FLASH_MESSAGE_TYPES.NEUTRAL)
                     .flashProgress(0);
 
-                $('div.git_info').slideUp();
                 $('div.release_info').slideUp();
                 $('div.build_configuration').slideUp();
 
@@ -497,7 +539,7 @@ firmware_flasher.initialize = function (callback) {
             const options = {};
 
             let eraseAll = false;
-            if ($('input.erase_chip').is(':checked') || $('.tab-firmware_flasher input.expert_mode').not(':checked')) {
+            if ($('input.erase_chip').is(':checked') || expertMode_e.is(':not(:checked)')) {
                 options.erase_chip = true;
 
                 eraseAll = true;
@@ -536,13 +578,19 @@ firmware_flasher.initialize = function (callback) {
         function verifyBoard() {
             if (!$('option:selected', portPickerElement).data().isDFU) {
 
+                let mspHelper;
+
                 function onFinishClose() {
                     MSP.clearListeners();
+                    MSP.disconnect_cleanup();
                 }
 
-                function onClose() {
+                function onClose(success) {
+                    if (!success) {
+                        gui_log(i18n.getMessage('firmwareFlasherBoardVerificationFail'));
+                    }
+
                     serial.disconnect(onFinishClose);
-                    MSP.disconnect_cleanup();
                 }
 
                 function onFinish() {
@@ -562,38 +610,60 @@ firmware_flasher.initialize = function (callback) {
                         if (board !== target) {
                             boardSelect.val(board).trigger('change');
                         }
+
                         gui_log(i18n.getMessage(targetAvailable ? 'firmwareFlasherBoardVerificationSuccess' : 'firmwareFlasherBoardVerficationTargetNotAvailable',
                             { boardName: board }));
+                        onClose(true);
                     } else {
-                        gui_log(i18n.getMessage('firmwareFlasherBoardVerificationFail'));
+                        onClose(false);
                     }
-                    onClose();
                 }
 
-                function getBoard() {
-                    console.log(`Requesting board information`);
-                    MSP.send_message(MSPCodes.MSP_API_VERSION, false, false, () => {
-                        if (!FC.CONFIG.apiVersion || FC.CONFIG.apiVersion === 'null.null.0') {
-                            FC.CONFIG.apiVersion = '0.0.0';
+                function getBoardInfo() {
+                    MSP.send_message(MSPCodes.MSP_BOARD_INFO, false, false, onFinish);
+                }
+
+                function getBuildInfo() {
+                    if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_45) && navigator.onLine && FC.CONFIG.flightControllerIdentifier === 'BTFL') {
+
+                        function onLoadCloudBuild(options) {
+                            FC.CONFIG.buildOptions = options.Request.Options;
+                            getBoardInfo();
                         }
-                        console.log(FC.CONFIG.apiVersion);
-                        MSP.send_message(MSPCodes.MSP_UID, false, false, () => {
-                            if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_39)) {
-                                MSP.send_message(MSPCodes.MSP_BOARD_INFO, false, false, onFinish);
+
+                        MSP.send_message(MSPCodes.MSP2_GET_TEXT, mspHelper.crunch(MSPCodes.MSP2_GET_TEXT, MSPCodes.BUILD_KEY), false, () => {
+                            if (buildKeyExists()) {
+                                self.releaseLoader.requestBuildOptions(FC.CONFIG.buildKey, onLoadCloudBuild, getBoardInfo);
                             } else {
-                                console.log('Firmware version not supported for reading board information');
-                                onClose();
+                                getBoardInfo();
                             }
                         });
+                    } else {
+                        getBoardInfo();
+                    }
+                }
+
+                function detectBoard() {
+                    console.log(`Requesting board information`);
+                    MSP.send_message(MSPCodes.MSP_API_VERSION, false, false, () => {
+                        gui_log(i18n.getMessage('apiVersionReceived', FC.CONFIG.apiVersion));
+
+                        if (FC.CONFIG.apiVersion.includes('null')) {
+                            onClose(false); // not supported
+                        } else if (semver.lt(FC.CONFIG.apiVersion, API_VERSION_1_39)) {
+                            onClose(false); // not supported
+                        } else {
+                            MSP.send_message(MSPCodes.MSP_FC_VARIANT, false, false, getBuildInfo);
+                        }
                     });
                 }
 
                 function onConnect(openInfo) {
                     if (openInfo) {
                         serial.onReceive.addListener(data => MSP.read(data));
-                        const mspHelper = new MspHelper();
+                        mspHelper = new MspHelper();
                         MSP.listen(mspHelper.process_data.bind(mspHelper));
-                        getBoard();
+                        detectBoard();
                     } else {
                         gui_log(i18n.getMessage('serialPortOpenFail'));
                     }
@@ -616,8 +686,7 @@ firmware_flasher.initialize = function (callback) {
                         if (!(serial.connected || serial.connectionId)) {
                             serial.connect(port, {bitrate: baud}, onConnect);
                         } else {
-                            console.warn('Attempting to connect while there still is a connection', serial.connected, serial.connectionId);
-                            serial.disconnect();
+                            console.warn('Attempting to connect while there still is a connection', serial.connected, serial.connectionId, serial.openCanceled);
                         }
                     } else {
                         console.log('Releases not loaded yet');
@@ -704,6 +773,7 @@ firmware_flasher.initialize = function (callback) {
             const status = $(this).is(':checked');
 
             $('.hide-in-core-build-mode').toggle(!status);
+            $('div.expertOptions').toggle(!status && expertMode_e.is(':checked'));
         });
         $('input.corebuild_mode').change();
 
@@ -747,8 +817,6 @@ firmware_flasher.initialize = function (callback) {
                     return;
                 }
 
-                // hide github info (if it exists)
-                $('div.git_info').slideUp();
                 $('div.build_configuration').slideUp();
 
                 chrome.fileSystem.getDisplayPath(fileEntry, function (path) {
@@ -856,9 +924,6 @@ firmware_flasher.initialize = function (callback) {
                     target: targetDetail.target,
                     release: targetDetail.release,
                     options: [],
-                    client: {
-                        version: CONFIGURATOR.version,
-                    },
                 };
 
                 const coreBuild = (targetDetail.cloudBuild !== true) || $('input[name="coreBuildModeCheckbox"]').is(':checked');
@@ -987,11 +1052,30 @@ firmware_flasher.initialize = function (callback) {
         }).trigger('change');
 
         $('a.flash_firmware').click(function () {
+
             if (!$(this).hasClass('disabled')) {
-                if (self.developmentFirmwareLoaded) {
-                    checkShowAcknowledgementDialog();
+                function goFlashing() {
+                    if (self.developmentFirmwareLoaded) {
+                        checkShowAcknowledgementDialog();
+                    } else {
+                        startFlashing();
+                    }
+                }
+
+                // Backup not available in DFU mode
+                if (!$('option:selected', portPickerElement).data().isDFU) {
+                    GUI.showYesNoDialog(
+                        {
+                            title: i18n.getMessage('firmwareFlasherRemindBackupTitle'),
+                            text: i18n.getMessage('firmwareFlasherRemindBackup'),
+                            buttonYesText: i18n.getMessage('firmwareFlasherBackup'),
+                            buttonNoText: i18n.getMessage('firmwareFlasherBackupIgnore'),
+                            buttonYesCallback: () => firmware_flasher.backupConfig(goFlashing),
+                            buttonNoCallback: goFlashing,
+                        },
+                    );
                 } else {
-                    startFlashing();
+                    goFlashing();
                 }
             }
         });
@@ -1178,6 +1262,173 @@ firmware_flasher.initialize = function (callback) {
     });
 };
 
+firmware_flasher.backupConfig = function (callback) {
+    let mspHelper;
+    let cliBuffer = '';
+    let catchOutputCallback = null;
+
+    function readOutput(callback) {
+        catchOutputCallback = callback;
+    }
+
+    function writeOutput(text) {
+        if (catchOutputCallback) {
+            catchOutputCallback(text);
+        }
+    }
+
+    function readSerial(readInfo) {
+        const data = new Uint8Array(readInfo.data);
+
+        for (const charCode of data) {
+            const currentChar = String.fromCharCode(charCode);
+
+            switch (charCode) {
+                case 10:
+                    if (GUI.operating_system === "Windows") {
+                        writeOutput(cliBuffer);
+                        cliBuffer = '';
+                    }
+                    break;
+                case 13:
+                    if (GUI.operating_system !== "Windows") {
+                        writeOutput(cliBuffer);
+                        cliBuffer = '';
+                    }
+                    break;
+                default:
+                    cliBuffer += currentChar;
+            }
+        }
+    }
+
+    function activateCliMode() {
+        return new Promise(resolve => {
+            const bufferOut = new ArrayBuffer(1);
+            const bufView = new Uint8Array(bufferOut);
+
+            cliBuffer = '';
+            bufView[0] = 0x23;
+
+            serial.send(bufferOut);
+
+            GUI.timeout_add('enter_cli_mode_done', () => {
+                resolve();
+            }, 500);
+        });
+    }
+
+    function sendSerial(line, callback) {
+        const bufferOut = new ArrayBuffer(line.length);
+        const bufView = new Uint8Array(bufferOut);
+
+        for (let cKey = 0; cKey < line.length; cKey++) {
+            bufView[cKey] = line.charCodeAt(cKey);
+        }
+
+        serial.send(bufferOut, callback);
+    }
+
+    function sendCommand(line, callback) {
+        sendSerial(`${line}\n`, callback);
+    }
+
+    function readCommand() {
+        let timeStamp = performance.now();
+        const output = [];
+        const commandInterval = "COMMAND_INTERVAL";
+
+        readOutput(str => {
+            timeStamp = performance.now();
+            output.push(str);
+        });
+
+        sendCommand("diff all defaults");
+
+        return new Promise(resolve => {
+            GUI.interval_add(commandInterval, () => {
+                const currentTime = performance.now();
+                if (currentTime - timeStamp > 500) {
+                    catchOutputCallback = null;
+                    GUI.interval_remove(commandInterval);
+                    resolve(output);
+                }
+            }, 500, false);
+        });
+    }
+
+    function onFinishClose() {
+        MSP.clearListeners();
+
+        // Include timeout in count
+        let count = 15;
+        // Allow reboot after CLI exit
+        const waitOnReboot = () => {
+            const disconnect = setInterval(function() {
+                if (PortHandler.port_available) {
+                    console.log(`Connection ready for flashing in ${count / 10} seconds`);
+                    clearInterval(disconnect);
+                    // Re-activate auto-detection. (Seems not be needed) :)
+                    TABS.firmware_flasher.allowBoardDetection = true;
+                    callback();
+                }
+                count++;
+            }, 100);
+        };
+
+        // PortHandler has a 500ms timer - so triple for safety
+        setTimeout(waitOnReboot, 1500);
+    }
+
+    function onClose() {
+        serial.disconnect(onFinishClose);
+        MSP.disconnect_cleanup();
+    }
+
+    function onSaveConfig() {
+        // Prevent auto-detect after CLI reset
+        TABS.firmware_flasher.allowBoardDetection = false;
+
+        activateCliMode()
+        .then(readCommand)
+        .then(output => {
+            const prefix = 'cli_backup';
+            const suffix = 'txt';
+            const text = output.join("\n");
+            const filename = generateFilename(prefix, suffix);
+
+            return GUI.saveToTextFileDialog(text, filename, suffix);
+        })
+        .then(() => sendCommand("exit", onClose));
+    }
+
+    function onConnect(openInfo) {
+        if (openInfo) {
+            mspHelper = new MspHelper();
+            serial.onReceive.addListener(readSerial);
+            MSP.listen(mspHelper.process_data.bind(mspHelper));
+
+            onSaveConfig();
+        } else {
+            gui_log(i18n.getMessage('serialPortOpenFail'));
+
+            if (callback) {
+                callback();
+            }
+        }
+    }
+
+    const portPickerElement = $('div#port-picker #port');
+    const port = String(portPickerElement.val());
+
+    if (port !== '0') {
+        const baud = parseInt($('#flash_manual_baud_rate').val()) || 115200;
+        serial.connect(port, {bitrate: baud}, onConnect);
+    } else {
+        gui_log(i18n.getMessage('firmwareFlasherNoPortSelected'));
+    }
+};
+
 firmware_flasher.cleanup = function (callback) {
     PortHandler.flush_callbacks();
 
@@ -1222,7 +1473,6 @@ firmware_flasher.showDialogVerifyBoard = function (selected, verified, onAbort, 
     if (!dialogVerifyBoard.hasAttribute('open')) {
         dialogVerifyBoard.showModal();
         $('#dialog-verify-board-abort-confirmbtn').click(function() {
-            setStorage({'selected_board': FC.CONFIG.boardName});
             dialogVerifyBoard.close();
             onAbort();
         });

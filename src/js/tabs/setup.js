@@ -9,7 +9,7 @@ import FC from '../fc';
 import MSP from '../msp';
 import Model from '../model';
 import MSPCodes from '../msp/MSPCodes';
-import CONFIGURATOR, { API_VERSION_1_42, API_VERSION_1_43 } from '../data_storage';
+import CONFIGURATOR, { API_VERSION_1_42, API_VERSION_1_43, API_VERSION_1_46 } from '../data_storage';
 import { gui_log } from '../gui_log';
 import $ from 'jquery';
 
@@ -25,7 +25,7 @@ setup.initialize = function (callback) {
     }
 
     function load_status() {
-        MSP.send_message(MSPCodes.MSP_STATUS, false, false, load_mixer_config);
+        MSP.send_message(MSPCodes.MSP_STATUS_EX, false, false, load_mixer_config);
     }
 
     function load_mixer_config() {
@@ -191,17 +191,25 @@ setup.initialize = function (callback) {
             bat_mah_drawn_e = $('.bat-mah-drawn'),
             bat_mah_drawing_e = $('.bat-mah-drawing'),
             rssi_e = $('.rssi'),
+            cputemp_e = $('.cpu-temp'),
             arming_disable_flags_e = $('.arming-disable-flags'),
-            gpsFix_e = $('.gpsFix'),
+            gpsFix_e = $('.GPS_info span.colorToggle'),
             gpsSats_e = $('.gpsSats'),
-            gpsLat_e = $('.gpsLat'),
-            gpsLon_e = $('.gpsLon'),
             roll_e = $('dd.roll'),
             pitch_e = $('dd.pitch'),
-            heading_e = $('dd.heading');
+            heading_e = $('dd.heading'),
+            sonar_e = $('.sonarAltitude'),
+            // Sensor info
+            sensor_e = $('.sensor-hw'),
+            // Firmware info
+            msp_api_e = $('.api-version'),
+            build_date_e = $('.build-date'),
+            build_info_e = $('.build-info'),
+            build_opt_e = $('.build-options');
 
         // DISARM FLAGS
         // We add all the arming/disarming flags available, and show/hide them if needed.
+        // align with betaflight runtime_config.h armingDisableFlags_e
         const prepareDisarmFlags = function() {
 
             let disarmFlagElements = [
@@ -210,6 +218,8 @@ setup.initialize = function (callback) {
                 'RX_FAILSAFE',
                 'BAD_RX_RECOVERY',
                 'BOXFAILSAFE',
+                'RUNAWAY_TAKEOFF',
+                // 'CRASH_DETECTED', only from API 1.42
                 'THROTTLE',
                 'ANGLE',
                 'BOOT_GRACE_TIME',
@@ -218,27 +228,27 @@ setup.initialize = function (callback) {
                 'CALIBRATING',
                 'CLI',
                 'CMS_MENU',
-                'OSD_MENU',
                 'BST',
                 'MSP',
+                'PARALYZE',
+                'GPS',
+                'RESC',
+                'RPMFILTER',
+                // 'REBOOT_REQUIRED', only from API 1.42
+                // 'DSHOT_BITBANG',   only from API 1.42
+                // 'ACC_CALIBRATION', only from API 1.43
+                // 'MOTOR_PROTOCOL',  only from API 1.43
+                // 'ARM_SWITCH',           // Needs to be the last element, since it's always activated if one of the others is active when arming
             ];
 
-            disarmFlagElements.splice(disarmFlagElements.indexOf('THROTTLE'), 0, 'RUNAWAY_TAKEOFF');
-
-            disarmFlagElements = disarmFlagElements.concat(['PARALYZE', 'GPS']);
-
-            disarmFlagElements.splice(disarmFlagElements.indexOf('OSD_MENU'), 1);
-            disarmFlagElements = disarmFlagElements.concat(['RESC']);
-            disarmFlagElements = disarmFlagElements.concat(['RPMFILTER']);
-
             if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_42)) {
-                disarmFlagElements.splice(disarmFlagElements.indexOf('THROTTLE'), 0, 'CRASH');
-                disarmFlagElements = disarmFlagElements.concat(['REBOOT_REQD',
-                                                                'DSHOT_BBANG']);
+                disarmFlagElements.splice(disarmFlagElements.indexOf('THROTTLE'), 0, 'CRASH_DETECTED');
+                disarmFlagElements = disarmFlagElements.concat(['REBOOT_REQUIRED',
+                                                                'DSHOT_BITBANG']);
             }
 
             if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_43)) {
-                disarmFlagElements = disarmFlagElements.concat(['NO_ACC_CAL', 'MOTOR_PROTO']);
+                disarmFlagElements = disarmFlagElements.concat(['ACC_CALIBRATION', 'MOTOR_PROTOCOL']);
             }
 
             // Always the latest element
@@ -266,35 +276,166 @@ setup.initialize = function (callback) {
             }
         };
 
+        const showSensorInfo = function() {
+            let accElements = [
+                'DEFAULT',
+                'NONE',
+                'ADXL345',
+                'MPU6050',
+                'MMA8452',
+                'BMA280',
+                'LSM303DLHC',
+                'MPU6000',
+                'MPU6500',
+                'MPU9250',
+                'ICM20601',
+                'ICM20602',
+                'ICM20608G',
+                'ICM20649',
+                'ICM20689',
+                'ICM42605',
+                'ICM42688P',
+                'BMI160',
+                'BMI270',
+                'LSM6DSO',
+                'VIRTUAL',
+            ];
+
+            let baroElements = [
+                'DEFAULT',
+                'NONE',
+                'BMP085',
+                'MS5611',
+                'BMP280',
+                'LPS',
+                'QMP6988',
+                'BMP388',
+                'DPS310',
+                '2SMPB_02B',
+                'VIRTUAL',
+            ];
+
+            let magElements = [
+                'DEFAULT',
+                'NONE',
+                'HMC5883',
+                'AK8975',
+                'AK8963',
+                'QMC5883',
+                'LIS3MDL',
+                'MPU925X_AK8963',
+            ];
+
+            let sonarElements = [
+                'NONE',
+                'HCSR04',
+                'TFMINI',
+                'TF02',
+            ];
+
+            MSP.send_message(MSPCodes.MSP_SENSOR_CONFIG, false, false, function() {
+                // Sensor info
+                let appendComma = false;
+                sensor_e.text('');
+                if (have_sensor(FC.CONFIG.activeSensors, "acc") && FC.SENSOR_CONFIG.acc_hardware > 1) {
+                    sensor_e.append(i18n.getMessage('sensorStatusAccelShort'), ': ', accElements[[FC.SENSOR_CONFIG.acc_hardware]]);
+                    appendComma = true;
+                }
+                if (have_sensor(FC.CONFIG.activeSensors, "baro") && FC.SENSOR_CONFIG.baro_hardware > 1) {
+                    if (appendComma) {
+                        sensor_e.append(', ');
+                    }
+                    sensor_e.append(i18n.getMessage('sensorStatusBaroShort'), ': ', baroElements[[FC.SENSOR_CONFIG.baro_hardware]]);
+                    appendComma = true;
+                }
+                if (have_sensor(FC.CONFIG.activeSensors, "mag") && FC.SENSOR_CONFIG.mag_hardware > 1) {
+                    if (appendComma) {
+                        sensor_e.append(', ');
+                    }
+                    sensor_e.append(i18n.getMessage('sensorStatusMagShort'), ': ', magElements[[FC.SENSOR_CONFIG.mag_hardware]]);
+                    appendComma = true;
+                }
+                if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_46) && have_sensor(FC.CONFIG.activeSensors, "sonar") && FC.SENSOR_CONFIG.sonar_hardware > 1) {
+                    if (appendComma) {
+                        sensor_e.append(', ');
+                    }
+                    sensor_e.append(i18n.getMessage('sensorStatusSonarShort'), ': ', sonarElements[[FC.SENSOR_CONFIG.sonar_hardware]]);
+                }
+            });
+        };
+
+        const showFirmwareInfo = function() {
+            // Firmware info
+            msp_api_e.text([FC.CONFIG.apiVersion]);
+            build_date_e.text([FC.CONFIG.buildInfo]);
+
+            if (FC.CONFIG.buildKey.length === 32) {
+                const buildRoot   = `https://build.betaflight.com/api/builds/${FC.CONFIG.buildKey}`;
+                const buildConfig = `<span class="buildInfoBtn" title="${i18n.getMessage('initialSetupInfoBuildInfoConfig')}: ${buildRoot}/json">
+                                     <a href="${buildRoot}/json" target="_blank"><strong>${i18n.getMessage('initialSetupInfoBuildInfoConfig')}</a></strong></span>`;
+                const buildLog =    `<span class="buildInfoBtn" title="${i18n.getMessage('initialSetupInfoBuildInfoLog')}: ${buildRoot}/log">
+                                     <a href="${buildRoot}/log" target="_blank"><strong>${i18n.getMessage('initialSetupInfoBuildInfoLog')}</a></strong></span>`;
+                build_info_e.html(`${buildConfig} &nbsp &nbsp ${buildLog}`);
+                $('.build-info a').removeClass('disabled');
+            } else {
+                $('.build-info a').addClass('disabled');
+            }
+
+            if (FC.CONFIG.buildOptions.length) {
+                let buildOptions = "";
+                build_opt_e.text = "";
+
+                for (const buildOption of FC.CONFIG.buildOptions) {
+                    buildOptions = `${buildOptions} &nbsp ${buildOption}`;
+                }
+                build_opt_e.html(`<span class="buildInfoClassOptions" 
+                                  title="${i18n.getMessage('initialSetupInfoBuildOptions')}${buildOptions}">
+                                  <strong>${i18n.getMessage('initialSetupInfoBuildOptionsList')}</strong></span>`);
+            } else {
+                build_opt_e.html(i18n.getMessage(navigator.onLine ? 'initialSetupInfoBuildOptionsEmpty' : 'initialSetupNotOnline'));
+            }
+        };
+
         prepareDisarmFlags();
+        showSensorInfo();
+        showFirmwareInfo();
+
+        // Show Sonar info box if sensor exist
+        if (!have_sensor(FC.CONFIG.activeSensors, 'sonar')) {
+            $('.sonarBox').hide();
+        }
 
         function get_slow_data() {
 
-            MSP.send_message(MSPCodes.MSP_STATUS_EX, false, false, function() {
+            // Status info is acquired in the background using update_live_status() in serial_backend.js
 
-                $('#initialSetupArmingAllowed').toggle(FC.CONFIG.armingDisableFlags == 0);
+            $('#initialSetupArmingAllowed').toggle(FC.CONFIG.armingDisableFlags === 0);
 
-                for (let i = 0; i < FC.CONFIG.armingDisableCount; i++) {
-                    $(`#initialSetupArmingDisableFlags${i}`).css('display',(FC.CONFIG.armingDisableFlags & (1 << i)) == 0 ? 'none':'inline-block');
-                }
-
-            });
-
-            MSP.send_message(MSPCodes.MSP_ANALOG, false, false, function () {
-                bat_voltage_e.text(i18n.getMessage('initialSetupBatteryValue', [FC.ANALOG.voltage]));
-                bat_mah_drawn_e.text(i18n.getMessage('initialSetupBatteryMahValue', [FC.ANALOG.mAhdrawn]));
-                bat_mah_drawing_e.text(i18n.getMessage('initialSetupBatteryAValue', [FC.ANALOG.amperage.toFixed(2)]));
-                rssi_e.text(i18n.getMessage('initialSetupRSSIValue', [((FC.ANALOG.rssi / 1023) * 100).toFixed(0)]));
-            });
-
-            if (have_sensor(FC.CONFIG.activeSensors, 'gps')) {
-                MSP.send_message(MSPCodes.MSP_RAW_GPS, false, false, function () {
-                    gpsFix_e.html((FC.GPS_DATA.fix) ? i18n.getMessage('gpsFixTrue') : i18n.getMessage('gpsFixFalse'));
-                    gpsSats_e.text(FC.GPS_DATA.numSat);
-                    gpsLat_e.text(`${(FC.GPS_DATA.lat / 10000000).toFixed(4)} deg`);
-                    gpsLon_e.text(`${(FC.GPS_DATA.lon / 10000000).toFixed(4)} deg`);
-                });
+            for (let i = 0; i < FC.CONFIG.armingDisableCount; i++) {
+                $(`#initialSetupArmingDisableFlags${i}`).css('display',(FC.CONFIG.armingDisableFlags & (1 << i)) === 0 ? 'none':'inline-block');
             }
+
+            // System info is acquired in the background using update_live_status() in serial_backend.js
+
+            bat_voltage_e.text(i18n.getMessage('initialSetupBatteryValue', [FC.ANALOG.voltage]));
+            bat_mah_drawn_e.text(i18n.getMessage('initialSetupBatteryMahValue', [FC.ANALOG.mAhdrawn]));
+            bat_mah_drawing_e.text(i18n.getMessage('initialSetupBatteryAValue', [FC.ANALOG.amperage.toFixed(2)]));
+            rssi_e.text(i18n.getMessage('initialSetupRSSIValue', [((FC.ANALOG.rssi / 1023) * 100).toFixed(0)]));
+
+            if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_46) && FC.CONFIG.cpuTemp) {
+                cputemp_e.html(`${FC.CONFIG.cpuTemp.toFixed(0)} &#8451;`);
+            }
+
+            // GPS info is acquired in the background using update_live_status() in serial_backend.js
+            gpsFix_e.text(FC.GPS_DATA.fix ? i18n.getMessage('gpsFixTrue') : i18n.getMessage('gpsFixFalse'));
+            gpsFix_e.toggleClass('ready', FC.GPS_DATA.fix != 0);
+            gpsSats_e.text(FC.GPS_DATA.numSat);
+
+            const lat = FC.GPS_DATA.lat / 10000000;
+            const lon = FC.GPS_DATA.lon / 10000000;
+            const url = `https://maps.google.com/?q=${lat},${lon}`;
+            const gpsUnitText = i18n.getMessage('gpsPositionUnit');
+            $('.GPS_info td.latLon a').prop('href', url).text(`${lat.toFixed(4)} ${gpsUnitText} / ${lon.toFixed(4)} ${gpsUnitText}`);
         }
 
         function get_fast_data() {
@@ -306,6 +447,12 @@ setup.initialize = function (callback) {
                 self.renderModel();
                 self.updateInstruments();
             });
+            // get Sonar altitude if sensor exist
+            if (have_sensor(FC.CONFIG.activeSensors, 'sonar')) {
+                MSP.send_message(MSPCodes.MSP_SONAR, false, false, function () {
+                    sonar_e.text(`${FC.SENSOR_DATA.sonar.toFixed(1)} cm`);
+                });
+            }
         }
 
         GUI.interval_add('setup_data_pull_fast', get_fast_data, 33, true); // 30 fps

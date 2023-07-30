@@ -8,12 +8,15 @@ const INITIAL_CONFIG = {
     flightControllerVersion:          '',
     version:                          0,
     buildInfo:                        '',
+    buildKey:                         '',
+    buildOptions:                     [],
     multiType:                        0,
     msp_version:                      0, // not specified using semantic versioning
     capability:                       0,
     cycleTime:                        0,
     i2cError:                         0,
     cpuload:                          0,
+    cpuTemp:                          0,
     activeSensors:                    0,
     mode:                             0,
     profile:                          0,
@@ -41,6 +44,7 @@ const INITIAL_CONFIG = {
     signature:                        [],
     mcuTypeId:                        255,
     configurationState:               0,
+    configStateFlag:                  0,
     sampleRateHz:                     0,
     configurationProblems:            0,
     hardwareName:                     '',
@@ -51,7 +55,7 @@ const INITIAL_ANALOG = {
     mAhdrawn:                   0,
     rssi:                       0,
     amperage:                   0,
-    last_received_timestamp:    Date.now(), // FIXME this code lies, it's never been received at this point
+    last_received_timestamp:    0,
 };
 
 const INITIAL_BATTERY_CONFIG = {
@@ -70,7 +74,7 @@ const FC = {
     ADJUSTMENT_RANGES: null,
     ADVANCED_TUNING: null,
     ADVANCED_TUNING_ACTIVE: null,
-    ANALOG: {...INITIAL_CONFIG},
+    ANALOG: {...INITIAL_ANALOG},
     ARMING_CONFIG: null,
     AUX_CONFIG: null,
     AUX_CONFIG_IDS: null,
@@ -166,7 +170,7 @@ const FC = {
         // Using `Object.assign` instead of reassigning to
         // trigger the updates on the Vue side
         Object.assign(this.CONFIG, INITIAL_CONFIG);
-        Object.assign(this.ANALOG, INITIAL_CONFIG);
+        Object.assign(this.ANALOG, INITIAL_ANALOG);
         Object.assign(this.BATTERY_CONFIG, INITIAL_BATTERY_CONFIG);
 
         this.BF_CONFIG = {
@@ -276,7 +280,7 @@ const FC = {
             altitude:                   0,
             sonar:                      0,
             kinematics:                 [0.0, 0.0, 0.0],
-            debug:                      [0, 0, 0, 0],
+            debug:                      [0, 0, 0, 0, 0, 0, 0, 0],
         };
 
         this.MOTOR_DATA =               Array.from({length: 8});
@@ -300,7 +304,7 @@ const FC = {
             speed:                      0,
             ground_course:              0,
             distanceToHome:             0,
-            ditectionToHome:            0,
+            directionToHome:            0,
             update:                     0,
 
             chn:                        [],
@@ -308,7 +312,6 @@ const FC = {
             quality:                    [],
             cno:                        [],
         };
-
 
         this.VOLTAGE_METERS =           [];
         this.VOLTAGE_METER_CONFIGS =    [];
@@ -399,6 +402,7 @@ const FC = {
             blackboxRateDenom:          1,
             blackboxPDenom:             0,
             blackboxSampleRate:         0,
+            blackboxDisabledMask:       0,
         };
 
         this.TRANSPONDER = {
@@ -533,6 +537,7 @@ const FC = {
             acc_hardware:               0,
             baro_hardware:              0,
             mag_hardware:               0,
+            sonar_hardware:             0,
         };
 
         this.RX_CONFIG = {
@@ -761,7 +766,6 @@ const FC = {
 
         return name;
     },
-
 
     MCU_TYPES: {
         0: "SIMULATOR",

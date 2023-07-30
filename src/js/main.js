@@ -22,6 +22,12 @@ import { checkForConfiguratorUpdates } from './utils/checkForConfiguratorUpdates
 import * as THREE from 'three';
 import * as d3 from 'd3';
 
+if (typeof String.prototype.replaceAll === "undefined") {
+    String.prototype.replaceAll = function(match, replace) {
+        return this.replace(new RegExp(match, 'g'), () => replace);
+    };
+}
+
 $(document).ready(function () {
 
     // useGlobalNodeFunctions();
@@ -76,7 +82,6 @@ function appReady() {
     cleanupLocalStorage();
 
     i18n.init(function() {
-        startProcess();
 
         // pass the configurator version as a custom header for every AJAX request.
         $.ajaxSetup({
@@ -84,6 +89,8 @@ function appReady() {
                 'X-CFG-VER': `${CONFIGURATOR.version}`,
             },
         });
+
+        startProcess();
 
         checkSetupAnalytics(function (analyticsService) {
             analyticsService.sendEvent(analyticsService.EVENT_CATEGORIES.APPLICATION, 'SelectedLanguage', i18n.selectedLanguage);
@@ -179,6 +186,10 @@ function startProcess() {
             GUI.nwGui.Shell.openExternal(url);
         });
         nwWindow.on('close', closeHandler);
+        const config = getConfig('showDevToolsOnStartup');
+        if (CONFIGURATOR.isDevVersion() && !!config.showDevToolsOnStartup) {
+            nwWindow.showDevTools();
+        }
     } else if (GUI.isCordova()) {
         window.addEventListener('beforeunload', closeHandler);
         document.addEventListener('backbutton', function(e) {

@@ -2,7 +2,6 @@ import semver from 'semver';
 import { i18n } from "../localization";
 import GUI, { TABS } from '../gui';
 import { tracking } from "../Analytics";
-import { reinitializeConnection } from '../serial_backend';
 import { mspHelper } from '../msp/MSPHelper';
 import FC from '../fc';
 import MSP from '../msp';
@@ -29,24 +28,15 @@ ports.initialize = function (callback) {
         { name: 'TELEMETRY_SMARTPORT',  groups: ['telemetry'], maxPorts: 1 },
         { name: 'RX_SERIAL',            groups: ['rx'], maxPorts: 1 },
         { name: 'BLACKBOX',             groups: ['peripherals'], sharableWith: ['msp'], notSharableWith: ['telemetry'], maxPorts: 1 },
+        { name: 'TELEMETRY_LTM',        groups: ['telemetry'], sharableWith: ['msp'], notSharableWith: ['peripherals'], maxPorts: 1 },
+        { name: 'TELEMETRY_MAVLINK',    groups: ['telemetry'], sharableWith: ['msp'], notSharableWith: ['peripherals'], maxPorts: 1 },
+        { name: 'IRC_TRAMP',            groups: ['peripherals'], maxPorts: 1 },
+        { name: 'ESC_SENSOR',           groups: ['sensors'], maxPorts: 1 },
+        { name: 'TBS_SMARTAUDIO',       groups: ['peripherals'], maxPorts: 1 },
+        { name: 'TELEMETRY_IBUS',       groups: ['telemetry'], maxPorts: 1 },
+        { name: 'RUNCAM_DEVICE_CONTROL', groups: ['peripherals'], maxPorts: 1 },
+        { name: 'LIDAR_TF',             groups: ['peripherals'], maxPorts: 1 },
     ];
-
-    const ltmFunctionRule = {name: 'TELEMETRY_LTM', groups: ['telemetry'], sharableWith: ['msp'], notSharableWith: ['peripherals'], maxPorts: 1};
-    functionRules.push(ltmFunctionRule);
-
-    const mavlinkFunctionRule = {name: 'TELEMETRY_MAVLINK', groups: ['telemetry'], sharableWith: ['msp'], notSharableWith: ['peripherals'], maxPorts: 1};
-    functionRules.push(mavlinkFunctionRule);
-
-    functionRules.push({ name: 'IRC_TRAMP', groups: ['peripherals'], maxPorts: 1 });
-
-    functionRules.push({ name: 'ESC_SENSOR', groups: ['sensors'], maxPorts: 1 });
-    functionRules.push({ name: 'TBS_SMARTAUDIO', groups: ['peripherals'], maxPorts: 1 });
-
-    functionRules.push({ name: 'TELEMETRY_IBUS', groups: ['telemetry'], maxPorts: 1 });
-
-    functionRules.push({ name: 'RUNCAM_DEVICE_CONTROL', groups: ['peripherals'], maxPorts: 1 });
-
-    functionRules.push({ name: 'LIDAR_TF', groups: ['peripherals'], maxPorts: 1 });
 
     if (semver.gte(FC.CONFIG.apiVersion, API_VERSION_1_43)) {
         functionRules.push({ name: 'FRSKY_OSD', groups: ['peripherals'], maxPorts: 1 });
@@ -307,8 +297,7 @@ ports.initialize = function (callback) {
 
         const pheripheralsSelectElement = $('select[name="function-peripherals"]');
         pheripheralsSelectElement.on('change', function() {
-            let vtxControlSelected = undefined;
-            let mspControlSelected = undefined;
+            let vtxControlSelected, mspControlSelected;
 
             pheripheralsSelectElement.each(function(index, element) {
                 const value = $(element).val();
@@ -367,7 +356,7 @@ ports.initialize = function (callback) {
         GUI.content_ready(callback);
     }
 
-   function on_save_handler() {
+    function on_save_handler() {
         tracking.sendSaveAndChangeEvents(tracking.EVENT_CATEGORIES.FLIGHT_CONTROLLER, self.analyticsChanges, 'ports');
         self.analyticsChanges = {};
 
@@ -487,15 +476,7 @@ ports.initialize = function (callback) {
         }
 
         function save_to_eeprom() {
-            MSP.send_message(MSPCodes.MSP_EEPROM_WRITE, false, false, on_saved_handler);
-        }
-
-        function on_saved_handler() {
-            gui_log(i18n.getMessage('configurationEepromSaved'));
-
-            GUI.tab_switch_cleanup(function() {
-                MSP.send_message(MSPCodes.MSP_SET_REBOOT, false, false, reinitializeConnection);
-            });
+            mspHelper.writeConfiguration(true);
         }
     }
 };

@@ -87,10 +87,7 @@
         "message": "Expertモード 有効"
     },
     "expertModeDescription": {
-        "message": "不安定要素のある開発用ビルドを表示"
-    },
-    "permanentExpertMode": {
-        "message": "Expertモード 常時有効"
+        "message": "Expertモードオプションを有効にする"
     },
     "warningSettings": {
         "message": "警告を表示"
@@ -108,6 +105,10 @@
     "showAllSerialDevices": {
         "message": "すべてのシリアルデバイスを表示 (ベンダーまたはデベロッパー向け)",
         "description": "Do not filter serial devices using VID/PID values (for manufacturers or development)"
+    },
+    "useMdnsBrowser": {
+        "message": "mDNSブラウザを使用したネットワーク上でのデバイス検出 (試験運用)",
+        "description": "Enable mDNS Browser Device discovery in PortHandler (experimental)"
     },
     "showVirtualMode": {
         "message": "バーチャル接続モード 有効",
@@ -279,7 +280,7 @@
         "message": "テザーロギング"
     },
     "tabOnboardLogging": {
-        "message": "ブラックボックス"
+        "message": "Blackbox"
     },
     "tabAdjustments": {
         "message": "調整"
@@ -444,7 +445,7 @@
         "message": "<strong>モーター出力プロトコルが選択されていません。</strong><br>『$t(tabMotorTesting.message)』タブの『$t(configurationEscFeatures.message)』で、ESCに適したモーター出力プロトコルを選択してください。<br>$t(escProtocolDisabledMessage.message)"
     },
     "reportProblemsDialogACC_NEEDS_CALIBRATION": {
-        "message": "<strong>加速度センサーは有効になっていますがキャリブレーションされていません。</strong><br>加速度センサーを使用する場合は『$t(tabSetup.message)』タブの『$t(initialSetupButtonCalibrateAccel.message)』の指示に従ってください。加速度センサーを必要とする機能 (オートレベルモード、GPSレスキュー等) が有効になっている場合、加速度センサーのキャリブレーションが完了するまで機体のアームは有効になりません。<br>加速度センサーを使用しない場合は『$t(tabConfiguration.message)』タブの『$t(configurationSystem.message)』で無効にすることを推奨します。"
+        "message": "<strong>加速度センサーは有効になっていますが水平キャリブレーションされていません。</strong><br>加速度センサーを使用する場合は『$t(tabSetup.message)』タブの『$t(initialSetupButtonCalibrateAccel.message)』の指示に従ってください。加速度センサーを必要とする機能 (オートレベルモード、GPSレスキュー等) が有効になっている場合、加速度センサーの水平キャリブレーションが完了するまで機体のアームは有効になりません。<br>加速度センサーを使用しない場合は『$t(tabConfiguration.message)』タブの『$t(configurationSystem.message)』で無効にすることを推奨します。"
     },
     "infoVersionOs": {
         "message": "OS: <strong>{{operatingSystem}}</strong>",
@@ -466,11 +467,17 @@
     "buildServerSupportRequestSubmission": {
         "message": "<br>*** サポートデータを送信しました *** <br>Id: $1<br><br><br># IDをコピーしてBetaflight開発チームに情報提供してください。"
     },
+    "buildKey": {
+        "message": "Build Key: <strong>$1</strong>"
+    },
     "supportWarningDialogTitle": {
         "message": "データ送信の確認"
     },
     "supportWarningDialogText": {
         "message": "Betaflight開発チームへのデータ送信を確認してください。<br><br>この手順ではいくつかのコマンドを実行し、その出力をビルドサーバへ送信します。<br><br>その後、データを提出するための一意の識別子が提供されます。<br><br>Discordを使用するときやGitHubでのIssue投稿に、この一意の識別子をBetaflight開発チームに提供するようお願い致します。"
+    },
+    "supportWarningDialogInputPlaceHolder": {
+        "message": "問題についての説明"
     },
     "releaseCheckLoaded": {
         "message": "GitHubの $1 よりリリース情報をロードしました。"
@@ -594,13 +601,13 @@
         "message": "ハードウェア"
     },
     "defaultWelcomeText": {
-        "message": "このアプリケーションは、Betaflightを実行可能なハードウェアすべてをサポートします。対応ハードウェア一覧は [ファームフラッシャー] タブをご確認ください。<br /><br /><a href=\"https://github.com/betaflight/blackbox-log-viewer/releases\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Blackbox Log Viewerをダウンロード</a><br /><br /><a href=\"https://github.com/betaflight/betaflight-tx-lua-scripts/releases\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight TX Lua Scriptsをダウンロード</a><br /><br />ファームウェアのソースコードのダウンロード先は<a href=\"https://github.com/betaflight/betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a><br /><br />CP210X USBシリアルチップを使用するレガシーハードウェアの場合:<br />最新の<b>CP210xドライバ</b>のダウンロード先は<a href=\"https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a><br />最新のWindows用<b>Zadig</b>USBドライバインストーラのダウンロード先は<a href=\"http://zadig.akeo.ie/\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a><br /><b>ImpulseRC Driver Fixer</b>のダウンロード先は<a href=\"https://impulserc.com/pages/downloads\" target=\"blank\" rel=\"noopener noreferrer\">こちら</a>"
+        "message": "このアプリケーションは、Betaflightを実行可能なハードウェアすべてをサポートします。対応ハードウェア一覧は [ファームフラッシャー] タブをご確認ください。<br /><br /><a href=\"https://github.com/betaflight/blackbox-log-viewer/releases\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Blackbox Log Viewerをダウンロード</a><br /><br /><a href=\"https://github.com/betaflight/betaflight-tx-lua-scripts/releases\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight TX Lua Scriptsをダウンロード</a><br /><br />ファームウェアのソースコードのダウンロード先は<a href=\"https://github.com/betaflight/betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a><br /><br />CP210X USBシリアルチップを使用するレガシーハードウェアの場合:<br />最新の<b>CP210Xドライバ</b>のダウンロード先は<a href=\"https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a><br />最新のWindows用<b>Zadig</b>USBドライバインストーラのダウンロード先は<a href=\"http://zadig.akeo.ie/\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a><br /><b>ImpulseRC Driver Fixer</b>のダウンロード先は<a href=\"https://impulserc.com/pages/downloads\" target=\"blank\" rel=\"noopener noreferrer\">こちら</a>"
     },
     "defaultContributingHead": {
         "message": "開発への協力・貢献"
     },
     "defaultContributingText": {
-        "message": "Betaflightを今後より良く改善したい場合は、以下を含むさまざまな方法で支援できます:<br /><ul><li>あなたが持つBetaflightナレッジを用いて<a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki</a>コンテンツの作成または更新、オンラインフォーラムで他のユーザの質問に回答する;</li><li>新機能や修正、改善されたファームウェアとConfiguratorへの<a href=\"https://github.com/betaflight/betaflight/blob/master/docs/development/Development.md\" target=\"_blank\" rel=\"noopener noreferrer\">コード提供</a>;</li><li><a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">新機能と修正</a>、テスト、フィードバックの提供;</li><li><a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\">Issue tracker</a>で他ユーザから報告された問題を解決支援し、新機能リクエストに関する議論に協力;</li>\n<li>またBetaflight Configuratorを未対応な言語に<a href=\"https://github.com/betaflight/betaflight/tree/master/README.md#Translators\" target=\"_blank\" rel=\"noopener noreferrer\">翻訳</a>、または既存翻訳の維持を行いましょう。</li></ul>"
+        "message": "Betaflightを今後より良く改善したい場合は、以下を含むさまざまな方法で支援できます:<br /><ul><li>Betaflightに関する知識を活かして<a href=\"https://betaflight.com/docs/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">Wiki</a>コンテンツの作成または更新、オンラインフォーラムで他ユーザの質問への回答;</li><li>新機能や修正、改善されたファームウェアとConfiguratorへの<a href=\"https://betaflight.com/docs/development\" target=\"_blank\" rel=\"noopener noreferrer\">コード提供</a>;</li><li><a href=\"https://github.com/Betaflight/betaflight/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">新機能と修正</a>、テスト、フィードバックの提供;</li><li><a href=\"https://github.com/betaflight/betaflight/issues\" target=\"_blank\" rel=\"noopener noreferrer\">Issue tracker</a>で他ユーザから報告された問題を解決支援し、新機能リクエストに関する議論に協力;</li><li>Betaflight Configuratorの新しい言語への<a href=\"https://github.com/betaflight/betaflight/tree/master/README.md#Translators\" target=\"_blank\" rel=\"noopener noreferrer\">翻訳</a>、または既存翻訳の維持支援.</li></ul>"
     },
     "defaultFacebookText": {
         "message": "私たちは<a href=\"https://www.facebook.com/groups/betaflightgroup/\" target=\"_blank\" rel=\"noopener noreferrer\">Facebookグループ</a>も運営しています。<br />私たちと一緒にBetaflightについて語り合い、設定に関する質問をしたり、パイロット同士で交流してみましょう。"
@@ -643,7 +650,7 @@
         "message": "Betaflightドキュメントは、リリースノートおよびWikiにてご利用いただけます。<br /><br />"
     },
     "defaultDocumentation1": {
-        "message": "Betaflight Wiki はすばらしい情報リソースを<a href=\"https://github.com/betaflight/betaflight/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a>で検索・確認することができます。"
+        "message": "Betaflight Wiki はすばらしい情報リソースを<a href=\"https://betaflight.com/docs/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a>で検索・確認することができます。"
     },
     "defaultDocumentation2": {
         "message": "ファームウェア リリースノートは、GitHub リリースページの<a href=\"https://github.com/Betaflight/Betaflight/releases\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a>でご確認いただけます。"
@@ -664,7 +671,7 @@
         "message": "<a href=\"http://www.rcgroups.com/forums/showthread.php?t=2464844&page=1\" target=\"_blank\" rel=\"noopener noreferrer\">RC Groups スレッド</a>"
     },
     "defaultSupport2": {
-        "message": "<a href=\"http://betaflight.info\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Wiki</a>"
+        "message": "<a href=\"https://betaflight.com/docs/wiki\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight Wiki</a>"
     },
     "defaultSupport3": {
         "message": "<a href=\"https://www.youtube.com/playlist?list=PLwoDb7WF6c8nT4jjsE4VENEmwu9x8zDiE\" target=\"_blank\" rel=\"noopener noreferrer\">Joshua Bardwell Betaflight 4.3 動画集</a>"
@@ -673,7 +680,7 @@
         "message": "<a href=\"https://github.com/Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>"
     },
     "defaultSupport5": {
-        "message": "<a href=\"https://slack.betaflight.com\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight devs on slack</a>"
+        "message": "<a href=\"https://discord.betaflight.com/invite\" target=\"_blank\" rel=\"noopener noreferrer\">Betaflight devs on Discord</a>"
     },
     "initialSetupButtonCalibrateAccel": {
         "message": "水平 キャリブレーション"
@@ -706,7 +713,7 @@
         "message": "ブートローダー / DFU を有効化"
     },
     "initialSetupBackupRestoreHeader": {
-        "message": "試験的なバックアップとリストア"
+        "message": "バックアップとリストア (試験運用)"
     },
     "initialSetupBackupRestoreText": {
         "message": "不測の事態に備え必ず設定の<strong>バックアップ</strong>を行って下さい。<strong>CLI</strong>設定は<span class=\"message-negative\">自動バックアップされません</span>。- CLIコマンドの [diff all] をご利用下さい。"
@@ -725,6 +732,16 @@
     },
     "initialSetupButtonResetZaxisValue": {
         "message": "リセット Z 軸、オフセット: $1 度"
+    },
+    "initialSetupHeading": {
+        "message": "ヘッディング:",
+        "description": "Heading shown on Setup tab"
+    },
+    "initialSetupPitch": {
+        "message": "ピッチ:"
+    },
+    "initialSetupRoll": {
+        "message": "ロール:"
     },
     "initialSetupMixerHead": {
         "message": "ミキサータイプ"
@@ -759,17 +776,15 @@
     "initialSetupAccelTrimsHead": {
         "message": "加速度センサー トリム"
     },
-    "initialSetupPitch": {
-        "message": "ピッチ:"
-    },
-    "initialSetupRoll": {
-        "message": "ロール:"
-    },
     "initialSetupMagHead": {
         "message": "コンパス"
     },
     "initialSetupInfoHead": {
-        "message": "情報"
+        "message": "システム情報"
+    },
+    "initialSetupInfoHeadHelp": {
+        "message": "ディスアーム時のFCフラグ、バッテリー情報、RSSIレベル、センサーのハードウェアを表示",
+        "description": "Message that pops up to describe the System info section"
     },
     "initialSetupBattery": {
         "message": "バッテリー電圧:"
@@ -789,8 +804,14 @@
     "initialSetupBatteryAValue": {
         "message": "$1 A"
     },
+    "initialSetupCpuTemp": {
+        "message": "CPU温度:"
+    },
     "initialSetupRSSI": {
         "message": "RSSI:"
+    },
+    "initialSetupSensorHardware": {
+        "message": "センサー:"
     },
     "initialSetupRSSIValue": {
         "message": "$1 %"
@@ -828,9 +849,13 @@
         "message": "暴走離陸防止機能が実行されました",
         "description": "Message that pops up to describe the RUNAWAY_TAKEOFF arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCRASH": {
-        "message": "クラッシュ検出によるディスアーム",
-        "description": "Message that pops up to describe the CRASH arming disable flag"
+    "initialSetupArmingDisableFlagsTooltipCRASH_DETECTED": {
+        "message": "クラッシュ検出が有効です",
+        "description": "Message that pops up to describe the CRASH_DETECTED arming disable flag"
+    },
+    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
+        "message": "機体は現在キャリブレーション中です",
+        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipTHROTTLE": {
         "message": "スロットルチャンネルが高すぎます",
@@ -852,9 +877,9 @@
         "message": "安全な飛行にはシステム負荷が高すぎます",
         "description": "Message that pops up to describe the LOAD arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipCALIBRATING": {
-        "message": "センサーキャリブレーションがまだ実行中です",
-        "description": "Message that pops up to describe the CALIBRATING arming disable flag"
+    "initialSetupArmingDisableFlagsTooltipACC_CALIBRATION": {
+        "message": "水平キャリブレーションがまだ実行中です",
+        "description": "Message that pops up to describe the ACC_CALIBRATION arming disable flag"
     },
     "initialSetupArmingDisableFlagsTooltipCLI": {
         "message": "CLI コマンドラインが有効です",
@@ -892,19 +917,19 @@
         "message": "RPMベースのフィルタリングは有効ですが、1つ以上のESCが有効なDSHOTテレメトリー情報を提供していません。ESCがDSHOT双方向テレメトリーをサポートするために必要なファームウェアがインストールされていることを確認してください。",
         "description": "Message that pops up to describe the RPMFILTER arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipREBOOT_REQD": {
+    "initialSetupArmingDisableFlagsTooltipREBOOT_REQUIRED": {
         "message": "設定を変更するには再起動が必要です",
         "description": "Message that pops up to describe the REBOOT_REQD arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipDSHOT_BBANG": {
+    "initialSetupArmingDisableFlagsTooltipDSHOT_BITBANG": {
         "message": "Bitbanged DSHOTが正常に動作せず、モーターを制御できません。おそらくフライトコントローラで有効になっている他機能とタイマーとの競合が原因かと思われます。",
         "description": "Message that pops up to describe the DSHOT_BBANG arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipNO_ACC_CAL": {
-        "message": "加速度センサーはキャリブレーションされていませんが、依存する機能が有効になっています。加速度センサーをキャリブレーションしてください。",
+    "initialSetupArmingDisableFlagsTooltipNO_ACC_CALIBRATION": {
+        "message": "水平キャリブレーションされていませんが、依存する機能が有効になっています。水平キャリブレーションを実行してください。",
         "description": "Message that pops up to describe the NO_ACC_CAL arming disable flag"
     },
-    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTO": {
+    "initialSetupArmingDisableFlagsTooltipMOTOR_PROTOCOL": {
         "message": "モーター出力プロトコルが選択されていません",
         "description": "Message that pops up to describe the MOTOR_PROTO arming disable flag"
     },
@@ -915,8 +940,63 @@
     "initialSetupGPSHead": {
         "message": "GPS"
     },
+    "initialSetupGPSHeadHelp": {
+        "message": "ポートタブ、設定タブ、GPSタブで有効になっている場合はGPS情報を表示",
+        "description": "Message that pops up to describe the GPS section"
+    },
+    "initialSetupSonarHead": {
+        "message": "ソナー"
+    },
+    "initialSetupSonarHeadHelp": {
+        "message": "【設定】タブで有効化している場合、ソナー情報を表示",
+        "description": "Message that pops up to describe the Sonar section"
+    },
+    "initialSetupAltitudeSonar": {
+        "message": "高度"
+    },
     "initialSetupInstrumentsHead": {
         "message": "計器"
+    },
+    "initialSetupInstrumentsHeadHelp": {
+        "message": "ヘディング、ピッチ、ロールを計器で表示",
+        "description": "Message that pops up to describe the Instruments section"
+    },
+    "initialSetupInfoAPIversion": {
+        "message": "MSP API:"
+    },
+    "initialSetupInfoBuild": {
+        "message": "ファームウェア情報"
+    },
+    "initialSetupInfoBuildHelp": {
+        "message": "ファームウェアのビルドに関する情報を表示します。ビルド設定とビルドログは、Build keyで見つかったクラウド情報へのリンクです。",
+        "description": "Message that pops up to describe the Build / Firmware section"
+    },
+    "initialSetupInfoBuildDate": {
+        "message": "ビルド日時:"
+    },
+    "initialSetupInfoBuildInfo": {
+        "message": "ビルド情報:"
+    },
+    "initialSetupInfoBuildInfoKey": {
+        "message": "Build key"
+    },
+    "initialSetupInfoBuildInfoConfig": {
+        "message": "設定"
+    },
+    "initialSetupInfoBuildInfoLog": {
+        "message": "ログ"
+    },
+    "initialSetupInfoBuildOptions": {
+        "message": "ビルドオプション:"
+    },
+    "initialSetupInfoBuildOptionsList": {
+        "message": "使用するものを定義"
+    },
+    "initialSetupInfoBuildOptionsEmpty": {
+        "message": "ローカルビルド - 定義なし"
+    },
+    "initialSetupNotOnline": {
+        "message": "サーバーが利用できません"
     },
     "initialSetupButtonSave": {
         "message": "保存"
@@ -981,11 +1061,20 @@
     "featureSONAR": {
         "message": "ソナー 超音波距離センサー"
     },
+    "featureSONARTip": {
+        "message": "ソナー距離計を有効にし、地面までの距離をcm単位で計測"
+    },
     "featureTELEMETRY": {
         "message": "テレメトリー出力"
     },
+    "featureTELEMETRYTip": {
+        "message": "送信機へ送るテレメトリー出力を有効"
+    },
     "feature3D": {
         "message": "3Dモード (ESC逆回転を利用)"
+    },
+    "feature3DTip": {
+        "message": "リバーシブルESCで使用する3Dモードを有効にし【モーター】タブで設定"
     },
     "featureRX_PARALLEL_PWM": {
         "message": "PWM (1chあたり1本)"
@@ -999,6 +1088,9 @@
     "featureLED_STRIP": {
         "message": "マルチカラーLEDストリップ サポート"
     },
+    "featureLED_STRIPTip": {
+        "message": "マルチカラーRGB LEDストリップのサポートを有効にし【LEDストリップ】タブで設定"
+    },
     "featureDISPLAY": {
         "message": "LEDディスプレイ対応"
     },
@@ -1007,6 +1099,9 @@
     },
     "featureOSD": {
         "message": "オンスクリーンディスプレイ (OSD)"
+    },
+    "featureOSDTip": {
+        "message": "OSDを有効にし【OSD】タブで設定"
     },
     "featureCHANNEL_FORWARDING": {
         "message": "AUXチャンネルをサーボ出力に転送"
@@ -1267,7 +1362,7 @@
         "message": "フライトコントローラがUSBから給電されたときのビープ音 (機体作成時に発報させない場合はオフ)"
     },
     "beeperBLACKBOX_ERASE": {
-        "message": "ブラックボックスログ消去が完了したときのビープ音"
+        "message": "Blackboxログの消去が完了したときのビープ音"
     },
     "beeperCRASH_FLIP": {
         "message": "クラッシュフリップモードを有効にしたときのビープ音"
@@ -1321,7 +1416,11 @@
         "message": "<strong>注:</strong> FCがこの速度で動作するか確認してください！CPUとサイクル時間の安定度を確認してください。この変更はPIDの再調整を必要とするかもしれません。TIP: パフォーマンスを上げるためには加速度センサーや他センサーを無効にします。"
     },
     "configurationGPS": {
-        "message": "GPS"
+        "message": "GPS 設定"
+    },
+    "configurationGPSHelp": {
+        "message": "GPSデバイスのプロトコルを設定し (【ポート】タブでポート設定することを忘れずに)、オートボー (または【ポート】タブで速度を設定) を使用し、その他の設定を行います。",
+        "description": "Help text GPS configuration"
     },
     "configurationGPSProtocol": {
         "message": "プロトコル"
@@ -1353,9 +1452,6 @@
     "configurationGPSHomeOnceHelp": {
         "message": "有効にすると、バッテリーが接続された後の初回アーム時のみ、ホームポイントとして設定されます。有効でない場合、機体がアームするたびに、ホームポイントが更新されます。",
         "description": "Help text for the option to set the Home Point with the first arm only, not with each arm in the GPS Configuration"
-    },
-    "configurationGPSHelp": {
-        "message": "<strong>注:</strong> GPSを使う場合、シリアルポート ([ポート] タブ) の設定を忘れずに行ってください。"
     },
     "configurationSerialRX": {
         "message": "シリアル受信プロトコル"
@@ -1454,7 +1550,7 @@
         "message": "シリアル受信"
     },
     "portsFunction_BLACKBOX": {
-        "message": "ブラックボックスログ"
+        "message": "Blackboxログ"
     },
     "portsFunction_TBS_SMARTAUDIO": {
         "message": "VTX (TBS SmartAudio)"
@@ -1962,7 +2058,7 @@
         "message": "<strong>PIDチューニング スライダーモード</strong><br><br>PIDチューニング スライダーモードは以下のように使用します: <br><br>&bull; OFF - スライダーを使用せず手動で値を入力<br>&bull; RP - スライダーはロールとピッチのみをコントロールし、ヨーの値は手動で入力<br>&bull; RPY - スライダーにてすべてのPID値をコントロール<br><br><span class=\"message-negative\"><b>警告:</b></span>RPモードからRPYモードに切り替えると、ヨーの設定がファームウェアのデフォルト値に上書きされます。"
     },
     "receiverHelp": {
-        "message": "&#8226; <b><strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Failsafe.md#testing\" target=\"_blank\" rel=\"noopener noreferrer\">フェイルセーフが正しく動作していることを常に確認してください！</a></strong></b>設定は『フェイルセーフ』タブにあり、Expertモードが必要です。<br> &#8226; <b>最新の送信ファームウェアを使用してください！</b><br> &#8226; OpenTx または EdgeTx を使用している場合は、送信機の<strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Rx.md#disabling-the-opentxedgetx-adc-filter\" target=\"_blank\" rel=\"noopener noreferrer\">ハードウェア ADC フィルタを無効</a></strong>にします。<br>基本セットアップ: 『受信機』設定を正しく行ってください。送信機の正しい『チャンネルマップ』を選択します。ロール、ピッチ、その他のスライダーグラフが正しく動作することを確認します。送信機のチャンネル始点・終点または範囲の値を1000以下、2000以上に調整し、中心点を1500に設定します。詳しくは<strong><a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Rx.md\" target=\"_blank\" rel=\"noopener noreferrer\">ドキュメント</a></strong>をお読みください。"
+        "message": "&#8226; <b><strong><a href=\"https://betaflight.com/docs/development/Failsafe#testing-failsafe\" target=\"_blank\" rel=\"noopener noreferrer\">フェイルセーフが正しく動作していることを常に確認してください！</a></strong></b>設定は『フェイルセーフ』タブにあり、Expertモードの有効が必要です。<br>&#8226; <b>最新の送信ファームウェアを使用してください！</b><br> &#8226; OpenTXまたはEdgeTXを使用している場合は、送信機の<strong><a href=\"https://betaflight.com/docs/development/Rx#disabling-the-opentxedgetx-adc-filter\" target=\"_blank\" rel=\"noopener noreferrer\">ハードウェア ADCフィルタを無効</a></strong>にします。<br>基本セットアップ:『受信機』設定を正しく行ってください。送信機の正しい『チャンネルマップ』を選択します。ロール、ピッチ、その他のスライダーグラフが正しく動作することを確認します。送信機のチャンネル始点・終点または範囲の値を1000以下、2000以上に調整し、中心点を1500に設定します。詳しくは<strong><a href=\"https://betaflight.com/docs/development/Rx\" target=\"_blank\" rel=\"noopener noreferrer\">ドキュメント</a></strong>をご覧ください。"
     },
     "receiverThrottleMid": {
         "message": "スロットルMID"
@@ -2013,7 +2109,7 @@
         "message": "初期値"
     },
     "receiverChannelMapTitle": {
-        "message": "ボックスをクリックする事で、独自のチャンネルマップを定義できます"
+        "message": "枠内をクリックする事で、独自のチャンネルマップを定義できます"
     },
     "receiverRssiChannel": {
         "message": "RSSI チャンネル"
@@ -2046,7 +2142,8 @@
         "message": "バインドフレーズ"
     },
     "receiverButtonSticks": {
-        "message": "コントロールスティック"
+        "message": "送信機エミュレーター",
+        "description": "Button that opens a window with a radio emulator on the receiver tab. Actually only enabled for MSP protocol"
     },
     "receiverDataRefreshed": {
         "message": "RCチューニングデータ <strong>更新しました</strong>"
@@ -2088,9 +2185,6 @@
     "auxiliaryButtonSave": {
         "message": "保存"
     },
-    "auxiliaryEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">保存しました</span>"
-    },
     "auxiliaryAutoChannelSelect": {
         "message": "自動"
     },
@@ -2099,6 +2193,146 @@
     },
     "auxiliaryModeLogicAND": {
         "message": "AND"
+    },
+    "auxiliaryHelpMode_ARM": {
+        "message": "モーター＆フライトスタビライゼーションを有効にします",
+        "description": "Help text to ARM mode"
+    },
+    "auxiliaryHelpMode_ANGLE": {
+        "message": "このオートレベルモードでは、ロールとピッチのチャンネルが関連する軸と垂直の間の角度を制御し、スティックを中心に配置することで水平飛行を実現します。",
+        "description": "Help text to ANGLE mode"
+    },
+    "auxiliaryHelpMode_HORIZON": {
+        "message": "このハイブリッドモードは、ロールとピッチのスティックを中央に配置するとアングルモードと同じように動作し(オートレベル飛行が可能)、スティックを中央から遠ざけていくと、徐々にレートモードのように動作するようになります。",
+        "description": "Help text to HORIZON mode"
+    },
+    "auxiliaryHelpMode_MAG": {
+        "message": "コンパス方向へヘッディングを固定します",
+        "description": "Help text to MAG mode"
+    },
+    "auxiliaryHelpMode_HEADFREE": {
+        "message": "このモードでは、マルチコプターの『ヘッド』は機能が有効化されたとき同じ方向を常に指すこととなります。つまり、マルチコプターがZ軸を中心に回転 (ヨー) すると、常に同じ『ヘッド』の方向に従って反応することになります。<br>このモードでは、マルチコプターの操作が容易になり、常に同じ反応を示すため、物理的な『ヘッド』を自分の方に向けた状態で飛行させることも可能です。このモードはマルチコプターを初めて使う人にとって扱いやすいモードで、ヘッドの方向がわからないときに起きてしまうコントロール不能状態を防ぐことができます。",
+        "description": "Help text to HEADFREE mode"
+    },
+    "auxiliaryHelpMode_PASSTHRU": {
+        "message": "ロール、ヨー、ピッチのRX信号から直接サーボへ固定翼機MIX信号へ渡します",
+        "description": "Help text to PASSTHRU mode"
+    },
+    "auxiliaryHelpMode_FAILSAFE": {
+        "message": "フェイルセーフ ステージ2へ手動で切り替えます",
+        "description": "Help text to FAILSAFE mode"
+    },
+    "auxiliaryHelpMode_GPSRESCUE": {
+        "message": "『GPSレスキュー』を有効にし、最後に離陸した地点に機体を帰還させます",
+        "description": "Help text to GPS RESCUE mode"
+    },
+    "auxiliaryHelpMode_HEADADJ": {
+        "message": "ヘッディング調整 - ヘッドフリーモードの新しいヨー基準点を設定します",
+        "description": "Help text to HEAD ADJ mode"
+    },
+    "auxiliaryHelpMode_BEEPER": {
+        "message": "ビープ音を有効にします - 墜落した機体の位置を特定するのに役立ちます",
+        "description": "Help text to BEEPER mode"
+    },
+    "auxiliaryHelpMode_LEDLOW": {
+        "message": "LEDストリップ出力をOFFにします",
+        "description": "Help text to LEDLOW mode"
+    },
+    "auxiliaryHelpMode_OSDDISABLE": {
+        "message": "OSD表示を有効 / 無効にします",
+        "description": "Help text to OSD mode"
+    },
+    "auxiliaryHelpMode_TELEMETRY": {
+        "message": "スイッチを使いテレメトリーを有効にします",
+        "description": "Help text to TELEMETRY mode"
+    },
+    "auxiliaryHelpMode_BLACKBOX": {
+        "message": "BlackBoxログを有効にします",
+        "description": "Help text to BLACKBOX mode"
+    },
+    "auxiliaryHelpMode_BLACKBOXERASE": {
+        "message": "BlackBoxログを消去します",
+        "description": "Help text to BLACKBOX ERASE mode"
+    },
+    "auxiliaryHelpMode_AIRMODE": {
+        "message": "標準のミキサー / モードでは、ロール、ピッチ、ヨーが計算上モーターの強度が飽和状態となると、すべてのモーターが均等に回転が減少します。モーターが最小値を下回ると切り捨て状態となります。例えば、スロットルを最小値より少し上にしてクイックロールをしようとした場合、2つのモーターはそれ以上回転を下げることができないので、実質的に半分のパワー (PID強度の半分) を得ることになります。もし、入力が高回転モーターと低回転モーターの間に100％以上の差を求めたとしたら、低回転モーターは回転が切り捨てられ、強度を不均一に減少させることとなってしまいモーターバランスの対称性を破綻させてしまうでしょう。",
+        "description": "Help text to AIRMODE mode"
+    },
+    "auxiliaryHelpMode_FPVANGLEMIX": {
+        "message": "装着するFPVカメラのプリセット角度に対してヨー回転をかけるよう適用します",
+        "description": "Help text to FPV ANGLE MIX mode"
+    },
+    "auxiliaryHelpMode_CAMERACONTROL1": {
+        "message": "カスタマイズ切り替えのためCAMERA CONTROL 1を使用します。メーカーのマニュアルをご確認ください。",
+        "description": "Help text to customized CAMERA CONTROL 1 mode"
+    },
+    "auxiliaryHelpMode_CAMERACONTROL2": {
+        "message": "カスタマイズ切り替えのためCAMERA CONTROL 2を使用します。メーカーのマニュアルをご確認ください。",
+        "description": "Help text to customized CAMERA CONTROL 2 mode"
+    },
+    "auxiliaryHelpMode_CAMERACONTROL3": {
+        "message": "カスタマイズ切り替えのためCAMERA CONTROL 3を使用します。メーカーのマニュアルをご確認ください。",
+        "description": "Help text to customized CAMERA CONTROL 3 mode"
+    },
+    "auxiliaryHelpMode_USER1": {
+        "message": "カスタマイズ切り替えのためUSER1を使用します。メーカーのマニュアルをご確認ください。",
+        "description": "Help text to customized USER1 mode"
+    },
+    "auxiliaryHelpMode_USER2": {
+        "message": "カスタマイズ切り替えのためUSER2を使用します。メーカーのマニュアルをご確認ください。",
+        "description": "Help text to customized USER2 mode"
+    },
+    "auxiliaryHelpMode_USER3": {
+        "message": "カスタマイズ切り替えのためUSER3を使用します。メーカーのマニュアルをご確認ください。",
+        "description": "Help text to customized USER3 mode"
+    },
+    "auxiliaryHelpMode_USER4": {
+        "message": "カスタマイズ切り替えのためUSER4を使用します。メーカーのマニュアルをご確認ください。",
+        "description": "Help text to customized USER4 mode"
+    },
+    "auxiliaryHelpMode_FLIPOVERAFTERCRASH": {
+        "message": "モーターを逆回転させクラッシュ後に逆さまになった機体をひっくり返します (要DShot)",
+        "description": "Help text to FLIP OVER AFTER CRASH mode"
+    },
+    "auxiliaryHelpMode_PREARM": {
+        "message": "アーミング時、実際にこのスイッチが有効になるのを待ってからアームします",
+        "description": "Help text to PREARM mode"
+    },
+    "auxiliaryHelpMode_GPSBEEPSATELLITECOUNT": {
+        "message": "ビープ回数で、捕捉したGPS衛星数を示します",
+        "description": "Help text to GPS BEEP SATELLITE COUNT mode"
+    },
+    "auxiliaryHelpMode_VTXPITMODE": {
+        "message": "VTXをピットモードへ切り替えます (サポートされる場合は低出力)",
+        "description": "Help text to VTX PIT MODE mode"
+    },
+    "auxiliaryHelpMode_PARALYZE": {
+        "message": "クラッシュした機体をバッテリーが切れるまで永久に使用不可とします",
+        "description": "Help text to PARALYZE mode"
+    },
+    "auxiliaryHelpMode_ACROTRAINER": {
+        "message": "アクロモードにて『アクロ トレーナー』角度制限を有効にします",
+        "description": "Help text to ACRO TRAINER mode"
+    },
+    "auxiliaryHelpMode_VTXCONTROLDISABLE": {
+        "message": "OSD経由でVTX設定の制御を無効にします",
+        "description": "Help text to VTX CONTROL DISABLE mode"
+    },
+    "auxiliaryHelpMode_LAUNCHCONTROL": {
+        "message": "レーススタート アシスタントシステム",
+        "description": "Help text to LAUNCH CONTROL mode"
+    },
+    "auxiliaryHelpMode_STICKCOMMANDSDISABLE": {
+        "message": "スティックコマンドを無効 / 有効にします",
+        "description": "Help text to STICK COMMANDS DISABLE mode"
+    },
+    "auxiliaryHelpMode_BEEPERMUTE": {
+        "message": "警告、ステータス、BEEPERモードを含むビープ音を無効 / 有効にします",
+        "description": "Help text to BEEPERMUTE mode"
+    },
+    "auxiliaryHelpMode_READY": {
+        "message": "BF4.4の追加機能として、スイッチを使ってOSD上に【READY】を表示させることができるようになりました。これは、すべてのパイロットのFPV映像が1つの中央スクリーンにあるようなレースの観戦状況において、ニッチな改善内容となります。パイロットがスイッチを押し飛行の準備ができたことを示すと、OSDに【READY】という文字が表示されます。レース運営者は、中央のスクリーンを見てすべてのパイロットが準備できているかどうかを判断することができます。アーミングすると【READY】の文字列が消えます。",
+        "description": "Help text to READY mode"
     },
     "adjustmentsHelp": {
         "message": "調整スイッチを設定します。詳細については、マニュアルの『in-flight adjustment(飛行調整)』の項目を参照してください。『調整』機能による変更は自動的には保存されません。"
@@ -2313,9 +2547,6 @@
     "transponderDataInvalid": {
         "message": "トランスポンダーデータが <span class=\"message-negative\">無効です。</span>"
     },
-    "transponderEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">保存しました</span>"
-    },
     "servosFirmwareUpgradeRequired": {
         "message": "サーボの利用はBetaflight Configurator 1.10.0か、それ以上が必要であり、サポートするファームウェアが必要です。"
     },
@@ -2361,8 +2592,16 @@
     "gpsHead": {
         "message": "GPS"
     },
+    "gpsHeadHelp": {
+        "message": "GPSに関連する様々な情報を表示します。方位はコンパス使用時のみ表示されます。",
+        "description": "Help text for gpsHead"
+    },
     "gpsMapHead": {
         "message": "現在のGPS測位"
+    },
+    "gpsMapHeadHelp": {
+        "message": "地図上にGPS位置を表示します。マウスのスクロールボタンで拡大・縮小できます。<br>コンパスが使用されている場合、位置アイコンは北の方位を示します。",
+        "description": "Help text for gpsHeadMap"
     },
     "gpsMapMessage1": {
         "message": "インターネット接続を確認してください"
@@ -2374,19 +2613,20 @@
         "message": "3次元測位"
     },
     "gpsFixTrue": {
-        "message": "<span class=\"text\">正常</span>"
+        "message": "成功"
     },
     "gpsFixFalse": {
-        "message": "<span class=\"text\">不良</span>"
+        "message": "失敗"
+    },
+    "gpsPositionUnit": {
+        "message": "度",
+        "description": "Unit for GPS position."
     },
     "gpsAltitude": {
         "message": "高度:"
     },
-    "gpsLat": {
-        "message": "緯度:"
-    },
-    "gpsLon": {
-        "message": "経度:"
+    "gpsHeading": {
+        "message": "ヘッディング:"
     },
     "gpsSpeed": {
         "message": "速度:"
@@ -2399,6 +2639,10 @@
     },
     "gpsSignalStrHead": {
         "message": "GPS強度"
+    },
+    "gpsSignalStrHeadHelp": {
+        "message": "検出された各GPS情報の信号強度、品質、ステータスを表示",
+        "description": "Help text for gpsSignalStrHead"
     },
     "gpsSignalStr": {
         "message": "電波強度:"
@@ -2588,7 +2832,7 @@
         "message": "<strong>注意事項</strong><br /><strong class=\"message-negative\">怪我を防止するために、すべてのプロペラを取り外してください！</strong><br />モーターが<strong>回転します！</strong>"
     },
     "motorsRemapDialogExplanations": {
-        "message": "<strong>お知らせ</strong><br />モーターは1つずつ回転し、どのモーターが回転しているかを選択できます。バッテリーを接続し、正しいESCプロトコルを選択してください。このユーティリティは、現在有効となるモーターのみを再配置できます。より複雑な再マッピングは、CLI Resourceコマンドをご利用ください。詳しくはこちらの<a href=\"https://github.com/betaflight/betaflight/wiki/Betaflight-resource-remapping\" target=\"_blank\" rel=\"noopener noreferrer\">Wikiページ</a>をご覧ください。"
+        "message": "<strong>お知らせ</strong><br />モーターは1つずつ回転し、どのモーターが回転しているかを選択できます。バッテリーを接続し、正しいESCプロトコルを選択してください。このユーティリティは、現在有効となるモーターのみを再配置できます。より複雑な再マッピングは、CLI Resourceコマンドをご利用ください。詳しくはこちらの<a href=\"https://betaflight.com/docs/wiki/archive/Resource-remapping\" target=\"_blank\" rel=\"noopener noreferrer\">Wikiページ</a>をご覧ください。"
     },
     "motorsRemapDialogSave": {
         "message": "保存"
@@ -2660,7 +2904,7 @@
         "message": "この機能はDSHOT対応ESCのみで動作します。<br />お使いのESC (electric speed controller) がDSHOTプロトコルに対応していることを確認し $t(tabMotorTesting.message) タブで変更してください。"
     },
     "escDshotDirectionDialog-WrongMixerText": {
-        "message": "モーター数は0です。<br />現在のミキサー設定を $t(tabMotorTesting.message) タブで確認するか、CLIを使ってカスタムミキサーとして設定してください。詳しくはこちらの<a href=\"https://github.com/betaflight/betaflight/blob/master/docs/Mixer.md\" target=\"_blank\" rel=\"noopener noreferrer\">Wikiページ</a>をご覧ください。"
+        "message": "モーター数は0です。<br />現在のミキサー設定を $t(tabMotorTesting.message) タブで確認するか、CLIを使ってカスタムミキサーとして設定してください。詳しくはこちらの<a href=\"https://betaflight.com/docs/development/Mixer\" target=\"_blank\" rel=\"noopener noreferrer\">Wikiページ</a>をご覧ください。"
     },
     "escDshotDirectionDialog-WrongFirmwareText": {
         "message": "ファームウェアを更新します。<br /> 最新ファームウェア (Betaflight 4.3以降) を使用していることを確認してください。"
@@ -2776,6 +3020,9 @@
     "loggingLogSize": {
         "message": "ログサイズ:"
     },
+    "loggingLogName": {
+        "message": "ログファイル名:"
+    },
     "loggingButtonLogFile": {
         "message": "ログファイルの選択"
     },
@@ -2801,13 +3048,13 @@
         "message": "自動的に以前のログファイルをロードしました: <strong>$1</strong>"
     },
     "blackboxNotSupported": {
-        "message": "このフライトコントローラのファームウェアは、ブラックボックスによるログをサポートしていません。"
+        "message": "このフライトコントローラのファームウェアはBlackboxによるログをサポートしていません。"
     },
     "blackboxMaybeSupported": {
-        "message": "このフライトコントローラのファームウェアは古すぎるか、あるいは [設定] タブでブラックボックス機能が無効になっているため、このタブは使えません。"
+        "message": "このフライトコントローラのファームウェアは古すぎるか、あるいは [設定] タブでBlackbox機能が無効になっているため、このタブは使えません。"
     },
     "blackboxConfiguration": {
-        "message": "ブラックボックス設定"
+        "message": "Blackbox設定"
     },
     "blackboxButtonSave": {
         "message": "保存して再起動"
@@ -2870,7 +3117,7 @@
         "message": "データ消去を確認します"
     },
     "dataflashConfirmEraseNote": {
-        "message": "メモリに保存されているログを含むすべてのデータを消去します。消去には20秒程度必要です。実行しますか？"
+        "message": "メモリに保存されているBlackboxログを含むすべてのデータを消去します。消去には20秒程度必要です。実行しますか？"
     },
     "dataflashSavingTitle": {
         "message": "ファイルに保存しています"
@@ -3119,7 +3366,7 @@
         "message": "<strong>リカバリー / 通信ロスト</strong>"
     },
     "firmwareFlasherRecoveryText": {
-        "message": "FCボードとの通信が切断された場合は、次の手順に従って通信を復元してください: <ul><li>電源をオフします。</li><li>[再起動シーケンスなし] を有効にし [チップメモリの完全消去] を有効にします。</li><li>BOOTピンをジャンパするか、またはBOOTボタンを押し続けます。</li><li>電源をオンします。(正しく行われればアクティビティLEDは点滅しません) </li><li>必要に応じて、すべてのSTM32ドライバとZadigをインストールします。(Betaflightマニュアルの [<a href=\"https://github.com/betaflight/betaflight/wiki/Installing-Betaflight\"target=\"_blank\" rel=\"noopener noreferrer\">USB Flashing</a>] 章を参照) </li><li>Configuratorを閉じ、Configuratorを再起動します。</li><li>FCのBOOTボタン1つだけであれば、BOOTボタンを放してください。</li><li>正常なファームウェアをフラッシュしてください。(FCのマニュアルで指定されている場合は手動で伝送速度を調整してください) </li><li>電源をオフします。</li><li>BOOTピンのジャンパを取り外します。</li><li>電源をオンします。(アクティビティLEDが点滅するはずです) </li><li>再度、通常通り接続してください。</li></ul>"
+        "message": "FCボードとの通信が切断された場合は、以下の手順に従って通信を回復してください: <ul><li>電源をオフにします。</li><li>[再起動シーケンスなし] を有効にし [チップメモリの完全消去] を有効にします。</li><li>BOOTピンをジャンパさせるか、またはBOOTボタンを長押ししてください。</li><li>電源をオンにします。(正しく行われればアクティビティLEDは点滅しません) </li><li>すべてのSTM32ドライバと、必要あればZadigをインストールします。(Betaflightマニュアルの [<a href=\"https://betaflight.com/docs/wiki/archive/Installing-Betaflight\" target=\"_blank\" rel=\"noopener noreferrer\">USB Flashing</a>] 章を参照) </li><li>Betaflight Configuratorを一度閉じ、Configuratorを再起動します。</li><li>FCボードにBOOTボタンがあれば、BOOTボタンを放してください。</li><li>正常なファームウェアをフラッシュしてください。(FCのボードのマニュアルに指定されている場合は、手動で伝送速度を調整してください) </li><li>電源をオフにします。</li>\n<li>BOOTピンのジャンパを取り外します。</li><li>電源をオンにします。(アクティビティLEDが点滅するはずです) </li><li>再度、通常通り接続してください。</li></ul>"
     },
     "firmwareFlasherButtonLeave": {
         "message": "ファームフラッシャーより退避"
@@ -3212,6 +3459,22 @@
     "firmwareFlasherPreviousDevice": {
         "message": "検出: <strong>$1</strong> - 以前のデバイスがまだ書き込まれています。再接続してもう一度お試しください。"
     },
+    "firmwareFlasherRemindBackupTitle": {
+        "message": "設定を消去",
+        "description": "Warning message title before actual flashing takes place"
+    },
+    "firmwareFlasherRemindBackup": {
+        "message": "新しいファームウェアをフラッシュすると、すべての設定が消去されます。続行する前にバックアップとして保存することを強く推奨します。",
+        "description": "Warning message before actual flashing takes place"
+    },
+    "firmwareFlasherBackup": {
+        "message": "バックアップを作成",
+        "description": "Create a backup before actual flashing takes place"
+    },
+    "firmwareFlasherBackupIgnore": {
+        "message": "リスクを無視",
+        "description": "Ignore creating a backup before actual flashing takes place"
+    },
     "ledStripHelp": {
         "message": "フライトコントローラは、個々のLEDストリップの色や効果を制御できます。<br/>グリッド上にLEDを配置、配線順序を設定し、グリッド位置に従って機体にLEDを取り付けます。 ワイヤーオーダー番号のないLEDは保存されません。<br />HSV値を編集するには、色を選択、ダブルクリックします。"
     },
@@ -3245,9 +3508,6 @@
     "ledStripClearAllButton": {
         "message": "全消去",
         "description": "In the LED STRIP, clear all leds"
-    },
-    "ledStripEepromSaved": {
-        "message": "EEPROM <span class=\"message-positive\">保存しました</span>"
     },
     "ledStripVtxOverlay": {
         "message": "VTX (周波数毎にカラー割り当て)"
@@ -3400,17 +3660,16 @@
         "message": "ワイヤーオーダー番号のないLEDは保存されません。",
         "description": "Message in the wiring modes in Led Strip"
     },
-    "ledStripVtxFunction": {
-        "message": "ラーソンスキャナー"
-    },
-    "ledStripBlinkTitle": {
-        "message": "点滅"
+    "ledStripLarsonOverlay": {
+        "message": "ラーソンスキャナー",
+        "description": "Larson effect switch label on LED Strip tab"
     },
     "ledStripBlinkAlwaysOverlay": {
         "message": "常時点滅"
     },
-    "ledStripBlinkLandingOverlay": {
-        "message": "着陸時点滅"
+    "ledStripRainbowOverlay": {
+        "message": "レインボー",
+        "description": "Rainbow effect switch label on LED Strip tab"
     },
     "ledStripOverlayTitle": {
         "message": "オーバーレイ"
@@ -4020,7 +4279,7 @@
         "message": "Vbat サグ値補正"
     },
     "pidTuningVbatSagCompensationHelp": {
-        "message": "バッテリー電圧の低下に応じてモーター出力を増加させることで、使用可能なバッテリー電圧範囲にて一貫したスロットルとPIDパフォーマンスを提供します。<br /><br />補正量は0～100%の間で変更でき、完全な補正 (100%) を推奨します。<br /><br />詳しくは<a href=\"https://github.com/betaflight/betaflight/wiki/4.2-Tuning-Notes#dynamic-battery-sag-compensation\"target=\"_blank\" rel=\"noopener noreferrer\">このWikiエントリ</a>をご覧ください。"
+        "message": "バッテリー電圧の低下に応じてモーター出力を増加させることで、使用可能なバッテリー電圧範囲にて一貫したスロットルとPIDパフォーマンスを提供します。<br /><br />補正量は0～100%の間で変更でき、完全な補正 (100%) を推奨します。<br /><br />詳しくは<a href=\"https://betaflight.com/docs/tuning/4.2-Tuning-Notes#dynamic-battery-sag-compensation\" target=\"_blank\" rel=\"noopener noreferrer\">このWikiエントリ</a>をご覧ください。"
     },
     "pidTuningVbatSagValue": {
         "message": "%"
@@ -4101,7 +4360,7 @@
         "message": "動的アイドル値 [* 100 RPM]"
     },
     "pidTuningIdleMinRpmHelp": {
-        "message": "動的アイドルにより、低回転時の制御性が向上し、モーター非同期のリスクを低減します。<br /><br /> PID制御、ゼロスロットルの安定性、反転時の滞空時間、モーターブレーキが改善されます。<br /><br />動的アイドルの最小回転数を3000～3500rpm程度に設定します。BF4.2の場合、DShotのアイドル値を1％など低めに設定します。BF4.3ではDShotアイドル値を調整する必要はありません。<br /><br />詳しくは<a href=\"https://github.com/betaflight/betaflight/wiki/Tuning-Dynamic-Idle\"target=\"_blank\" rel=\"noopener noreferrer\">こちらのWikiエントリ</a>をご覧ください。"
+        "message": "動的アイドルは、低回転時の制御を改善し、モーター非同期のリスクを低減します。<br /><br />PID制御、ゼロスロットルの安定性、反転時の滞空時間、モーターブレーキが改善されます。<br /><br />動的アイドルの最小回転数は、約3000～3500rpmに設定する必要があります。BF4.2の場合、DShotのアイドル値を1%など低めに設定します。BF4.3ではDShotアイドル値を調整する必要はありません。<br /><br />詳しくは<a href=\"https://betaflight.com/docs/wiki/archive/Tuning-Dynamic-Idle\" target=\"_blank\" rel=\"noopener noreferrer\">こちらのWiki項目</a>をご覧ください。"
     },
     "pidTuningIdleMinRpmDisabled": {
         "message": "Dshotテレメトリー がオフのため動的アイドルはオフとなります"
@@ -4116,7 +4375,7 @@
         "message": "統合ヨー制御"
     },
     "pidTuningIntegratedYawCaution": {
-        "message": "<span class=\"message-negative\">注意</span>: この機能を有効にした場合は、それに応じてヨーのPIDを調整する必要があります。詳しくは<a href=\"https://github.com/betaflight/betaflight/wiki/Integrated-Yaw\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a>"
+        "message": "<span class=\"message-negative\">注意</span>: この機能を有効にした場合は、それに応じてヨーのPIDを調整する必要があります。詳しくは<a href=\"https://betaflight.com/docs/wiki/archive/Integrated-Yaw\" target=\"_blank\" rel=\"noopener noreferrer\">こちら</a>"
     },
     "pidTuningIntegratedYawHelp": {
         "message": "統合ヨー制御は、ヨーP、I、Dの値を統合し、ピッチとロールを調整するのと同じようにヨーのP、I、D値を調整することができます。<br><br>統合されたP値はI値のように、統合されたD値はP値のように作用するため、I値はほとんど必要がなくなります。<br><br>備考: 統合ヨー制御ではI値が必要ないため、アブソリュート コントロールを使用する必要があります。"
@@ -5129,11 +5388,11 @@
         "message": "ホームポジションまでの距離 (設定に基づいたフィートまたはメートル表示)"
     },
     "osdTextElementNumericalHeading": {
-        "message": "ヘディング角度値",
+        "message": "ヘッディング角度値",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementNumericalHeading": {
-        "message": "ヘッディング角度値"
+        "message": "現在のヘッディング角度の読み取り値"
     },
     "osdTextElementNumericalVario": {
         "message": "垂直スピード値",
@@ -5234,18 +5493,18 @@
         "message": "モーター毎の出力グラフを表示"
     },
     "osdTextElementLogStatus": {
-        "message": "ブラックボックス ログステータス",
+        "message": "Blackboxログの状態",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementLogStatus": {
-        "message": "ブラックボックス番号と警告"
+        "message": "Blackbox番号と警告"
     },
     "osdTextElementFlipArrow": {
         "message": "Flip after crash 向き",
         "description": "One of the elements of the OSD"
     },
     "osdDescElementFlipArrow": {
-        "message": "タートルモードでどのモーターが起動しているかを示す矢印"
+        "message": "タートルモードにて両端のモーターが起動していることを示す矢印 (加速度センサーを有効にする必要があります)"
     },
     "osdTextElementLinkQuality": {
         "message": "リンク品質",
@@ -5441,7 +5700,7 @@
         "description": "One of the statistics that can be shown at the end of the flight in the OSD"
     },
     "osdDescStatBlackbox": {
-        "message": "ブラックボックス合計使用率"
+        "message": "Blackbox 合計使用率"
     },
     "osdTextStatEndBattery": {
         "message": "バッテリー終止電圧",
@@ -5476,7 +5735,7 @@
         "description": "One of the statistics that can be shown at the end of the flight in the OSD"
     },
     "osdDescStatBlackboxLogNumber": {
-        "message": "飛行後のブラックボックスログ番号"
+        "message": "飛行後のBlackboxログ番号"
     },
     "osdTextStatTimer1": {
         "message": "タイマー1",
@@ -5582,6 +5841,20 @@
     },
     "osdDescStatMinRSNR": {
         "message": "最小RSNR値"
+    },
+    "osdTextStatBest3ConsecLaps": {
+        "message": "Best 3 consecutive laps",
+        "description": "One of the statistics that can be shown at the end of the flight in the OSD"
+    },
+    "osdDescStatBest3ConsecLaps": {
+        "message": "Best 3 consecutive laps"
+    },
+    "osdTextStatBestLap": {
+        "message": "Best lap",
+        "description": "One of the statistics that can be shown at the end of the flight in the OSD"
+    },
+    "osdDescStatBestLap": {
+        "message": "Best lap"
     },
     "osdTextStatUnknown": {
         "message": "不明 $1",
@@ -5820,7 +6093,7 @@
         "message": "保存しました"
     },
     "vtxHelp": {
-        "message": "ここで映像伝送用送信機 (VTX) の値を設定します。フライトコントローラとVTXがサポートしている場合、VTXテーブルの値を表示および変更できます。<br>VTXを設定するには、次の手順を使用します。<br>1. <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight/wiki/VTX-tables\">こちらのページ</a>に進みます;<br>2. 地域およびVTXモデルに適したVTX設定ファイルを見つけダウンロードしてください。<br>3. 下の『$t(vtxButtonLoadFile.message)』をクリックし、VTX設定ファイルを選択し、ロードしてください;<br>4. 正しく設定されていることを確認してください;<br>5. 『$t(vtxButtonSave.message)』をクリックし、フライトコントローラにVTXの設定を保存します。\n<br>6. オプションで『$t(vtxButtonSaveLua.message)』をクリックして、betaflight Luaスクリプトで使用できるLua設定ファイルを保存します。(<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight-tx-lua-scripts/\">こちら</a>を参照)",
+        "message": "ここで映像伝送用送信機 (VTX) の値を設定します。フライトコントローラとVTXがサポートしている場合、VTXテーブルの値を表示および変更できます。<br>VTXを設定するには、次の手順を使用します。<br>1. <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://betaflight.com/docs/wiki/archive/VTX-tables\">こちらのページ</a>に進みます;<br>2. 地域およびVTXモデルに適したVTX設定ファイルを見つけダウンロードしてください。<br>3. 下の『$t(vtxButtonLoadFile.message)』をクリックし、VTX設定ファイルを選択し、ロードしてください;<br>4. 正しく設定されていることを確認してください;<br>5. 『$t(vtxButtonSave.message)』をクリックし、フライトコントローラにVTXの設定を保存します。\n<br>6. オプションで『$t(vtxButtonSaveLua.message)』をクリックして、betaflight Luaスクリプトで使用できるLua設定ファイルを保存します。(<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/betaflight/betaflight-tx-lua-scripts/\">こちら</a>を参照)",
         "description": "Introduction message in the VTX tab"
     },
     "vtxMessageNotSupported": {
@@ -5930,6 +6203,14 @@
     "vtxFrequencyHelp": {
         "message": "サポートされている場合、VTX周波数をここで選択します",
         "description": "Help text for the frequency field of the VTX tab"
+    },
+    "vtxReadyTrue": {
+        "message": "成功",
+        "description": "vtx device are ready"
+    },
+    "vtxReadyFalse": {
+        "message": "失敗",
+        "description": "vtx device are not ready"
     },
     "vtxDeviceReady": {
         "message": "デバイス 準備完了",
@@ -6259,10 +6540,13 @@
         "message": "FPVカメラアングル [degrees]"
     },
     "onboardLoggingBlackbox": {
-        "message": "ブラックボックス ログデバイス"
+        "message": "Blackboxログデバイス"
     },
     "onboardLoggingRateOfLogging": {
-        "message": "ブラックボックス ログレート"
+        "message": "Blackboxログレート"
+    },
+    "onboardLoggingDebugFields": {
+        "message": "データ含"
     },
     "onboardLoggingDebugMode": {
         "message": "Blackboxデバッグモード"
@@ -6478,6 +6762,10 @@
         "message": "キーワード:",
         "description": "Hint text in the presets detailed dialog"
     },
+    "presetsSourceRepository": {
+        "message": "ソース:",
+        "description": "Text prefixing user defined name of the preset repository containing a preset"
+    },
     "presetsVersions": {
         "message": "ファームウェア:",
         "description": "Hint text in the presets detailed dialog"
@@ -6491,7 +6779,7 @@
         "description": "Hint text in the presets detailed dialog indication preset is not official but community"
     },
     "presetsExperimental": {
-        "message": "試験版",
+        "message": "試験運用",
         "description": "Hint text in the presets detailed dialog indication preset is not official but experimental"
     },
     "presetsApply": {
@@ -6626,6 +6914,10 @@
         "message": "有効にする",
         "description": "Presets tab, sources dialog, button to make selected source active"
     },
+    "presetsSourcesDialogMakeSourceDisable": {
+        "message": "使用不可にする",
+        "description": "Presets tab, sources dialog, button to make selected source disabled"
+    },
     "presetsSourcesDialogDeleteSource": {
         "message": "削除",
         "description": "Presets tab, sources dialog, button to delete selected source"
@@ -6633,6 +6925,10 @@
     "presetsWarningNotOfficialSource": {
         "message": "<span class=\"message-negative\">警告！</span> サードパーティのプリセットソースが選択されています。",
         "description": "Warning message that shows up when a third party preset source is selected"
+    },
+    "presetsFailedToLoadRepositories": {
+        "message": "<span class=\"message-negative\">警告！</span>以下のリポジトリの読み込みに失敗しました: <b>{{repos}}</b>",
+        "description": "Warning message that shows up when we fail to load some repositories"
     },
     "presetsWarningBackup": {
         "message": "プリセットを選択して適用する前に、必ず現在の設定をバックアップしてください。(『$t(presetsBackupSave.message)』ボタン、またはボタンが無効になっている場合はCLI経由にて) バックアップしていない場合、プリセットを適用した後に<strong>以前の設定</strong>に戻すことができません。",
@@ -6710,5 +7006,9 @@
     },
     "coreBuildModeDescription": {
         "message": "このオプションは、ハードウェアドライバ (およびいくつかの制限された機能) を含むファームウェアをビルドします。これはフライトコントローラ上のハードウェア検出を支援するために利用可能で、その利便性のためにのみ提供されます。このオプションを使用しても、すべての機能 (ハードウェアのみ) が利用できるわけではありません。"
+    },
+    "showDevToolsOnStartup": {
+        "message": "開発者向けツールを自動的に開く",
+        "description": "Text for the option to enable automatic opening of DevTools in debug mode"
     }
 }
