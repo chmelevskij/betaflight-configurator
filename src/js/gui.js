@@ -3,6 +3,7 @@ import MSP from './msp';
 import Switchery from 'switchery-latest';
 import jBox from 'jbox';
 import { checkChromeRuntimeError } from './utils/common';
+import $ from 'jquery';
 
 const TABS = {};
 
@@ -72,7 +73,8 @@ class GuiControl {
         // Check the method of execution
         this.nwGui = null;
         try {
-            this.nwGui = require('nw.gui');
+            // TODO: this should stay if we keep browser and nwjs versions
+            // this.nwGui = require('nw.gui');
             this.Mode = GUI_MODES.NWJS;
         } catch (ex) {
             if (typeof cordovaApp !== 'undefined') {
@@ -316,7 +318,7 @@ class GuiControl {
         documentationButton.html("Wiki").attr("href", `https://betaflight.com/docs/wiki/configurator/${tRex}-tab`);
 
         // loading tooltip
-        jQuery(function () {
+        $(function () {
 
             new jBox('Tooltip', {
                 attach: '.cf_tip',
@@ -359,7 +361,9 @@ class GuiControl {
         $(`#tabs ul.mode-connected .${tab} a`).trigger('click');
     }
     isNWJS() {
-        return this.Mode === GUI_MODES.NWJS;
+        // TODO: goes away once we fully moved to browser
+        // return this.Mode === GUI_MODES.NWJS;
+        return false;
     }
     isCordova() {
         return this.Mode === GUI_MODES.Cordova;

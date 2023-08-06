@@ -18,7 +18,7 @@ import semver from 'semver';
 import { updateTabList } from "../utils/updateTabList";
 import * as THREE from 'three';
 import * as d3 from "d3";
-
+import $ from 'jquery';
 import CryptoES from 'crypto-es';
 
 const receiver = {
@@ -87,7 +87,7 @@ receiver.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/receiver.html", process_html);
+        $('#content').load("./src/tabs/receiver.html", process_html);
     }
 
     MSP.send_message(MSPCodes.MSP_FEATURE_CONFIG, false, false, get_rc_data);

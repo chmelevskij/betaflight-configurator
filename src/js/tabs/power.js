@@ -6,6 +6,7 @@ import FC from '../fc';
 import MSP from '../msp';
 import MSPCodes from '../msp/MSPCodes';
 import jBox from 'jbox';
+import $ from 'jquery';
 
 const power = {
     supported: false,
@@ -55,7 +56,7 @@ power.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/power.html", process_html);
+        $('#content').load("./src/tabs/power.html", process_html);
     }
 
     this.supported = true;

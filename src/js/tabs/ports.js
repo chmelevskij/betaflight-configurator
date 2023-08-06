@@ -8,6 +8,8 @@ import MSP from '../msp';
 import MSPCodes from '../msp/MSPCodes';
 import { API_VERSION_1_42, API_VERSION_1_43, API_VERSION_1_45 } from '../data_storage';
 import BOARD from '../boards';
+import { gui_log } from '../gui_log';
+import $ from 'jquery';
 
 const ports = {
     analyticsChanges: {},
@@ -110,7 +112,7 @@ ports.initialize = function (callback) {
         });
 
         function on_configuration_loaded_handler() {
-            $('#content').load("./tabs/ports.html", on_tab_loaded_handler);
+            $('#content').load("./src/tabs/ports.html", on_tab_loaded_handler);
 
             board_definition = BOARD.find_board_definition(FC.CONFIG.boardIdentifier);
             console.log('Using board definition', board_definition);

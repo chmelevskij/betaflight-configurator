@@ -1,5 +1,6 @@
 import GUI, { TABS } from '../gui';
 import { i18n } from '../localization';
+import $ from 'jquery';
 
 const landing = {};
 landing.initialize = function (callback) {
@@ -8,7 +9,7 @@ landing.initialize = function (callback) {
     GUI.active_tab = 'landing';
   }
 
-  $('#content').load("./tabs/landing.html", function () {
+  $('#content').load("./src/tabs/landing.html", function () {
     function showLang(newLang) {
       bottomSection = $('.languageSwitcher');
       bottomSection.find('a').each(function(index) {

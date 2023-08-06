@@ -8,6 +8,7 @@ import MSP from '../msp';
 import MSPCodes from '../msp/MSPCodes';
 import adjustBoxNameIfPeripheralWithModeID from '../peripherals';
 import { getTextWidth } from '../utils/common';
+import $ from 'jquery';
 import inflection from "inflection";
 
 const auxiliary = {};
@@ -42,7 +43,7 @@ auxiliary.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/auxiliary.html", process_html);
+        $('#content').load("./src/tabs/auxiliary.html", process_html);
     }
 
     MSP.send_message(MSPCodes.MSP_BOXNAMES, false, false, get_mode_ranges);

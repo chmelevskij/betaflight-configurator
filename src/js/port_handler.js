@@ -5,6 +5,7 @@ import { generateVirtualApiVersions, getTextWidth } from './utils/common';
 import { get as getConfig } from "./ConfigStorage";
 import serial from "./serial";
 import MdnsDiscovery from "./mdns_discovery";
+import $ from 'jquery';
 
 const TIMEOUT_CHECK = 500 ; // With 250 it seems that it produces a memory leak and slowdown in some versions, reason unknown
 
@@ -26,6 +27,8 @@ const PortHandler = new function () {
 };
 
 PortHandler.initialize = function () {
+    // TODO: check if this is needed with browser version
+    return console.warn('Not implemented');
     const self = this;
 
     const portPickerElementSelector = "div#port-picker #port";

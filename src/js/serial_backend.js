@@ -10,8 +10,10 @@ import MSP from "./msp";
 import MSPCodes from "./msp/MSPCodes";
 import PortUsage from "./port_usage";
 import PortHandler from "./port_handler";
+// import serial from "./serial";
+import serial from "./webSerial.js";
+// import MdnsDiscovery from "./mdns_discovery";
 import CONFIGURATOR, { API_VERSION_1_45, API_VERSION_1_46 } from "./data_storage";
-import serial from "./serial";
 import UI_PHONES from "./phones_ui";
 import { bit_check } from './bit.js';
 import { sensor_status, have_sensor } from "./sensor_helpers";
@@ -22,6 +24,7 @@ import { get as getConfig, set as setConfig } from "./ConfigStorage";
 import { tracking } from "./Analytics";
 import semver from 'semver';
 import CryptoES from "crypto-es";
+import $ from 'jquery';
 import BuildApi from "./BuildApi";
 
 let mspHelper;
@@ -81,45 +84,41 @@ export function initializeSerialBackend() {
             } else {
                 portName = String($('div#port-picker #port').val());
             }
+            // NOTE: this is overwritten for this web serial experiment
+            $("div.connect_controls a.connect").on("click", async function () {
+                if (GUI.connect_lock != true) {
+                    let thisElement = $(this);
+                    let clicks = thisElement.data("clicks");
 
-            if (selectedPort.data().isDFU) {
-                $('select#baud').hide();
-            } else if (portName !== '0') {
-                if (!clicks) {
-                    console.log(`Connecting to: ${portName}`);
-                    GUI.connecting_to = portName;
+                    const toggleStatus = () => {
+                        thisElement.data("clicks", !clicks);
+                    };
 
-                    // lock port select & baud while we are connecting / connected
-                    $('div#port-picker #port, div#port-picker #baud, div#port-picker #delay').prop('disabled', true);
-                    $('div.connect_controls div.connect_state').text(i18n.getMessage('connecting'));
+                    const baudRate = parseInt($("div#port-picker #baud").val());
 
-                    if (selectedPort.data().isVirtual) {
-                        CONFIGURATOR.virtualMode = true;
-                        CONFIGURATOR.virtualApiVersion = $('#firmware-version-dropdown :selected').val();
+                    if (!clicks) {
+                        console.log(`Connecting to: ${portName}`);
+                        GUI.connecting_to = portName;
 
-                        serial.connect('virtual', {}, onOpenVirtual);
+                        // lock port select & baud while we are connecting / connected
+                        $("div#port-picker #baud").prop("disabled", true);
+                        $("div.connect_controls div.connect_state").text(
+                            i18n.getMessage("connecting"),
+                        );
+
+                        serial.addEventListener('connect', event => {
+                            onOpen(event.detail);
+                            toggleStatus();
+                        });
+
+                        serial.connect({ baudRate });
                     } else {
-                        serial.connect(portName, {bitrate: selected_baud}, onOpen);
-                    }
-
-                    toggleStatus();
-                } else {
-                    if ($('div#flashbutton a.flash_state').hasClass('active') && $('div#flashbutton a.flash').hasClass('active')) {
-                        $('div#flashbutton a.flash_state').removeClass('active');
-                        $('div#flashbutton a.flash').removeClass('active');
-                    }
-                    GUI.timeout_kill_all();
-                    GUI.interval_kill_all();
-                    GUI.tab_switch_cleanup(() => GUI.tab_switch_in_progress = false);
-
-                    function onFinishCallback() {
+                        await mspHelper.setArmingEnabled(true, false);
                         finishClose(toggleStatus);
                     }
-
-                    mspHelper.setArmingEnabled(true, false, onFinishCallback);
                 }
-            }
-        }
+            });
+       }
     });
 
     $('div.open_firmware_flasher a.flash').click(function () {
@@ -170,6 +169,8 @@ export function initializeSerialBackend() {
         setConfig({'auto_connect': GUI.auto_connect});
     });
 
+    // TODO: need to use https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/apps/samples/mdns-browser
+    // MdnsDiscovery.initialize();
     PortHandler.initialize();
     PortUsage.initialize();
 }
@@ -286,7 +287,7 @@ function onOpen(openInfo) {
         result = getConfig('expertMode')?.expertMode ?? false;
         $('input[name="expertModeCheckbox"]').prop('checked', result).trigger('change');
 
-        serial.onReceive.addListener(read_serial);
+        serial.addEventListener('receive', read_serial);
         setConnectionTimeout();
         FC.resetState();
         mspHelper = new MspHelper();
@@ -671,7 +672,7 @@ export function read_serial(info) {
     } else if (CONFIGURATOR.cliEngineActive) {
         TABS.presets.read(info);
     } else {
-        MSP.read(info);
+        MSP.read(new DataView(info.detail.buffer));
     }
 }
 

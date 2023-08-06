@@ -8,6 +8,7 @@ import MSP from '../msp.js';
 import MSPCodes from '../msp/MSPCodes.js';
 import CONFIGURATOR from '../data_storage.js';
 import { gui_log } from '../gui_log.js';
+import $ from 'jquery';
 
 const logging = {};
 logging.initialize = function (callback) {
@@ -27,7 +28,7 @@ logging.initialize = function (callback) {
         };
 
         const loadHtml = function () {
-            $('#content').load("./tabs/logging.html", process_html);
+            $('#content').load("./src/tabs/logging.html", process_html);
         };
 
         MSP.send_message(MSPCodes.MSP_RC, false, false, getMotorData);

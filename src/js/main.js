@@ -1,5 +1,7 @@
+import $ from 'jquery';
 import 'jbox';
-import '../components/init.js';
+// TODO: enable back vue
+// import '../components/init.js';
 import { gui_log } from './gui_log.js';
 // same, msp seems to be everywhere used from global scope
 import './msp/MSPHelper.js';
@@ -28,7 +30,7 @@ if (typeof String.prototype.replaceAll === "undefined") {
 
 $(document).ready(function () {
 
-    useGlobalNodeFunctions();
+    // useGlobalNodeFunctions();
 
     if (typeof cordovaApp === 'undefined') {
         appReady();
@@ -75,7 +77,7 @@ function cleanupLocalStorage() {
 }
 
 function appReady() {
-    readConfiguratorVersionMetadata();
+    // readConfiguratorVersionMetadata();
 
     cleanupLocalStorage();
 
@@ -310,12 +312,12 @@ function startProcess() {
                         break;
                     case 'changelog':
                         import("./tabs/static_tab").then(({ staticTab }) =>
-                            staticTab.initialize("changelog", content_ready),
+                            staticTab.initialize("./changelog", content_ready),
                         );
                         break;
                     case 'privacy_policy':
                         import("./tabs/static_tab").then(({ staticTab }) =>
-                            staticTab.initialize("privacy_policy", content_ready),
+                            staticTab.initialize("./src/tabs/privacy_policy", content_ready),
                         );
                         break;
                     case 'options':

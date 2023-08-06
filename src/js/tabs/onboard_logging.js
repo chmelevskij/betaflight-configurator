@@ -11,6 +11,7 @@ import { generateFilename } from "../utils/generate_filename";
 import semver from 'semver';
 import { showErrorDialog } from "../utils/showErrorDialog";
 import { checkChromeRuntimeError } from "../utils/common";
+import $ from 'jquery';
 
 let sdcardTimer;
 
@@ -58,7 +59,7 @@ onboard_logging.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/onboard_logging.html", function() {
+        $('#content').load("./src/tabs/onboard_logging.html", function() {
             // translate to user-selected language
             i18n.localizePage();
 

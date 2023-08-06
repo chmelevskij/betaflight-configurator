@@ -15,6 +15,7 @@ import jBox from "jbox";
 import inflection from "inflection";
 import { checkChromeRuntimeError } from "../utils/common";
 import debounce from "lodash.debounce";
+import $ from 'jquery';
 
 const FONT = {};
 const SYM = {};
@@ -2636,7 +2637,7 @@ osd.initialize = function(callback) {
         VirtualFC.setupVirtualOSD();
     }
 
-    $('#content').load("./tabs/osd.html", function() {
+    $('#content').load("./src/tabs/osd.html", function() {
         // Prepare symbols depending on the version
         SYM.loadSymbols();
         OSD.loadDisplayFields();

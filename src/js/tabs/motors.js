@@ -18,6 +18,7 @@ import { updateTabList } from "../utils/updateTabList";
 import { isInt, getMixerImageSrc } from "../utils/common";
 import semver from 'semver';
 import * as d3 from 'd3';
+import $ from 'jquery';
 
 const motors = {
     previousDshotBidir: null,
@@ -99,7 +100,7 @@ motors.initialize = async function (callback) {
     load_html();
 
     function load_html() {
-        $('#content').load("./tabs/motors.html", process_html);
+        $('#content').load("./src/tabs/motors.html", process_html);
     }
 
     function update_arm_status() {

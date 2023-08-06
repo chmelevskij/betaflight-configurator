@@ -11,6 +11,7 @@ import Model from '../model';
 import MSPCodes from '../msp/MSPCodes';
 import CONFIGURATOR, { API_VERSION_1_42, API_VERSION_1_43, API_VERSION_1_46 } from '../data_storage';
 import { gui_log } from '../gui_log';
+import $ from 'jquery';
 
 const setup = {
     yaw_fix: 0.0,
@@ -32,7 +33,7 @@ setup.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/setup.html", process_html);
+        $('#content').load("./src/tabs/setup.html", process_html);
     }
 
     MSP.send_message(MSPCodes.MSP_ACC_TRIM, false, false, load_status);

@@ -14,6 +14,7 @@ import { API_VERSION_1_42, API_VERSION_1_44 } from '../data_storage';
 import UI_PHONES from "../phones_ui";
 import { gui_log } from "../gui_log";
 import { checkChromeRuntimeError } from "../utils/common";
+import $ from 'jquery';
 
 const vtx = {
     supported: false,
@@ -90,7 +91,7 @@ vtx.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/vtx.html", process_html);
+        $('#content').load("./src/tabs/vtx.html", process_html);
     }
 
     function process_html() {

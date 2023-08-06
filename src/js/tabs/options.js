@@ -6,6 +6,7 @@ import CliAutoComplete from '../CliAutoComplete';
 import DarkTheme, { setDarkTheme } from '../DarkTheme';
 import { checkForConfiguratorUpdates } from '../utils/checkForConfiguratorUpdates';
 import { checkSetupAnalytics } from '../Analytics';
+import $ from 'jquery';
 import CONFIGURATOR from '../data_storage';
 
 const options = {};
@@ -14,7 +15,7 @@ options.initialize = function (callback) {
         GUI.active_tab = 'options';
     }
 
-    $('#content').load("./tabs/options.html", function () {
+    $('#content').load("./src/tabs/options.html", function () {
         i18n.localizePage();
 
         TABS.options.initRememberLastTab();

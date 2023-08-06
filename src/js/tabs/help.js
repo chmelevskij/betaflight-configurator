@@ -1,5 +1,6 @@
 import GUI, { TABS } from '../gui';
 import { i18n } from '../localization';
+import $ from 'jquery';
 
 const help = {};
 help.initialize = function (callback) {
@@ -8,7 +9,7 @@ help.initialize = function (callback) {
         GUI.active_tab = 'help';
     }
 
-    $('#content').load("./tabs/help.html", function () {
+    $('#content').load("./src/tabs/help.html", function () {
         i18n.localizePage();
 
         GUI.content_ready(callback);

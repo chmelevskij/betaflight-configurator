@@ -5,6 +5,7 @@ import GUI, { TABS } from '../gui';
 import FC from '../fc';
 import MSP from "../msp";
 import MSPCodes from "../msp/MSPCodes";
+import $ from 'jquery';
 import { have_sensor } from "../sensor_helpers";
 import { mspHelper } from '../msp/MSPHelper';
 import { updateTabList } from '../utils/updateTabList';
@@ -23,7 +24,7 @@ gps.initialize = async function (callback) {
     load_html();
 
     function load_html() {
-        $('#content').load("./tabs/gps.html", process_html);
+        $('#content').load("./src/tabs/gps.html", process_html);
     }
 
     function set_online(){

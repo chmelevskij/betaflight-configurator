@@ -5,6 +5,7 @@ import { i18n } from '../../js/localization';
 import FC from '../../js/fc';
 import CONFIGURATOR from '../../js/data_storage';
 import UI_PHONES from '../../js/phones_ui';
+import $ from 'jquery';
 
 import { favoritePresets } from './FavoritePresets';
 import CliEngine from './CliEngine';
@@ -30,7 +31,7 @@ presets.initialize = function (callback) {
     self.cliEngine.setProgressCallback(value => this.onApplyProgressChange(value));
     self._presetPanels = [];
 
-    $('#content').load("./tabs/presets/presets.html", () => self.onHtmlLoad(callback));
+    $('#content').load("./src/tabs/presets/presets.html", () => self.onHtmlLoad(callback));
 
     if (GUI.active_tab !== 'presets') {
         GUI.active_tab = 'presets';

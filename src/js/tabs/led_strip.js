@@ -5,6 +5,8 @@ import FC from "../fc";
 import semver from 'semver';
 import MSP from "../msp";
 import MSPCodes from "../msp/MSPCodes";
+import { gui_log } from "../gui_log";
+import $ from 'jquery';
 import { API_VERSION_1_46 } from '../data_storage';
 
 const led_strip = {
@@ -44,7 +46,7 @@ led_strip.initialize = function (callback, scrollPosition) {
     }
 
     function load_html() {
-        $('#content').load("./tabs/led_strip.html", process_html);
+        $('#content').load("./src/tabs/led_strip.html", process_html);
     }
 
     load_led_config();

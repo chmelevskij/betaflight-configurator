@@ -12,6 +12,7 @@ import UI_PHONES from "../phones_ui";
 import { gui_log } from "../gui_log";
 import jBox from "jbox";
 import { checkChromeRuntimeError } from "../utils/common";
+import $ from 'jquery';
 
 const cli = {
     lineDelayMs: 15,
@@ -134,7 +135,7 @@ cli.initialize = function (callback) {
         );
     }
 
-    $('#content').load("./tabs/cli.html", function () {
+    $('#content').load("./src/tabs/cli.html", function () {
         // translate to user-selected language
         i18n.localizePage();
 

@@ -3,69 +3,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="author" content="cTn"/>
-    <link type="text/css" rel="stylesheet" href="../node_modules/jbox/dist/jBox.min.css"/>
-    <link type="text/css" rel="stylesheet" href="./js/libraries/jquery.nouislider.min.css"/>
-    <link type="text/css" rel="stylesheet" href="./js/libraries/jquery.nouislider.pips.min.css"/>
-    <link type="text/css" rel="stylesheet" href="./js/libraries/flightindicators.css"/>
-    <link type="text/css" rel="stylesheet" href="./css/theme.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/main.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/static_tab.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/landing.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/setup.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/help.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/ports.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/configuration.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/pid_tuning.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/receiver.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/servos.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/gps.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/motors.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/led_strip.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/sensors.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/cli.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./tabs/presets/presets.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./tabs/presets/TitlePanel/PresetTitlePanel.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./tabs/presets/DetailedDialog/PresetsDetailedDialog.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./tabs/presets/SourcesDialog/SourcesDialog.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./tabs/presets/SourcesDialog/SourcePanel.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/logging.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/onboard_logging.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/firmware_flasher.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/adjustments.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/auxiliary.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/failsafe.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/osd.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/vtx.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/power.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/transponder.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/privacy_policy.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/tabs/options.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/opensans_webfontkit/fonts.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/dropdown-lists/css/style_lists.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./node_modules/switchery-latest/dist/switchery.min.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/switchery_custom.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./components/MotorOutputReordering/Styles.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./css/select2_custom.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./node_modules/select2/dist/css/select2.min.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./node_modules/multiple-select/dist/multiple-select.min.css" media="all"/>
-    <link type="text/css" rel="stylesheet" href="./components/EscDshotDirection/Styles.css" media="all"/>
-
-    <link type="text/css" rel="stylesheet" href="./css/dark-theme.css" media="all" disabled/>
 
     <!-- TODO: probably won't need this here once everything is imported -->
-    <script type="module" src="./js/utils/common.js"></script>
-    <!-- CORDOVA_INCLUDE js/cordova_chromeapi.js -->
-    <!-- CORDOVA_INCLUDE js/cordova_startup.js -->
-    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="./node_modules/jquery-ui-npm/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="./js/libraries/jquery.nouislider.all.min.js"></script>
-    <script type="text/javascript" src="./js/libraries/jquery.flightindicators.js"></script>
-    <script type="text/javascript" src="./node_modules/jquery-textcomplete/dist/jquery.textcomplete.min.js"></script>
-    <script type="text/javascript" src="./node_modules/jquery-touchswipe/jquery.touchSwipe.min.js"></script>
-    <script type="text/javascript" src="./node_modules/select2/dist/js/select2.min.js"></script>
-    <script type="text/javascript" src="./node_modules/multiple-select/dist/multiple-select.min.js"></script>
-    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./src/js/utils/common.js"></script>
+    <script type="module" src="./src/js/browserMain.js"></script>
 
     <title></title>
 </head>

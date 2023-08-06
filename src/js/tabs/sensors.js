@@ -7,6 +7,7 @@ import MSP from "../msp";
 import MSPCodes from "../msp/MSPCodes";
 import serial from "../serial";
 import * as d3 from 'd3';
+import $ from 'jquery';
 import semver from 'semver';
 import { API_VERSION_1_46 } from "../data_storage";
 
@@ -194,7 +195,7 @@ sensors.initialize = function (callback) {
         }
     }
 
-    $('#content').load("./tabs/sensors.html", function load_html() {
+    $('#content').load("./src/tabs/sensors.html", function load_html() {
         // translate to user-selected language
         i18n.localizePage();
 
