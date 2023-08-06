@@ -1,3 +1,4 @@
+import '../../js/jqueryPlugins';
 import GUI, { TABS } from '../../js/gui';
 import { get as getConfig, set as setConfig } from '../../js/ConfigStorage';
 import { generateFilename } from '../../js/utils/generate_filename';

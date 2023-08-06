@@ -1,3 +1,4 @@
+import './jqueryPlugins';
 import $ from 'jquery';
 import 'jbox';
 // TODO: enable back vue
