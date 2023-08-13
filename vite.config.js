@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import path from "node:path";
 
 export default defineConfig({
     test: {
@@ -12,4 +13,11 @@ export default defineConfig({
         setupFiles: ["test/setup.js"],
     },
     plugins: [vue()],
+    root: "./src",
+    resolve: {
+        alias: {
+            "/src": path.resolve(process.cwd(), "src"),
+            "/locales": path.resolve(process.cwd(), 'locales'),
+        },
+    },
 });

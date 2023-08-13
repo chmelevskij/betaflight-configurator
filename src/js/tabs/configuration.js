@@ -51,7 +51,7 @@ configuration.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./src/tabs/configuration.html", process_html);
+        $('#content').load("./tabs/configuration.html", process_html);
     }
 
     load_serial_config();

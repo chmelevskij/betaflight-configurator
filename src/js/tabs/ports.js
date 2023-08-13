@@ -111,7 +111,7 @@ ports.initialize = function (callback) {
         });
 
         function on_configuration_loaded_handler() {
-            $('#content').load("./src/tabs/ports.html", on_tab_loaded_handler);
+            $('#content').load("./tabs/ports.html", on_tab_loaded_handler);
 
             board_definition = BOARD.find_board_definition(FC.CONFIG.boardIdentifier);
             console.log('Using board definition', board_definition);

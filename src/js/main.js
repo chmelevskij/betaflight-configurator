@@ -31,7 +31,7 @@ if (typeof String.prototype.replaceAll === "undefined") {
 
 $(document).ready(function () {
 
-    // useGlobalNodeFunctions();
+    useGlobalNodeFunctions();
 
     if (typeof cordovaApp === 'undefined') {
         appReady();
@@ -51,10 +51,12 @@ function useGlobalNodeFunctions() {
 }
 
 function readConfiguratorVersionMetadata() {
-    const manifest = chrome.runtime.getManifest();
-    CONFIGURATOR.productName = manifest.productName;
-    CONFIGURATOR.version = manifest.version;
-    CONFIGURATOR.gitRevision = manifest.gitRevision;
+    if (GUI.isNWJS()) {
+        const manifest = chrome.runtime.getManifest();
+        CONFIGURATOR.productName = manifest.productName;
+        CONFIGURATOR.version = manifest.version;
+        CONFIGURATOR.gitRevision = manifest.gitRevision;
+    }
 }
 
 function cleanupLocalStorage() {
@@ -78,7 +80,7 @@ function cleanupLocalStorage() {
 }
 
 function appReady() {
-    // readConfiguratorVersionMetadata();
+    readConfiguratorVersionMetadata();
 
     cleanupLocalStorage();
 
@@ -313,12 +315,12 @@ function startProcess() {
                         break;
                     case 'changelog':
                         import("./tabs/static_tab").then(({ staticTab }) =>
-                            staticTab.initialize("./changelog", content_ready),
+                            staticTab.initialize("changelog", content_ready),
                         );
                         break;
                     case 'privacy_policy':
                         import("./tabs/static_tab").then(({ staticTab }) =>
-                            staticTab.initialize("./src/tabs/privacy_policy", content_ready),
+                            staticTab.initialize("privacy_policy", content_ready),
                         );
                         break;
                     case 'options':

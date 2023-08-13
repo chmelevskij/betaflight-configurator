@@ -9,7 +9,7 @@ landing.initialize = function (callback) {
     GUI.active_tab = 'landing';
   }
 
-  $('#content').load("./src/tabs/landing.html", function () {
+  $('#content').load("./tabs/landing.html", function () {
     function showLang(newLang) {
       bottomSection = $('.languageSwitcher');
       bottomSection.find('a').each(function(index) {

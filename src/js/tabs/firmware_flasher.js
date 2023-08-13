@@ -18,7 +18,6 @@ import STM32DFU from '../protocols/stm32usbdfu';
 import { gui_log } from '../gui_log';
 import semver from 'semver';
 import { checkChromeRuntimeError } from '../utils/common';
-import $ from 'jquery';
 import { generateFilename } from '../utils/generate_filename';
 
 const firmware_flasher = {
@@ -1259,7 +1258,7 @@ firmware_flasher.initialize = function (callback) {
     }
 
     self.releaseLoader.loadTargets(() => {
-       $('#content').load("./src/tabs/firmware_flasher.html", onDocumentLoad);
+       $('#content').load("./tabs/firmware_flasher.html", onDocumentLoad);
     });
 };
 

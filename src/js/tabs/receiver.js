@@ -87,7 +87,7 @@ receiver.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./src/tabs/receiver.html", process_html);
+        $('#content').load("./tabs/receiver.html", process_html);
     }
 
     MSP.send_message(MSPCodes.MSP_FEATURE_CONFIG, false, false, get_rc_data);

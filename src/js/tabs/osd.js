@@ -2637,7 +2637,7 @@ osd.initialize = function(callback) {
         VirtualFC.setupVirtualOSD();
     }
 
-    $('#content').load("./src/tabs/osd.html", function() {
+    $('#content').load("./tabs/osd.html", function() {
         // Prepare symbols depending on the version
         SYM.loadSymbols();
         OSD.loadDisplayFields();

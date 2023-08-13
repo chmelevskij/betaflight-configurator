@@ -28,7 +28,7 @@ logging.initialize = function (callback) {
         };
 
         const loadHtml = function () {
-            $('#content').load("./src/tabs/logging.html", process_html);
+            $('#content').load("./tabs/logging.html", process_html);
         };
 
         MSP.send_message(MSPCodes.MSP_RC, false, false, getMotorData);

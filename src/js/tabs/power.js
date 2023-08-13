@@ -56,7 +56,7 @@ power.initialize = function (callback) {
     }
 
     function load_html() {
-        $('#content').load("./src/tabs/power.html", process_html);
+        $('#content').load("./tabs/power.html", process_html);
     }
 
     this.supported = true;

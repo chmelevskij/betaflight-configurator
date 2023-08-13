@@ -74,7 +74,7 @@ class GuiControl {
         this.nwGui = null;
         try {
             // TODO: this should stay if we keep browser and nwjs versions
-            // this.nwGui = require('nw.gui');
+            this.nwGui = require('nw.gui');
             this.Mode = GUI_MODES.NWJS;
         } catch (ex) {
             if (typeof cordovaApp !== 'undefined') {
@@ -362,8 +362,7 @@ class GuiControl {
     }
     isNWJS() {
         // TODO: goes away once we fully moved to browser
-        // return this.Mode === GUI_MODES.NWJS;
-        return false;
+        return this.Mode === GUI_MODES.NWJS;
     }
     isCordova() {
         return this.Mode === GUI_MODES.Cordova;

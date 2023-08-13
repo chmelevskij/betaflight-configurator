@@ -100,7 +100,7 @@ motors.initialize = async function (callback) {
     load_html();
 
     function load_html() {
-        $('#content').load("./src/tabs/motors.html", process_html);
+        $('#content').load("./tabs/motors.html", process_html);
     }
 
     function update_arm_status() {
