@@ -2,11 +2,13 @@ import { webSerialDevices } from "./serial_devices";
 
 async function* streamAsyncIterable(reader, keepReadingFlag) {
     try {
+        console.log({ keepReadingFlag: keepReadingFlag() });
         while (keepReadingFlag()) {
             const { done, value } = await reader.read();
             if (done) {
                 return;
             }
+            // console.log({ done, value, keepReadingFlag: keepReadingFlag() })
             yield value;
         }
     } finally {
@@ -47,13 +49,32 @@ class WebSerial extends EventTarget {
         this.removeEventListener('disconnect', this.handleDisconnect);
     }
 
+    async startReading() {
+        try {
+            this.reading = true;
+            for await (let value of streamAsyncIterable(this.reader, () => this.reading)) {
+                this.dispatchEvent(
+                    new CustomEvent("receive", { detail: value }),
+                );
+            }
+        } catch (error) {
+            console.log(`failed reading`);
+        }
+    }
+
     async connect(options) {
+        console.log('running web serial connect');
         this.openRequested = true;
         this.port = await navigator.serial.requestPort({
             filters: webSerialDevices,
+        }).catch(() => {
+            console.log('failed opening the port');
         });
 
-        await this.port.open(options);
+        console.log('opening the port');
+        await this.port.open(options).catch(() => {
+            console.log('failed opening the port');
+        });
         const connectionInfo = this.port.getInfo();
         this.connectionInfo = connectionInfo;
         this.writer = this.port.writable.getWriter();
@@ -61,6 +82,7 @@ class WebSerial extends EventTarget {
 
         if (connectionInfo && !this.openCanceled) {
             this.connected = true;
+            console.log(connectionInfo);
             this.connectionId = connectionInfo.connectionId;
             this.bitrate = options.baudrate;
             this.bytesReceived = 0;
@@ -82,14 +104,10 @@ class WebSerial extends EventTarget {
             // the stream async iterable interface:
             // https://web.dev/streams/#asynchronous-iteration
 
-
-            this.reading = true;
-            for await (let value of streamAsyncIterable(this.reader, () => this.reading)) {
-                this.dispatchEvent(
-                    new CustomEvent("receive", { detail: value }),
-                );
-            }
+            // TODO: do I need to await this?
+            this.startReading();
         } else if (connectionInfo && this.openCanceled) {
+            console.log(connectionInfo);
             this.connectionId = connectionInfo.connectionId;
 
             console.log(
@@ -118,6 +136,7 @@ class WebSerial extends EventTarget {
     }
 
     async disconnect() {
+        console.log('disconnecting ============')
         this.connected = false;
         this.transmitting = false;
         this.reading = false;
@@ -146,6 +165,7 @@ class WebSerial extends EventTarget {
                 `${this.logHead}Connection with ID: ${this.connectionId} closed, Sent: ${this.bytesSent} bytes, Received: ${this.bytesReceived} bytes`,
             );
 
+            console.log({ connectionId: this.connectionId });
             this.connectionId = false;
             this.bitrate = 0;
             this.dispatchEvent(new CustomEvent("disconnect", { detail: true }));

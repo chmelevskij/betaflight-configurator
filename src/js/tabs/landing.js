@@ -8,6 +8,7 @@ const landing = {
 };
 
 landing.initialize = function (callback) {
+    console.log('loading landing')
     const self = this;
 
     if (GUI.active_tab != 'landing') {

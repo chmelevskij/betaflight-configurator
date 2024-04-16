@@ -807,13 +807,15 @@ export function reinitializeConnection(callback) {
     // Close connection gracefully if it still exists.
     const previousTimeStamp = connectionTimestamp;
 
-    if (serial.connectionId) {
+    console.log({ connectionId: serial.connectionId })
+    // NOTE: disabling this check for web
+    // if (serial.connectionId) {
         if (GUI.connected_to || GUI.connecting_to) {
             $('a.connect').trigger('click');
         } else {
             serial.disconnect();
         }
-    }
+    // }
 
     gui_log(i18n.getMessage('deviceRebooting'));
 
@@ -821,6 +823,9 @@ export function reinitializeConnection(callback) {
     const reconnect = setInterval(waitforSerial, 100);
 
     function waitforSerial() {
+        console.log({
+            connectionValid: CONFIGURATOR.connectionValid,
+        })
         if ((connectionTimestamp !== previousTimeStamp && CONFIGURATOR.connectionValid) || GUI.active_tab === 'firmware_flasher') {
             console.log(`Serial connection available after ${attempts / 10} seconds`);
             clearInterval(reconnect);
