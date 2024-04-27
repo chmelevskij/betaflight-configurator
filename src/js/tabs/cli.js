@@ -618,15 +618,16 @@ cli.cleanup = function (callback) {
 
     // TODO: webserial is promise, old serial is callback. Go figure
     this.send(getCliCommand('exit\r', this.cliBuffer)).then(() => {
-        console.log('sent exit')
+        console.log('sent exit');
+        callback?.();
         // we could handle this "nicely", but this will do for now
         // (another approach is however much more complicated):
         // we can setup an interval asking for data lets say every 200ms, when data arrives, callback will be triggered and tab switched
         // we could probably implement this someday
-        reinitializeConnection(function () {
-            console.log('post reinitialize')
-            GUI.timeout_add('tab_change_callback', callback, 500);
-        });
+        // reinitializeConnection(function () {
+        //     console.log('post reinitialize')
+        //     GUI.timeout_add('tab_change_callback', callback, 500);
+        // });
     });
 
     CONFIGURATOR.cliActive = false;

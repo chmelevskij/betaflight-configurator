@@ -694,6 +694,7 @@ function onConnect() {
 }
 
 function onClosed(result) {
+    console.log('onClosed', result);
     if (result) { // All went as expected
         gui_log(i18n.getMessage('serialPortClosedOk'));
     } else { // Something went wrong
@@ -720,7 +721,7 @@ function onClosed(result) {
 
     MSP.clearListeners();
 
-    CONFIGURATOR.connectionValid = false;
+    // CONFIGURATOR.connectionValid = false;
     CONFIGURATOR.cliValid = false;
     CONFIGURATOR.cliActive = false;
     CONFIGURATOR.cliEngineValid = false;
@@ -807,7 +808,7 @@ export function reinitializeConnection(callback) {
     // Close connection gracefully if it still exists.
     const previousTimeStamp = connectionTimestamp;
 
-    console.log({ connectionId: serial.connectionId })
+    console.log({ connectionId: serial.connectionId, connected_to: GUI.connected_to, connecting_to: GUI.connecting_to})
     // NOTE: disabling this check for web
     // if (serial.connectionId) {
         if (GUI.connected_to || GUI.connecting_to) {
@@ -825,7 +826,9 @@ export function reinitializeConnection(callback) {
     function waitforSerial() {
         console.log({
             connectionValid: CONFIGURATOR.connectionValid,
-        })
+            connectionTimestamp,
+            previousTimeStamp,
+        });
         if ((connectionTimestamp !== previousTimeStamp && CONFIGURATOR.connectionValid) || GUI.active_tab === 'firmware_flasher') {
             console.log(`Serial connection available after ${attempts / 10} seconds`);
             clearInterval(reconnect);
