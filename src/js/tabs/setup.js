@@ -19,6 +19,7 @@ const setup = {
 
 setup.initialize = function (callback) {
     const self = this;
+    console.log('initializing setup tab');
 
     if (GUI.active_tab != 'setup') {
         GUI.active_tab = 'setup';
@@ -64,6 +65,7 @@ setup.initialize = function (callback) {
     }
 
     function process_html() {
+        console.log('processing setup tab');
         // translate to user-selected language
         i18n.localizePage();
 

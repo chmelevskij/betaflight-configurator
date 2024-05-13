@@ -112,7 +112,6 @@ function appReady() {
 }
 
 function closeSerial() {
-    console.log("close serial in main")
     // automatically close the port when application closes
     const connectionId = serial.connectionId;
 
@@ -220,9 +219,6 @@ function startProcess() {
     }
 
     $('.connect_b a.connect').removeClass('disabled');
-    // with Vue reactive system we don't need to call these,
-    // our view is reactive to model changes
-    // updateTopBarVersion();
 
     if (!GUI.isOther()) {
         checkForConfiguratorUpdates();
@@ -256,7 +252,6 @@ function startProcess() {
 
     const ui_tabs = $('#tabs > ul');
     $('a', ui_tabs).click(function () {
-        console.log('loading tabs')
         if ($(this).parent().hasClass('active') === false && !GUI.tab_switch_in_progress) { // only initialize when the tab isn't already active
             const self = this;
             const tabClass = $(self).parent().prop('class');
@@ -317,7 +312,6 @@ function startProcess() {
                     analyticsService.sendAppView(tab);
                 });
 
-                console.log({ tab })
                 switch (tab) {
                     case 'landing':
                         import("./tabs/landing").then(({ landing }) =>

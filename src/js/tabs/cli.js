@@ -23,13 +23,16 @@ if(isWeb()) {
 
     navigator.serial.addEventListener('connect', (event) => {
         event.target.open({baudRate: 115200}).then(() => {
-            console.log('re-connecting')
+            console.log('re-connecting');
             serial.reader = event.target.readable.getReader();
             serial.writer = event.target.writable.getWriter();
             serial.reading = true;
             serial.connectionId = event.target.getInfo();
+            // connectHandler({ detail: { connectionId: serial.connectionId });
+            console.log({ connectionId: serial.connectionId });
             // TODO: do I need to await this?
             serial.startReading();
+            // pen(serial.connectionInfo);
         });
     });
 }
@@ -611,23 +614,28 @@ cli.cleanup = function (callback) {
         return;
     }
 
-    console.log('sending exit')
     if(isWeb()) {
         serial.reading = false;
     }
 
     // TODO: webserial is promise, old serial is callback. Go figure
     this.send(getCliCommand('exit\r', this.cliBuffer)).then(() => {
-        console.log('sent exit');
-        callback?.();
+        // callback?.();
+        // TODO: this is a hack to get it to switch tabs for testing
+        // GUI.active_tab = 'setup';
         // we could handle this "nicely", but this will do for now
         // (another approach is however much more complicated):
         // we can setup an interval asking for data lets say every 200ms, when data arrives, callback will be triggered and tab switched
         // we could probably implement this someday
-        // reinitializeConnection(function () {
-        //     console.log('post reinitialize')
-        //     GUI.timeout_add('tab_change_callback', callback, 500);
-        // });
+        setTimeout(() => {
+            console.log('delayed callback reinitializeConnection');
+            // TODO: temp here
+            GUI.connecting_to = true;
+            reinitializeConnection(function () {
+                GUI.timeout_add('tab_change_callback', callback, 500);
+            });
+            // TODO: temp timeout 
+        }, 10000);
     });
 
     CONFIGURATOR.cliActive = false;

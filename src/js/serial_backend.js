@@ -39,12 +39,14 @@ const toggleStatus = function () {
     isConnected = !isConnected;
 };
 
+// TODO: temp export for webversion auto-reconnect
 function connectHandler(event) {
     onOpen(event.detail);
     toggleStatus();
 }
 
 function disconnectHandler(event) {
+    console.log('disconnectHandler', event);
     onClosed(event.detail);
 }
 
@@ -97,6 +99,7 @@ export function initializeSerialBackend() {
             portName = String($('div#port-picker #port').val());
         }
 
+        console.log({ portName, isConnected, GUI, CONFIGURATOR, serial });
         if (!GUI.connect_lock) {
             // GUI control overrides the user control
 
@@ -301,7 +304,8 @@ function read_serial_adapter(event) {
     read_serial(event.detail.buffer);
 }
 
-function onOpen(openInfo) {
+export function onOpen(openInfo) {
+    console.log('onOpen', openInfo);
     if (openInfo) {
         CONFIGURATOR.virtualMode = false;
 
@@ -808,15 +812,14 @@ export function reinitializeConnection(callback) {
     // Close connection gracefully if it still exists.
     const previousTimeStamp = connectionTimestamp;
 
-    console.log({ connectionId: serial.connectionId, connected_to: GUI.connected_to, connecting_to: GUI.connecting_to})
-    // NOTE: disabling this check for web
-    // if (serial.connectionId) {
+    if (serial.connectionId) {
         if (GUI.connected_to || GUI.connecting_to) {
+            console.log('reinitializeConnection: disconnecting');
             $('a.connect').trigger('click');
         } else {
             serial.disconnect();
         }
-    // }
+    }
 
     gui_log(i18n.getMessage('deviceRebooting'));
 
@@ -824,11 +827,6 @@ export function reinitializeConnection(callback) {
     const reconnect = setInterval(waitforSerial, 100);
 
     function waitforSerial() {
-        console.log({
-            connectionValid: CONFIGURATOR.connectionValid,
-            connectionTimestamp,
-            previousTimeStamp,
-        });
         if ((connectionTimestamp !== previousTimeStamp && CONFIGURATOR.connectionValid) || GUI.active_tab === 'firmware_flasher') {
             console.log(`Serial connection available after ${attempts / 10} seconds`);
             clearInterval(reconnect);
